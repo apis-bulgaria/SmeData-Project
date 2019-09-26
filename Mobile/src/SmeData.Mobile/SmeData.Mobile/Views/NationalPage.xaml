@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.NationalPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             Title="{Binding [National], Source={x:Static i18n:Translator.Instance}}"
+             x:Name="nationalPage"
+             AutomationId="attlNational">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference nationalPage}}" 
+                     Icon="home.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+            <customControls:FrameButtonHorizontal LabelText= "{Binding [Bulgaria], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="bg_flag.png" 
+                                                  TabCommand="{Binding GoToBulgarianNationalDocsCommand}"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnBulgaria"/>
+
+            <customControls:FrameButtonHorizontal LabelText= "{Binding [Italy], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="it_flag.png" 
+                                                  TabCommand="{Binding GoToItalianNationalDocsCommand}"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                   DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnItaly"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

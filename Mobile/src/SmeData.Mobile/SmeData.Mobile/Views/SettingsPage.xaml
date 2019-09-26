@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.SettingsPage"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             Title="{Binding [Settings], Source={x:Static i18n:Translator.Instance}}"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="settingsPage"
+             AutomationId="attlSettings">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference settingsPage}}" 
+                     Icon="home.png"
+                     AutomationId="aicnHome"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Label Text="{Binding [Language], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Row="0"
+               Grid.Column="0"
+               FontSize="{Binding SettingItemFont, Converter={StaticResource SizeConverter}}"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="Center"/>
+        <Picker Title="Select language" 
+                ItemsSource ="{Binding LanguagesList}"
+                SelectedItem="{Binding CurrentLanguage}" 
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center"
+                AutomationId="apckrLanguage"/>
+
+        <!--<Label Text="{Binding [SaveDocumentsOnlyOnWifi], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Row="1"
+               Grid.Column="0"
+               FontSize="20"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="Center"/>
+        <Switch IsToggled ="{Binding IsSwitchedToggled}"
+                OnColor="{StaticResource NavigationPrimaryColor}"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center"/>-->
+    </Grid>
+
+</ContentPage>
+
+<!--<Label Text="Some option" 
+               Grid.Row="1"
+               Grid.Column="0"
+               FontSize="20"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="Center"/>
+<Switch IsToggled ="{Binding IsSwitchedToggled}"
+                OnColor="{StaticResource NavigationPrimaryColor}"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center"/>-->

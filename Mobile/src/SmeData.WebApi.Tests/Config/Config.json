@@ -1,0 +1,10 @@
+{
+  "backuppath": "\\",
+  "binpath": "\\",
+  "connectionstring": "...",
+  "servername": "...",
+  "databasename": "...",
+  "port": 0,
+  "schema": "public",
+  "user": "..."
+}

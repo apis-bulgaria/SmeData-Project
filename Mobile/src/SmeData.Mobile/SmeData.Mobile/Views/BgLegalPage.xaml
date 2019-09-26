@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:SmeData.Mobile.Views"
+            xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+            xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+            xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+            x:Class="SmeData.Mobile.Views.BgLegalPage"
+            Style="{StaticResource tabbedPageBarBackground}"
+            x:Name="bgLegalPage"
+            Title="{Binding [Bulgaria], Source={x:Static i18n:Translator.Instance}}"
+            AutomationId="attlBulgaria">
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference bgLegalPage}}" 
+                     Icon="home.png"  />
+    </TabbedPage.ToolbarItems>
+    <local:BgLegislationPage Title="{Binding [Legislation], Source={x:Static i18n:Translator.Instance}}" AutomationId="atbBgLegislation"/>
+    <ContentPage Title="{Binding [CaseLaw], Source={x:Static i18n:Translator.Instance}}" 
+                 AutomationId="atbBgCaseLaw">
+        <ContentPage.Content>
+            <StackLayout Padding="5">
+                <customControls:FrameButtonHorizontal LabelText= "{Binding [SupremeAdministrativeCourt], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="copy.png" 
+                                                  TabCommand="{Binding GoToSupremeAdministrativeCourtCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnSupremeAdministrativeCourt"/>
+
+                <customControls:FrameButtonHorizontal LabelText= "{Binding [AdministrativeCourtSofia], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="copy.png" 
+                                                  TabCommand="{Binding GoToAdministrativeCourtSofiaCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnAdministrativeCourtSofia"/>
+
+                <customControls:FrameButtonHorizontal LabelText= "{Binding [OtherCourts], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="copy.png" 
+                                                  TabCommand="{Binding GoToOtherCourtsCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnOtherCourts"/>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="{Binding [Guidelines1], Source={x:Static i18n:Translator.Instance}}" 
+                 AutomationId="atbBgGuidelines">
+        <ContentPage.Content>
+            <StackLayout Padding="5">
+                <customControls:FrameButtonHorizontal LabelText= "{Binding [Decisions], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToDecisionsCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                      AutomationId="abtnDecisions"/>
+                <customControls:FrameButtonHorizontal LabelText= "{Binding [Opinions], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToOpinionsCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                      AutomationId="abtnOpinions"/>
+                <customControls:FrameButtonHorizontal LabelText= "{Binding [Guidelines1], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToGuidelinesCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                      AutomationId="abtnFAQ"/>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+</TabbedPage>
+
+<!--<local:NationalGuidelinesPage Title="{Binding [Guidelines], Source={x:Static i18n:Translator.Instance}}" AutomationId="atbBgGuidelines"/>-->

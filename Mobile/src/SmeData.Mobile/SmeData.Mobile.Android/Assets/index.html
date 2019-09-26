@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mobile</title>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/3.4.1/jquery.mobile-3.4.1.min.css" /> -->
+
+        <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+       
+        <script >
+        $(()=>{
+
+$('#radio_btns_page').hide();
+$('#check_btns_page').hide();
+
+$( "#first_next_btn" ).on( "click", function( event ) {
+    // Prevent the usual navigation behavior
+    event.preventDefault();
+  
+    $('#radio_btns_page').show();
+    $('#home').hide();
+    $('#check_btns_page').hide();
+});
+
+$( "#second_next_btn" ).on( "click", function( event ) {
+    event.preventDefault();
+  
+    $('#check_btns_page').show();
+    $('#home').hide();
+    $('#radio_btns_page').hide();
+});
+
+
+$( "#first_prev_btn" ).on( "click", function( event ) {
+    event.preventDefault();
+   
+    $('#home').show();
+    $('#check_btns_page').hide();
+    $('#radio_btns_page').hide();
+});
+
+$( "#second_prev_btn" ).on( "click", function( event ) {
+    event.preventDefault();
+  
+    $('#radio_btns_page').show();
+    $('#home').hide();
+    $('#check_btns_page').hide();
+});
+
+})        
+        </script>
+
+    </head>
+    <body>
+
+<!-- first page -->
+    <div data-role="page" id="home" >
+        <div data-role="header" style="background:#69CCE1; width: 100%;
+              height: 50px; text-align: center; color: #fff;">
+        </div>
+        <div role="main" class="ui-content" style=" width: 100%; height:100%">
+           
+            <article id="firstPage"
+                style="height:auto;
+                margin:30px auto 100px;
+                border:1px solid #69CCE1;
+                border-radius: 5px; 
+                -webkit-box-shadow: 0px 10px 8px -1px rgba(181,181,181,0.79);
+                -moz-box-shadow: 0px 10px 8px -1px rgba(181,181,181,0.79);
+                box-shadow: 0px 7px 8px -1px rgba(181,181,181,0.79);
+                color:#707070;
+                padding: 5px 17px;">
+                    
+                <h1 style="border-bottom: 1px solid #69CCE1">Data Controller</h1>
+                <h2 style="text-align:center; margin: 156px auto;">Decision Support Tool</h2>
+                
+                <div >           
+                    <button type="button" 
+                    id="first_next_btn"
+                    style="background:#69CCE1; 
+                    width: 97px; height: 42px; 
+                    text-align: center; 
+                    color: #fff;
+                    border: 1px solid #707070;
+                    border-radius:5px;
+                    font-size: 18px;
+                    margin: -48px 7px;
+                    float:right;"> Next</button>
+                </div>
+            </article>
+            <div data-role="footer" style="background:#69CCE1; width: 100%; height: 30px; text-align: center; color: #fff;">
+            </div>
+        </div>
+    </div>
+
+    <!-- second page -->
+    <div data-role="page" id="radio_btns_page">
+            <div data-role="header" style="background:#69CCE1; width: 100%;
+             height: 50px; text-align: center; color: #fff;">
+            </div >
+            <div role="main" class="ui-content" style=" width: 100%; height:100%">
+
+            <article id="radionBtnPage"
+                style=" height:auto;
+                    margin:30px auto 100px;
+                    border:1px solid #69CCE1;
+                    border-radius: 5px; 
+                    -webkit-box-shadow: 0px 10px 8px -1px rgba(181,181,181,0.79);
+                    -moz-box-shadow: 0px 10px 8px -1px rgba(181,181,181,0.79);
+                    box-shadow: 0px 7px 8px -1px rgba(181,181,181,0.79);
+                    color:#707070;
+                    padding: 5px 17px;">
+        
+                <h1 style="border-bottom: 1px solid #69CCE1">Data Controller</h1>
+                <h3>Step 1 of 4: Some text some question</h3>
+                <h4 style="color:#69CCE1; ">1.1:Information about question</h4>
+                <p>1.Some text text text</p>
+                
+                <form action="">
+                    <input type="radio" name="answer" value="ans_1" style="margin: 7px 0;" > Answer 1<br>
+                    <input type="radio" name="answer" value="ans_2" style="margin: 7px 0;" > Answer 2<br>
+                    <input type="radio" name="answer" value="ans_3" style="margin: 7px 0;" > Answer 3<br>
+                    <input type="radio" name="answer" value="ans_4" style="margin: 7px 0;" > Answer 4<br>      
+                </form>
+      
+                <div >    
+                    <button type="button" 
+                    id="first_prev_btn"
+                    style="background:#fff; 
+                    width: 97px; height: 42px; 
+                    text-align: center; 
+                    color:#707070;
+                    border: 1px solid #707070;
+                    border-radius:5px;
+                    font-size: 18px;
+                    margin: 20px 0 7px;"> Back</button>
+            
+                    <button type="button" 
+                    id="second_next_btn"
+                    style="background:#69CCE1; 
+                    width: 97px; height: 42px; 
+                    text-align: center; 
+                    color: #fff;
+                    border: 1px solid #707070;
+                    border-radius:5px;
+                    font-size: 18px;
+                    margin: 20px 0 7px;
+                    float:right;"> Next</button>
+                </div>
+            </article>
+            </div>
+        <div data-role="footer" style="background:#69CCE1; width: 100%; height: 30px; text-align: center; color: #fff;">
+        </div>
+    </div>
+
+<!-- third page -->
+    <div data-role="page" id="check_btns_page">
+        <div data-role="header" 
+        style="background:#69CCE1; width: 100%;
+            height: 50px; text-align: center;
+            color: #fff;">
+        </div >
+        <div role="main" class="ui-content" style=" width: 100%; height:100%">
+        
+            <article id="checkBtnPage"
+               style=" height:auto;
+                margin:30px auto 100px;
+                border:1px solid #69CCE1;
+                border-radius: 5px; 
+                -webkit-box-shadow: 0px 10px 8px -1px rgba(181,181,181,0.79);
+                -moz-box-shadow: 0px 10px 8px -1px rgba(181,181,181,0.79);
+                box-shadow: 0px 7px 8px -1px rgba(181,181,181,0.79);
+                color:#707070;
+                padding: 5px 17px;">
+
+                <h1 style="border-bottom: 1px solid #69CCE1">Data Controller</h1>
+                <h3>Step 2 of 4: Some text some question</h3>
+                <h4 style="color:#69CCE1; ">2.1:Information about question</h4>
+                <p>1.Some text text text</p>
+                
+                <form action="/action_page.php">
+                    <input type="checkbox" name="answer" value="ans_1" style="margin: 7px 0;">  Answer 1<br>
+                    <input type="checkbox" name="answer" value="ans_2" style="margin: 7px 0;">  Answer 2<br>
+                    <input type="checkbox" name="answer" value="ans_3" style="margin: 7px 0;">  Answer 3<br>
+                    <input type="checkbox" name="answer" value="ans_4" style="margin: 7px 0;">  Answer 4<br>
+                    <input type="checkbox" name="answer" value="ans_5" style="margin: 7px 0;">  Answer 5 
+                    <!-- <input type="submit" value="Submit"> -->
+                </form>      
+            
+                <div >
+                    <button type="button" 
+                    id="second_prev_btn"
+                    style="background:#fff; 
+                    width: 97px; height: 42px; 
+                    text-align: center; 
+                    color:#707070;
+                    border: 1px solid #707070;
+                    border-radius:5px;
+                    font-size: 18px;
+                    margin: 20px 0 7px;
+                    "> Back</button>
+
+                    <button type="button" 
+                    id="third_next_btn"
+                    style="background:#69CCE1; 
+                    width: 97px; height: 42px; 
+                    text-align: center; 
+                    color: #fff;
+                    border: 1px solid #707070;
+                    border-radius:5px;
+                    font-size: 18px;
+                    margin: 20px 0 7px;
+                    float:right;" > Next</button>
+                </div>
+            </article>
+        </div>
+
+        <div data-role="footer" style="background:#69CCE1; width: 100%; height: 30px; text-align: center; color: #fff;">
+        </div>
+    </div>
+    </body>
+</html>

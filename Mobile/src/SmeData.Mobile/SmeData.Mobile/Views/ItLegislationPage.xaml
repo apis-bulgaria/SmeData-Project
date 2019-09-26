@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             x:Class="SmeData.Mobile.Views.ItLegislationPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="itLegPage"
+             Title="{Binding [Legislation], Source={x:Static i18n:Translator.Instance}}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:StringToBoolenConverter x:Key="StringToBoolenConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <ListView ItemsSource="{Binding LegislationDocs}"
+                  IsGroupingEnabled="true"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True">
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame BackgroundColor="#CEEEF5"
+                               HeightRequest="34"
+                               Padding="0"
+                               Margin="0,10"
+                               HasShadow="False">
+                            <Label Text="{Binding Heading}"
+                                   FontSize="20"
+                                   TextColor="Gray"
+                                   Margin="20,0,0,0"
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <customControls:DocInTabListView LabelTitleText="{Binding Path=ShortTitle}"
+                                                         LabelSubTitleText="{Binding Path=SubTitle}"
+                                                         IsSubTitleNotNull="{Binding Path=SubTitle, Converter={StaticResource StringToBoolenConverter}}"
+                                                         ImageSource="agenda.png" 
+                                                         TabCommand="{Binding Path=BindingContext.TabCommand, Source={x:Reference itLegPage}}"
+                                                         CommandPar="{Binding .}"
+                                                         DefaultFontSize="{Binding BindingContext.DocInTabFont, Converter={StaticResource SizeConverter}, Source={x:Reference itLegPage}}"
+                                                         AutomationId="alDocInItLegislation"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+    </StackLayout>
+</ContentPage>

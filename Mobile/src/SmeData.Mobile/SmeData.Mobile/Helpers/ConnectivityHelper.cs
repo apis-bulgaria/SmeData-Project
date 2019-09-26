@@ -1,0 +1,24 @@
+﻿using Prism.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
+
+namespace SmeData.Mobile.Helpers
+{
+    public static class ConnectivityHelper
+    {
+        public static async Task<bool> CheckInternetConection(IPageDialogService dialogService)
+        {
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await dialogService.DisplayAlertAsync(Translator.GetString("Warning"), Translator.GetString("No Internet Access"), Translator.GetString("Ok"));
+                return false;
+            }
+            return true;
+        }
+        
+    }
+}

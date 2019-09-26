@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             mc:Ignorable="d"
+             x:Class="SmeData.Mobile.Views.GdpMadeSimplePage"
+             x:Name="pageGdprMadeSimple"
+             Title="{Binding [GDPRMadeSimple], Source={x:Static i18n:Translator.Instance}}"
+             AutomationId="attlGdpMadeSimple">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.ToogleIsSearchBarVisibleCommand, Source={x:Reference pageGdprMadeSimple}}"
+                     Icon="magnifier_white.png" />
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference pageGdprMadeSimple}}" 
+                     Icon="home.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:WebNavigatingConverter x:Key="webNavigatingEventArgsConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar x:Name="search"
+                       SearchCommand="{Binding SearchInDocCommand}"
+                       SearchCommandParameter="{Binding Text, Source={x:Reference search}}"
+                       IsVisible="{Binding IsSearchVisible}"/>
+            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+            <WebView x:Name="webView" 
+                     VerticalOptions ="FillAndExpand" 
+                     HorizontalOptions="FillAndExpand" 
+                     Navigating="WebView_Navigating" 
+                     BackgroundColor="AliceBlue"
+                     AutomationId="awvGDPRMadeSimple">
+                <WebView.Source>
+                    <HtmlWebViewSource Html="{Binding HtmlText}"/>
+                </WebView.Source>
+                <WebView.Behaviors>
+                    <b:EventToCommandBehavior EventName="Navigating"
+                                              Command="{Binding BindingContext.NavigatingCommand,Source={x:Reference pageGdprMadeSimple}}"
+                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
+                </WebView.Behaviors>
+            </WebView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

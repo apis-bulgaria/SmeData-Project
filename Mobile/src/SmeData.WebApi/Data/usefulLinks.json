@@ -1,0 +1,152 @@
+[
+    {
+        "LinkText": "Европейска комисия – Защита на данните",
+        "LinkUrl": "https://ec.europa.eu/info/law/law-topic/data-protection_bg",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Европейски комитет за защита на данните",
+        "LinkUrl": "https://edpb.europa.eu/edpb_bg",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Европейски надзорен орган по защита на данните",
+        "LinkUrl": "https://edps.europa.eu/edps-homepage_en",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Агенция на Европейския съюз за основните права – Защита на данните",
+        "LinkUrl": "https://fra.europa.eu/en/theme/information-society-privacy-and-data-protection/practical-guidance",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Съд на ЕС – Съдебна практика",
+        "LinkUrl": "https://eur-lex.europa.eu/search.html?lang=en&SUBDOM_INIT=EU_CASE_LAW&DTS_DOM=EU_LAW&CASE_LAW_SUMMARY=false&type=advanced&DTS_SUBDOM=EU_CASE_LAW&qid=1568112726237&orDC_DOM_CODED=DC_CODED%3D2828%2CDC_CODED%3D5595&locale=bg",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Комисия за защита на личните данни (България) – Практика",
+        "LinkUrl": "https://www.cpdp.bg/?p=rubric&aid=3",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Надзорен орган за защита на личните данни (Италия) – Практика",
+        "LinkUrl": "https://www.garanteprivacy.it/web/guest/home/provvedimenti-normativa/provvedimenti",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Организация за икономическо сътрудничество и развитие – Защита на данните",
+        "LinkUrl": "https://www.oecd.org/internet/ieconomy/oecdguidelinesontheprotectionofprivacyandtransborderflowsofpersonaldata.htm",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Съвет на Европа – Защита на данните",
+        "LinkUrl": "https://www.coe.int/en/web/data-protection",
+        "LangId": 1
+    },
+    {
+        "LinkText": "Европейски съд по правата на човека – Защита на данните",
+        "LinkUrl": "https://www.coe.int/en/web/data-protection/echr-case-law",
+        "LangId": 1
+    },
+    {
+        "LinkText": "European Commission – Data Protection",
+        "LinkUrl": "https://ec.europa.eu/info/law/law-topic/data-protection_en",
+        "LangId": 4
+    },
+    {
+        "LinkText": "European Data Protection Board",
+        "LinkUrl": "https://edpb.europa.eu/",
+        "LangId": 4
+    },
+    {
+        "LinkText": "European Data Protection Supervisor",
+        "LinkUrl": "https://edps.europa.eu/data-protection/our-work/subjects/privacy-eu-institutions_en",
+        "LangId": 4
+    },
+    {
+        "LinkText": "European Union Agency for Fundamental Rights – Data Protection",
+        "LinkUrl": "https://fra.europa.eu/en/theme/information-society-privacy-and-data-protection/practical-guidance",
+        "LangId": 4
+    },
+    {
+        "LinkText": "Court of Justice of the EU – Case law",
+        "LinkUrl": "https://eur-lex.europa.eu/search.html?qid=1568112726237&CASE_LAW_SUMMARY=false&DTS_DOM=EU_LAW&type=advanced&lang=en&SUBDOM_INIT=EU_CASE_LAW&DTS_SUBDOM=EU_CASE_LAW&orDC_DOM_CODED=DC_CODED%3D2828,DC_CODED%3D5595",
+        "LangId": 4
+    },
+    {
+        "LinkText": "Commission for Personal Data Protection (Bulgaria) – Practice",
+        "LinkUrl": "https://www.cpdp.bg/en/index.php?p=rubric&aid=3",
+        "LangId": 4
+    },
+    {
+        "LinkText": "Italian Data Protection Authority – Practice",
+        "LinkUrl": "https://www.garanteprivacy.it/web/guest/home/provvedimenti-normativa/provvedimenti",
+        "LangId": 4
+    },
+    {
+        "LinkText": "Organisation for Economic Co-operation and Development – Data Protection",
+        "LinkUrl": "https://www.oecd.org/internet/ieconomy/oecdguidelinesontheprotectionofprivacyandtransborderflowsofpersonaldata.htm",
+        "LangId": 4
+    },
+    {
+        "LinkText": "Council of Europe – Data Protection",
+        "LinkUrl": "https://www.coe.int/en/web/data-protection",
+        "LangId": 4
+    },
+    {
+        "LinkText": "European Court of Human Rights – Data Protection",
+        "LinkUrl": "https://www.coe.int/en/web/data-protection/echr-case-law",
+        "LangId": 4
+    },
+    {
+        "LinkText": "Commissione Europea - Protezione dei dati",
+        "LinkUrl": "https://ec.europa.eu/info/law/law-topic/data-protection_it",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Comitato europeo per la protezione dei dati",
+        "LinkUrl": "https://edpb.europa.eu/edpb_it",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Garante europeo della protezione dei dati",
+        "LinkUrl": "https://edps.europa.eu/edps-homepage_en",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Agenzia europea dei diritti fondamentali – Protezione dei dati",
+        "LinkUrl": "https://fra.europa.eu/en/theme/information-society-privacy-and-data-protection/practical-guidance",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Corte di giustizia dell’UE – Giurisprudenza",
+        "LinkUrl": "https://eur-lex.europa.eu/search.html?qid=1568112726237&CASE_LAW_SUMMARY=false&DTS_DOM=EU_LAW&type=advanced&lang=it&SUBDOM_INIT=EU_CASE_LAW&DTS_SUBDOM=EU_CASE_LAW&orDC_DOM_CODED=DC_CODED%3D2828,DC_CODED%3D5595",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Commissione per la protezione dei dati personali (Bulgaria) – Provvedimenti",
+        "LinkUrl": "https://www.cpdp.bg/en/index.php?p=rubric&aid=3",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Garante per la protezione dei dati personali – Provvedimenti",
+        "LinkUrl": "https://www.garanteprivacy.it/web/guest/home/provvedimenti-normativa/provvedimenti",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Organizzazione per la cooperazione e lo sviluppo economico – Protezione dei dati",
+        "LinkUrl": "https://www.oecd.org/internet/ieconomy/oecdguidelinesontheprotectionofprivacyandtransborderflowsofpersonaldata.htm",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Consiglio d'Europa - Protezione dei dati",
+        "LinkUrl": "https://www.coe.int/en/web/data-protection",
+        "LangId": 5
+    },
+    {
+        "LinkText": "Corte europea dei diritti dell'uomo – Protezione dei dati",
+        "LinkUrl": "https://www.coe.int/en/web/data-protection/echr-case-law",
+        "LangId": 5
+    }
+]

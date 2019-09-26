@@ -1,0 +1,230 @@
+<style >
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap');
+
+.d-EURLEX {
+    font-size: 13px;
+    font-family: 'Open Sans', 'Montserrat', sans-serif;
+    color: #3d3d3d;
+}
+
+.d-EURLEX.d-p {
+    padding: 3px;
+    margin: 0;
+    text-indent: 2.5em;
+}
+
+.d-EURLEX.d-act .d-preface .d-c-centerExtraLarge.d-container .d-p .d-docTitle,
+.d-EURLEX.d-preamble .d-formula .d-p {
+    font-weight: bold;
+    text-align: center;
+    margin: .8em auto !important;
+    padding: 0 !important;
+    display: block;
+}
+
+.d-EURLEX.d-citation {
+    text-indent: 2.5em;
+}
+
+.d-EURLEX.d-recitals .d-blocksreq.d-intro,
+.d-EURLEX.d-content .d-p:first-child {
+    font-weight: bold;
+}
+
+.d-EURLEX.d-article .d-num {
+    font-weight: bold;
+    text-indent: 2.5em;
+    display: block;
+    padding: 3px;
+}
+
+.par-in-link {
+    display: none;
+}
+
+.d-EURLEX.d-ref {
+    color: #4242d4;
+    text-decoration: none;
+}
+
+    .d-EURLEX.d-ref:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+.d-EURLEX.d-c-footnote {
+    color: #111;
+    text-decoration: none;
+}
+
+    .d-EURLEX.d-c-footnote:hover {
+        text-decoration: none;
+        cursor: inherit;
+    }
+
+.d-EURLEX.d-judgment {
+    font-size: 13px;
+    font-family: 'Open Sans', 'Montserrat', sans-serif;
+    color: #3d3d3d;
+    width: 97%;
+    margin: 0 auto;
+}
+
+.d-EURLEX.d-p {
+    padding: 0;
+    margin: 0 auto;
+    line-height: 1.5em;
+}
+
+.d-EURLEX.d-c-s-count {
+    padding: 0;
+    margin: 0;
+}
+
+.d-EURLEX.d-c-s-sum-title-1,
+.d-EURLEX.d-c-s-title-grseq-2 {
+    font-weight: bold;
+    text-align: center;
+    margin: .8em auto !important;
+    padding: 0 !important;
+    font-size: 14px;
+}
+
+.d-EURLEX .d-c-s-title-grseq-3 {
+    font-size: 1.2em;
+}
+
+.d-EURLEX.d-c-s-index {
+    text-align: left;
+    margin-bottom: .5em;
+}
+
+.d-EURLEX.d-table {
+    width: 100%;
+    border: 0 none;
+}
+
+.d-EURLEX.d-td:first-of-type {
+    vertical-align: top;
+    padding: 0;
+    width: 2.5em;
+}
+
+.d-EURLEX.d-td {
+    vertical-align: top;
+    padding: 0;
+}
+
+.d-EURLEX.d-c-s-normal {
+    text-align: justify;
+    margin: 0px;
+}
+/* 
+    .d-EURLEX span.d-c-sp-normal {
+      font-style: italic;
+    } */
+
+.d-EURLEX .d-c-s-bold {
+    font-weight: bold;
+}
+
+.d-EURLEX.d-c-s-italic,
+.d-EURLEX.d-c-s-title-grseq-2 .d-c-s-bold {
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    margin-bottom: .5em;
+}
+
+.d-EURLEX.d-ref {
+    color: #4242d4;
+    text-decoration: none;
+}
+
+    .d-EURLEX.d-ref:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+.d-SmeDataLegislation .d-hierarchy .d-paragraph .d-num,
+.d-SmeDataLegislation.d-chapter .d-article .d-num,
+.d-SmeDataLegislation.d-body .d-section:first-of-type .d-content:first-child .d-blockContainer:first-child p.d-p:first-child {
+    padding: 3px;
+    margin: 0;
+    font-weight: bold;
+    display: block;
+    text-indent: 2.5em;
+}
+
+.d-SmeDataLegislation {
+    font-size: 13px;
+    font-family: 'Open Sans', 'Montserrat', sans-serif;
+    color: #111;
+}
+
+    .d-SmeDataLegislation.d-section + .d-content + .d-blockContainer + .d-p:first-child {
+        padding: 3px;
+        margin: 0;
+        font-weight: normal;
+    }
+
+    .d-SmeDataLegislation.d-p {
+        padding: 0;
+        margin: 0;
+        text-indent: 2.5em;
+        line-height: 1.5em;
+    }
+
+        .d-SmeDataLegislation .d-p .d-docTitle,
+        .d-SmeDataLegislation.d-chapter > .d-num {
+            display: block;
+            font-weight: bold;
+            text-align: center;
+            margin: .8em auto !important;
+            padding: 0 !important;
+        }
+
+.d-SmeDataLegislation {
+    font-size: 13px;
+    font-family: 'Open Sans', 'Montserrat', sans-serif;
+    color: #111;
+}
+
+    .d-SmeDataLegislation.d-p {
+        padding: 0;
+        margin: 0;
+        text-indent: 2.5em;
+        line-height: 1.5em;
+    }
+
+    .d-SmeDataLegislation .d-c-centerExtraLarge .d-p .d-docTitle,
+    .d-SmeDataLegislation.d-chapter > .d-num {
+        display: block;
+        font-weight: bold;
+        text-align: center;
+        margin: .8em auto !important;
+        padding: 0 !important;
+        text-transform: uppercase;
+    }
+
+    .d-SmeDataLegislation .d-hierarchy .d-paragraph .d-num,
+    .d-SmeDataLegislation .d-chapter .d-article .d-num,
+    .d-SmeDataLegislation.d-inline.d-num,
+    .d-SmeDataLegislation.d-inline.d-heading,
+    .d-SmeDataLegislation.d-body .d-section:first-of-type .d-content:first-child .d-blockContainer:first-child p.d-p:first-child {
+        padding: 3px;
+        margin: 0;
+        font-weight: bold;
+        display: block;
+        text-indent: 2.5em;
+    }
+
+.srch_f {
+    padding: 0 2px !important;
+    background-color: #FEDEB7;
+    display: inline;
+    text-decoration: none;
+}
+
+</style >

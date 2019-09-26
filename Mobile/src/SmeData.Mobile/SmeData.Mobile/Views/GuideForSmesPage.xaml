@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmeData.Mobile.Views.GuideForSmesPage"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             Title="{Binding [GuideForSMEs], Source={x:Static i18n:Translator.Instance}}"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="guideForSmePage"
+             AutomationId="attlGuideForSme">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference guideForSmePage}}" 
+                     Icon="home.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+            <Label Text="{Binding [GuideForSMEsInfoText], Source={x:Static i18n:Translator.Instance}}"
+                   Style="{StaticResource PageHeadingText}"/>
+
+            <customControls:FrameButtonHorizontal LabelText= "{Binding [GDPRMadeSimple], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="open_book.png" 
+                                                  TabCommand="{Binding GdprMadeSimpleCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnGDPRMadeSimple"/>
+
+            <customControls:FrameButtonHorizontal LabelText= "{Binding [DecisionSupportTool], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="tree.png" 
+                                                  TabCommand="{Binding DecisionSuportCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnDecisionSupportTool"/>
+
+            <customControls:FrameButtonHorizontal LabelText= "{Binding [ContactNationalDPA], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="note.png" 
+                                                  TabCommand="{Binding ContanctWithNationalDpasCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnContactNationalDPA"/>
+            
+            <customControls:FrameButtonHorizontal LabelText= "{Binding [FAQ], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="questions.png" 
+                                                  TabCommand="{Binding FagCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationId="abtnFAQ"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainPageCaption" xml:space="preserve">
+    <value>Основна страница</value>
+  </data>
+  <data name="GdprDictionary" xml:space="preserve">
+    <value>GDPR речник</value>
+  </data>
+  <data name="GuideForCitizens" xml:space="preserve">
+    <value>Ръководство за граждани</value>
+  </data>
+  <data name="GuideForSMEs" xml:space="preserve">
+    <value>Ръководство за МСП</value>
+  </data>
+  <data name="MainPageFooter" xml:space="preserve">
+    <value>Проектът SMEDATA се финансира от програмата на ЕС "Права, равенство и гражданство" (2014-2020)</value>
+  </data>
+  <data name="DecisionSupportTool" xml:space="preserve">
+    <value>Инструмент за подпомагане вземането на решения</value>
+  </data>
+  <data name="EuropeanUnion" xml:space="preserve">
+    <value>Европейски съюз</value>
+  </data>
+  <data name="GDPRMadeSimple" xml:space="preserve">
+    <value>GRPR представен просто </value>
+  </data>
+  <data name="International" xml:space="preserve">
+    <value>Международни</value>
+  </data>
+  <data name="National" xml:space="preserve">
+    <value>Национални</value>
+  </data>
+  <data name="ContactNationalDPA" xml:space="preserve">
+    <value>Контакт с националните ОЗД-а</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Отбелязвания</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Помощ</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Език</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="TrainingMaterials" xml:space="preserve">
+    <value>Материали за обучение</value>
+  </data>
+  <data name="UsefulLinks" xml:space="preserve">
+    <value>Полезни връзки</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Следващ</value>
+  </data>
+  <data name="Prev" xml:space="preserve">
+    <value>Предишен</value>
+  </data>
+  <data name="SaveOffline" xml:space="preserve">
+    <value>Запиши офлайн</value>
+  </data>
+  <data name="LegalLibrary" xml:space="preserve">
+    <value>Правна библиотека</value>
+  </data>
+  <data name="EuropeanDataProtectionBoard" xml:space="preserve">
+    <value>Европейски комитет по защита на данните</value>
+  </data>
+  <data name="EuropeanDataProtectionSupervisor" xml:space="preserve">
+    <value>Европейски надзорен орган по защита на данните</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="Bulgaria" xml:space="preserve">
+    <value>България</value>
+  </data>
+  <data name="Italy" xml:space="preserve">
+    <value>Италия</value>
+  </data>
+  <data name="OtherCourts" xml:space="preserve">
+    <value>Други съдилища</value>
+  </data>
+  <data name="SupremeAdministrativeCourt" xml:space="preserve">
+    <value>Върховен административен съд</value>
+  </data>
+  <data name="Decisions" xml:space="preserve">
+    <value>Решения</value>
+  </data>
+  <data name="Opinions" xml:space="preserve">
+    <value>Мнения</value>
+  </data>
+  <data name="SavedDocuments" xml:space="preserve">
+    <value>Запазени документи</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Актуализиране</value>
+  </data>
+  <data name="UpdateAllDocuments" xml:space="preserve">
+    <value>Актуализирай всички документи</value>
+  </data>
+  <data name="SearchInDocuments" xml:space="preserve">
+    <value>Търсене в документите</value>
+  </data>
+  <data name="SmeDataIntroText" xml:space="preserve">
+    <value>Проектът SMEDATA цели осигуряването на най-висока степен на защита на неприкосновеността на личния живот и защита на личните данни чрез иновативни инструменти за малките и средни предприятия и гражданите.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Добре дошли</value>
+  </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>Често задавани въпроси</value>
+  </data>
+  <data name="GdprPocket" xml:space="preserve">
+    <value>GDPR в твоя джоб</value>
+  </data>
+  <data name="CaseLaw" xml:space="preserve">
+    <value>Съдебна практика</value>
+  </data>
+  <data name="DocumentContent" xml:space="preserve">
+    <value>Съдържание на документа</value>
+  </data>
+  <data name="EUlegalframework" xml:space="preserve">
+    <value>ЕС правна рамка</value>
+  </data>
+  <data name="Guidelines" xml:space="preserve">
+    <value>Насоки</value>
+  </data>
+  <data name="InternationalCaseLaw" xml:space="preserve">
+    <value>Международна съдебна практика</value>
+  </data>
+  <data name="InternationalTreaties" xml:space="preserve">
+    <value>Международни договори</value>
+  </data>
+  <data name="Legislation" xml:space="preserve">
+    <value>Законодателство</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+  <data name="NationalCaseLaw" xml:space="preserve">
+    <value>Национална съдебна практика</value>
+  </data>
+  <data name="NationalGuidelines" xml:space="preserve">
+    <value>Национални насоки</value>
+  </data>
+  <data name="PagesInfoText" xml:space="preserve">
+    <value>Предоставя практически насоки относно правилата на GDPR за МСП. Състои се от следните компоненти...</value>
+  </data>
+  <data name="SelectedEntry" xml:space="preserve">
+    <value>Избран запис</value>
+  </data>
+  <data name="ReloadBookmarks" xml:space="preserve">
+    <value>Презареди отбелязванията</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Мнения</value>
+  </data>
+  <data name="Erase" xml:space="preserve">
+    <value>Изтриване</value>
+  </data>
+</root>
