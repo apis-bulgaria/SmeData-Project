@@ -34,14 +34,14 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding Content.NameInstitution}" 
-                                          FontAttributes="Bold"/>
+                                              FontAttributes="Bold"/>
 
                                     <Span Text="&#x0a;Address: " />
                                     <Span Text="{Binding Content.Address}" />
 
                                     <Span Text="&#x0a;Tel: " />
                                     <Span Text="{Binding Content.Telephone}" 
-                                          TextColor="Blue">
+                                              TextColor="Blue">
                                         <Span.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Path=BindingContext.CallNumberCommand, Source={x:Reference contactDpas}}"
                                                                   CommandParameter="{Binding Content.Telephone}"

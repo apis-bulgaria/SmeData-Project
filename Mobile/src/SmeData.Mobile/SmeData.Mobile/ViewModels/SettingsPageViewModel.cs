@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Plugin.Multilingual;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -18,11 +17,14 @@ using System.Windows.Input;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with setting of the application
+    /// </summary>
     public class SettingsPageViewModel : BaseViewModel
     {
         private readonly AppRepository documentsRepository;
 
-        public string SettingItemFont { get => $"t|20|{ScreenWidth}"; }
+        public string SettingItemFont { get => $"t|17|{ScreenWidth}"; }
 
         public SettingsPageViewModel(INavigationService navigationService, AppRepository documentsRepository, SettingsModel settings) : base(navigationService)
         {
@@ -31,9 +33,16 @@ namespace SmeData.Mobile.ViewModels
             this.currentLanguage = settings.Language.ToString();
         }
 
+        public override async void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+
+            await this.documentsRepository.SetSettingsAsync(new Data.Models.SettingsDbModel() { Id = 1, SettingsJson = JsonConvert.SerializeObject(this.settings) });
+        }
+
         public IList<string> LanguagesList
         {
-            get { return Enum.GetNames(typeof(SmeLanguage)).ToList(); }
+            get { return new List<string> { "Български", "English", "Italiano"}; }
         }
 
         private string currentLanguage = SmeLanguage.English.ToString();
@@ -52,10 +61,12 @@ namespace SmeData.Mobile.ViewModels
                 var culture = new CultureInfo("bg");
                 switch (this.currentLanguage)
                 {
+                    case "Български":
                     case "Bulgarian":
                         culture = new CultureInfo("bg");
                         this.settings.Language = SmeLanguage.Bulgarian;
                         break;
+                    case "Italiano":
                     case "Italian":
                         culture = new CultureInfo("it");
                         this.settings.Language = SmeLanguage.Italian;
@@ -66,8 +77,6 @@ namespace SmeData.Mobile.ViewModels
                         break;
                 }
 
-                this.documentsRepository.SetSettingsAsync(new Data.Models.SettingsDbModel() { Id = 1, SettingsJson = JsonConvert.SerializeObject(this.settings) });
-
                 Thread.CurrentThread.CurrentUICulture = culture;
                 CrossMultilingual.Current.CurrentCultureInfo = culture;
                 Properties.Resources.Culture = culture;
@@ -76,14 +85,15 @@ namespace SmeData.Mobile.ViewModels
             }
         }
 
-        private bool isSwitchedToggled = true;
-        public bool IsSwitchedToggled
+        private bool isWifiOptionToggled;
+        public bool IsWifiOptionToggled
         {
-            get => isSwitchedToggled;
+            get => isWifiOptionToggled = this.settings.ShowDocsOnWifiOnly;
             set
             {
-                isSwitchedToggled = value;
-                this.RaisePropertyChanged(nameof(this.IsSwitchedToggled));
+                isWifiOptionToggled = value;
+                this.settings.ShowDocsOnWifiOnly = isWifiOptionToggled;
+                this.RaisePropertyChanged(nameof(this.IsWifiOptionToggled));
             }
         }
     }

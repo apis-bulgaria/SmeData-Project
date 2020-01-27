@@ -15,6 +15,9 @@ using Xamarin.Forms;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Tabbed page for european lagislation, case law and guidelines documents related to GDPR
+    /// </summary>
     public class EuLegalPageViewModel: BaseViewModel
     {
         public EuLegalPageViewModel(INavigationService navigationService) : base(navigationService)

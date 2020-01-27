@@ -39,6 +39,7 @@ namespace SmeData.Mobile.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
             var _ = new TouchTracking.Forms.iOS.TouchEffect();
+            Xamarin.Forms.DependencyService.Register<IOSLogging>();
             return base.FinishedLaunching(app, options);
         }
 

@@ -15,6 +15,9 @@ using Xamarin.Essentials;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with GDPR presented in simple way 
+    /// </summary>
     public class GdpMadeSimplePageViewModel : BaseShowPageViewModel
     {
         public GdpMadeSimplePageViewModel(INavigationService navigationService, IPageDialogService dialogService, DocumentService docService, SettingsModel settings, HttpService httpService, AppRepository documentsRepository) : base(navigationService, dialogService, docService, settings, httpService, documentsRepository)

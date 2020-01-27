@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Apis.Common.Asp.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +16,7 @@ using SmeData.WebApi.Data.Eucases;
 using SmeData.WebApi.Services;
 using SmeData.WebApi.Services.DecisionSupport;
 using SmeData.WebApi.Services.Documents;
+using SmeData.WebApi.Services.EuCaselawFilter;
 using SmeData.WebApi.Services.Searches;
 using SmeData.WebApi.Services.Sort;
 using SmeData.WebApi.Services.Values;
@@ -69,6 +71,7 @@ namespace SmeData.WebApi
             services.AddScoped<IDecisionSupportService, DecisionSupportService>();
             services.AddSingleton<IValuesService, ValuesService>();
             services.AddSingleton<ISortService, SortService>();
+            services.AddSingleton<IEuCaselawFilterService, EuCaselawFilterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,7 +86,7 @@ namespace SmeData.WebApi
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseApisExceptionMiddleware();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

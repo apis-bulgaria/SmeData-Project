@@ -20,14 +20,23 @@ using Xamarin.Forms;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Expandable list view used for some elements
+    /// </summary>
     public class ExpandableListViewCommonPageViewModel : BaseViewModel
     {
+        /// <summary>
+        /// Expandable list view
+        /// </summary>
         public ObservableRangeCollection<ExpandableLVViewModel> ExpandableDocList { get; private set; } = new ObservableRangeCollection<ExpandableLVViewModel>();
 
         private readonly HttpService httpService;
         protected readonly IPageDialogService dialogService;
         protected readonly DocumentService docService;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private bool isLoading;
         public bool IsLoading
         {
@@ -85,7 +94,7 @@ namespace SmeData.Mobile.ViewModels
                 foreach (var docItem in seacrhResult.Data)
                 {
                     var docTitle = new ExpandableLVModel() { Header = docItem.FullTitle };
-                    var document = await docService.GetSmeDocByIdentifier(docItem.DocIdentifier, string.Empty);
+                    var document = await docService.GetSmeDocByIdentifier(docItem.DocIdentifier, string.Empty, (int)this.settings.Language);
                     var docContent = new ItemExpandableLVModel(document.Items[0]?.Text);
                     Console.WriteLine();
                     docTitle.Items.Add(docContent);

@@ -9,6 +9,9 @@ using System.Windows.Input;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with buttons for navigation to European Union legal framework page, National legal framework page and International legal framework page
+    /// </summary>
     public class LegalFrameworkPageViewModel : BaseViewModel
     {
         public ICommand EuLegalFrameworkCommand { get; set; }

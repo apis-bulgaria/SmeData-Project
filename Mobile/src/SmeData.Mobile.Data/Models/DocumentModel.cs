@@ -13,6 +13,10 @@ namespace SmeData.Mobile.Data.Models
 
         public string Title { get; set; }
 
+        public bool IsMainDoc { get; set; }
+
+        public bool IsToHide { get; set; }
+
         public string JsonSmeDoc { get; set; }
 
         public DateTime? LastChangeDate { get; set; }

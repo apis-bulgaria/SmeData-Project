@@ -20,6 +20,9 @@ using Xamarin.Forms.Extended;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with saved bookmarks
+    /// </summary>
     public class BookmarksPageViewModel : BaseViewModel
     {
         private readonly AppRepository documentsRepository;
@@ -29,8 +32,14 @@ namespace SmeData.Mobile.ViewModels
         public ICommand GoToElementViewCommand { get; set; }
         public ICommand ReloadBookmarksCommand { get; set; }
 
+        /// <summary>
+        /// Information for font size calculation for label with doc title
+        /// </summary>
         public string DocTitleLabelFont { get => $"t|17|{ScreenWidth}"; }
 
+        /// <summary>
+        /// Information for font size calculation for bookmarks
+        /// </summary>
         public string BookmarksFont { get => $"t|15|{ScreenWidth}"; }
 
         public BookmarksPageViewModel(INavigationService navigationService, AppRepository documentsRepository, HttpService httpService, IPageDialogService dialogService) : base(navigationService)
@@ -42,6 +51,9 @@ namespace SmeData.Mobile.ViewModels
             this.ReloadBookmarksCommand = new DelegateCommand(this.ReloadBookmarks);
         }
 
+        /// <summary>
+        /// Infinite list view collection for all bookmarks
+        /// </summary>
         public InfiniteScrollCollection<BookmarkModelList> allBookmarks = new InfiniteScrollCollection<BookmarkModelList>();
         public InfiniteScrollCollection<BookmarkModelList> AllBookmarks
         {
@@ -53,6 +65,9 @@ namespace SmeData.Mobile.ViewModels
             }
         }
 
+        /// <summary>
+        /// Property for activation/deactivation of loading indicator for list of all bookmarks
+        /// </summary>
         private bool isLoading;
         public bool IsLoading
         {
@@ -64,6 +79,9 @@ namespace SmeData.Mobile.ViewModels
             }
         }
 
+        /// <summary>
+        /// Property for activation/deactivation of loading indicator for part of bookmarks
+        /// </summary>
         private bool isBusy;
         public bool IsBusy
         {
@@ -75,33 +93,41 @@ namespace SmeData.Mobile.ViewModels
             }
         }
 
+        /// <summary>
+        /// Navitage to selected bookmarked element of document
+        /// </summary>
+        /// <param name="bookmark"></param>
         private void GoToElementView(BookmarkModel bookmark)
         {
-            this.navigationService.NavigateAsync($"DocMainPage?{UrlNavHelper.IDENTIFIER}={bookmark.DocIdentifier}&{UrlNavHelper.TO_PAR}={Regex.Replace(bookmark.PartId, @"([^_])_([^_])", @"$1$2")}");
+            this.navigationService.NavigateAsync($"DocMainPage?{UrlNavHelper.IDENTIFIER}={bookmark.DocIdentifier}&{UrlNavHelper.TO_PAR}={Regex.Replace(Regex.Replace(bookmark.PartId, @"^\d+\#", string.Empty), @"([^_])_([^_])", @"$1$2")}");
         }
 
+        /// <summary>
+        /// Override OnNavigatedTo method with added logic for load bookmarks
+        /// </summary>
+        /// <param name="parameters">Input parameters</param>
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (!(await ConnectivityHelper.CheckInternetConection(this.dialogService)))
-            {
-                return;
-            }
-
             await GetAllBookmarks();
         }
 
+        /// <summary>
+        /// Method for reloading bookmarks on page
+        /// </summary>
         private void ReloadBookmarks()
         {
             GetAllBookmarks();
         }
 
+        /// <summary>
+        /// Method for filling AllBookmarks collection
+        /// </summary>
         private async Task GetAllBookmarks()
         {
             IsLoading = true;
             try
             {
-                
                 var bookmarksFormDb = await documentsRepository.GetAllBooksmarsAsync();
 
                 if (bookmarksFormDb != null)
@@ -156,6 +182,13 @@ namespace SmeData.Mobile.ViewModels
             }
         }
 
+        /// <summary>
+        /// Mathod for loading more elements of infinite collection
+        /// </summary>
+        /// <param name="allResultBookmarks">Collection with all bookmarks</param>
+        /// <param name="pageIndex">Index of loaded pages</param>
+        /// <param name="pageSize">Size of one page</param>
+        /// <returns></returns>
         public async Task<InfiniteScrollCollection<BookmarkModelList>> GetItemsAsync(List<BookmarkModelList> allResultBookmarks, int pageIndex, int pageSize)
         {
             await Task.Delay(1000).ConfigureAwait(false);

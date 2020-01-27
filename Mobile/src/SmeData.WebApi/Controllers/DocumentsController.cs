@@ -43,6 +43,13 @@ namespace SmeData.WebApi.Controllers
             return Ok(this.docService.GetUpdatedDocuments(docs));
         }
 
+        [HttpPost]
+        [Route("checkDocsv2")]
+        public IActionResult GetSmeDocByDocIdentifierV2(List<LastChangeOfDoc> docs)
+        {
+            return Ok(this.docService.GetUpdatedDocumentsV2(docs));
+        }
+
 
     }
 }

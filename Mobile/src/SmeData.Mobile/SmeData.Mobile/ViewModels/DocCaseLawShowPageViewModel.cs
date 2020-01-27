@@ -21,6 +21,9 @@ using SmeData.Mobile.Data;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page for showing case law documents
+    /// </summary>
     public class DocCaseLawShowPageViewModel : BaseShowPageViewModel
     {
         public DocCaseLawShowPageViewModel(INavigationService navigationService, IPageDialogService dialogService, DocumentService docService, SettingsModel settings, HttpService httpService, AppRepository documentsRepository) : base(navigationService, dialogService, docService, settings, httpService, documentsRepository)

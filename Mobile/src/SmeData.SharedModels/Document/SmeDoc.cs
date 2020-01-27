@@ -52,6 +52,10 @@ namespace SmeData.SharedModels.Document
             return result;
         }
 
+        public bool HasRecitals() 
+        {
+            return this.Items?.Any(x => x.Type == SmeDocItemType.Recital) == true;
+        }
 
     }
 }

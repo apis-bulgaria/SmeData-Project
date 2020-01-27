@@ -11,7 +11,7 @@
              x:Class="SmeData.Mobile.Views.NationalConstitutionalCourtPage"
              ControlTemplate="{StaticResource MainPageTemplate}"
              x:Name="nationalNationalConstitutionalCourtPage"
-             Title="{Binding [NationalConstitutionalCourt], Source={x:Static i18n:Translator.Instance}}"
+             Title="{Binding [ConstitutionalCourt], Source={x:Static i18n:Translator.Instance}}"
              AutomationId="attlNationalNationalConstitutionalCourtPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -22,7 +22,8 @@
     </ContentPage.Resources>
     <Grid>
         <ListView ItemsSource="{Binding EuDocs}"
-                  HasUnevenRows="True">
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None">
             <ListView.Behaviors>
                 <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
             </ListView.Behaviors>

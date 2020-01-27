@@ -38,7 +38,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="4*"/>
                     <RowDefinition Height="5*"/>
-                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="5*"/>
                 </Grid.RowDefinitions>
                 <Image Source="europe_map.png"
                        Grid.RowSpan="3" 
@@ -65,7 +65,7 @@
                        Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="2" 
-                       Padding="5,5"
+                       Padding="4,4"
                        BackgroundColor="{StaticResource NavigationPrimaryColor}">
                     <Label Text="{Binding [SmeDataIntroText], Source={x:Static i18n:Translator.Instance}}"
                            TextColor="White"

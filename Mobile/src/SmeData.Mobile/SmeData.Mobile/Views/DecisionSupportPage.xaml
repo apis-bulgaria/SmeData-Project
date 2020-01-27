@@ -37,7 +37,7 @@
                                 Margin="10">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer x:Name="ThisCommand"
-                                                      Command="{Binding Path=BindingContext.TabCommand, Source={x:Reference decisionSupportToolPage}}"
+                                                      Command="{Binding Path=BindingContext.TabCommonDocCommand, Source={x:Reference decisionSupportToolPage}}"
                                                       CommandParameter="{Binding .}" 
                                                       NumberOfTapsRequired="1"
                                                       AutomationId="alDocInDecisionSupportToolPage"/>

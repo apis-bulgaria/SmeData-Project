@@ -27,7 +27,7 @@ Language;Language;Език;Lingua
 LegalLibrary;Legal library;Правна библиотека;Biblioteca legale
 Legislation;Legislation;Законодателство;Legislazioni
 MainPageCaption;Main page;Основна страница;Pagina principale
-MainPageFooter;SMEDATA Project is funded by the EU's Rights, Equality and Citizenship Programme (2014-2020);"Проектът SMEDATA се финансира от Програма ""Права, равенство и гражданство"" на ЕС (2014-2020)";Il progetto SMEDATA e finanziato dal programma UE per i diritti, l'uguaglianza e la cittadinanza (2014-2020)
+MainPageFooter;SMEDATA Project is funded by the EU's Rights, Equality and Citizenship Programme (2014-2020);Проектът SMEDATA се финансира от Програма "Права, равенство и гражданство" на ЕС (2014-2020);Il progetto SMEDATA e finanziato dal programma UE per i diritti, l'uguaglianza e la cittadinanza (2014-2020)
 Menu;Menu;Меню;Menu
 National;National acts;Национални актове;Atti nazionali
 NationalCaseLaw;National case law;Национална съдебна практика;Giurisprudenza nazionale
@@ -46,7 +46,7 @@ SelectedEntry;Selected entry;Избран запис;Voce selezionata
 Settings;Settings;Настройки;Impostazioni
 SmeDataIntroText;This app was developed by SMEDATA Project. The project aims at ensuring the highest degree of privacy and personal data protection through innovative tools for SMEs and citizens.;Това приложение е разработено по Проект SMEDATA. Проектът цели осигуряването на най-висока степен на защита на неприкосновеността на личния живот и защита на личните данни чрез иновативни инструменти за малките и средни предприятия и гражданите.;Questa app e stata sviluppata dal Progetto SMEDATA. Il progetto mira a garantire il massimo livello di privacy e protezione dei dati personali attraverso strumenti innovativi per le PMI e i cittadini.
 SupremeAdministrativeCourt;Supreme Administrative Court;Върховен административен съд;Tribunale amministrativo supremo
-AdministrativeCourtSofia;Administrative Court Sofia;Административен съд София;Tribunale amministrativo di Sofia
+AdministrativeCourtSofia;Administrative Court Sofia-city;Административен съд София-град;Tribunale amministrativo della città di Sofia
 TrainingMaterials;Training materials;Материали за обучение;Materiali formativi
 Update;Update;Актуализиране;Aggiorna
 UpdateAllDocuments;Update all documents;Актуализирай всички документи;Aggiorna tutti i documenti
@@ -61,10 +61,10 @@ CaseLawDirective2002/58/EC;Case law related to Directive 2002/58/EC;Съдебн
 ConstitutionalCourt;Constitutional Court;Конституционен съд;Corte Costituzionale
 SupremeCourtOfCassation;Supreme Court of Cassation;Върховен касационен съд;Corte Suprema di Cassazione
 Recitals;Recitals;Съображения;Considerando
-Citations ;Citations ;Позовавания;Visti
-Preamble ;Preamble ;Преамбюл;Preambolo
-Articles;Articles ;Членове ;Articoli
-Title ;Title ;Заглавие ;Titolo
+Citations;Citations;Позовавания;Visti
+Preamble;Preamble;Преамбюл;Preambolo
+Articles;Articles;Членове;Articoli
+Title;Title;Заглавие;Titolo
 About;About;За приложението;Sull’applicazione
 KeyInstruments;Key Instruments;Основни актове;Principali atti
 OtherInstruments;Other Instruments;Други актове;Altri atti
@@ -73,12 +73,22 @@ SchengenAcquis;Schengen Acquis;Шенгенско законодателство
 RepealedInstruments;Repealed Instruments;Отменени актове;Atti abrogati
 Treaties;Treaties;Договори;Trattati
 31995L0046;95/46/EC;95/46/ЕО;95/46/CE
-Error;Error;ДА;Errore
+Error;Error;Грешка;Errore
 Message;Message;Съобщение;Message
 Оk;ОК;Да;OK
-WifiSettingsOption;Download documents only on Wifi connectivity;Свалай документи само при Wifi свързаност;Caricare documenti solo con connettività Wifi
+WifiSettingsOption;Download documents only when WiFi is available;Сваляне на документи само при налична WiFi връзка;Scarica i documenti solo quando il WiFi è disponibile 
 No Internet Access;No Internet Access;Липсва достъп до интернет;No Internet Access
+No Wifi Access;You are not connected to Wifi network. If you want to open documents not only when connected to a Wifi network, disable this option from "Settings".;Не сте свързани към Wifi мрежа. Ако желаете да отваряте документи не само, когато се свързан към Wifi мрежа, изключете тази настройка от "Настройки".;Non sei collegato alla rete Wifi. Se vuoi aprire documenti non solo quando sei connesso a una rete Wifi, disabilita questa opzione da Impostazioni.
 Yes;Yes;Да;Si
 No;No;Не;No
 UpdateDocumentExist;There is an update of document(s) that you have saved on your device. Do you want to open "Saved documents" to update the document(s)?;"Налична е актуализация на документ/и, който сте запазили на Вашето устройство. Искате ли да отворите "Запазени документи", за да актуализирате документа/ите?;È disponibile aggiornamento di(dei) documento(i) salvato(i) sul dispositivo. Volete aprire “I documenti salvati” per aggiornare il(i) documento(i)?
 Warning;Warning;Предупреждение;Avvertimento
+CurrentAppVersion;Version: ;Версия: ;Versione: 
+OtherDocuments;Other Documents;Други документи;Altri documenti
+DocumentIsSaved;The document is saved;Документът е запазен;Il documento è stato salvato
+DocumentIsUpdated;The document is updated;Документът е актуализиран;Il documento è stato aggiornato
+DocumentIsAlreadySaved;The document is already saved. Do you want to update it?;Документът вече е запазен. Искате ли да го актуализирате?;Il documento è già stato salvato. Vuoi aggiornarlo?
+SelectLanguage;Select language;Изберете език;Seleziona la lingua
+UserDocuments;User documents;Потребителски документи;Documenti dell'utente
+SystemDocuments;System documents;Системни документи;Documenti di sistema
+CaseLawRelatedToTheGDPR;Case law related to the General Data Protection Regulation;Съдебна практика по Общия регламент относно защитата на данните;Giurisprudenza relativa al Regolamento generale sulla protezione dei dati

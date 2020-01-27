@@ -24,14 +24,6 @@
                  AutomationId="atbItCaseLaw">
         <ContentPage.Content>
             <StackLayout Padding="5">
-                <customControls:FrameButtonHorizontal LabelText= "{Binding [SupremeCourtOfCassation], Source={x:Static i18n:Translator.Instance}}"
-                                                      ImageSource="copy.png" 
-                                                      TabCommand="{Binding GoToSupremeCourtOfCassationCommand}"
-                                                      OpacityImage="0.5"
-                                                      Style="{StaticResource btn2WithImage}"
-                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
-                                                      AutomationId="abtnSupremeCourtOfCassation"/>
-
                 <customControls:FrameButtonHorizontal LabelText= "{Binding [ConstitutionalCourt], Source={x:Static i18n:Translator.Instance}}"
                                                       ImageSource="copy.png" 
                                                       TabCommand="{Binding GoToConstitutionalCourtCommand}"
@@ -39,7 +31,13 @@
                                                       Style="{StaticResource btn2WithImage}"
                                                       DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
                                                       AutomationId="abtnConstitutionalCourt"/>
-
+                <customControls:FrameButtonHorizontal LabelText= "{Binding [SupremeCourtOfCassation], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToSupremeCourtOfCassationCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                      AutomationId="abtnSupremeCourtOfCassation"/>
                 <customControls:FrameButtonHorizontal LabelText= "{Binding [OtherCourts], Source={x:Static i18n:Translator.Instance}}"
                                                       ImageSource="copy.png" 
                                                       TabCommand="{Binding GoToOtherCourtsCommand}"
@@ -54,13 +52,6 @@
                  AutomationId="atbItGuidelines">
         <ContentPage.Content>
             <StackLayout Padding="5">
-                <customControls:FrameButtonHorizontal LabelText= "{Binding [Decisions], Source={x:Static i18n:Translator.Instance}}"
-                                                      ImageSource="copy.png" 
-                                                      TabCommand="{Binding GoToDecisionsCommand}"
-                                                      OpacityImage="0.5"
-                                                      Style="{StaticResource btn2WithImage}"
-                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
-                                                      AutomationId="abtnDecisions"/>
                 <customControls:FrameButtonHorizontal LabelText= "{Binding [Opinions], Source={x:Static i18n:Translator.Instance}}"
                                                       ImageSource="copy.png" 
                                                       TabCommand="{Binding GoToOpinionsCommand}"

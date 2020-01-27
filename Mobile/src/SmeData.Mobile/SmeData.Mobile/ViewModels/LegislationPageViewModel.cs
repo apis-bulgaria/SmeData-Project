@@ -16,6 +16,9 @@ using Xamarin.Essentials;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with list of legislation documents
+    /// </summary>
     public class LegislationPageViewModel : CommonLegislationPageViewModel
     {
         public LegislationPageViewModel(HttpService service, INavigationService navigationService, IPageDialogService dialogService, SettingsModel settings) : base(service, navigationService, dialogService, settings)

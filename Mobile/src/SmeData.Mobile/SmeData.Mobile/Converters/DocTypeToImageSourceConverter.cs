@@ -17,7 +17,6 @@ namespace SmeData.Mobile.Converters
                 case 2: // legislataion
                     return "agenda.png";
                 case 3: //open document
-                    return "eu_flag_BW.png";
                 default:
                     return "document.png";
             }

@@ -35,13 +35,13 @@ namespace SmeData.Mobile.Converters
                     {
                         outgoingFontSize *= 2;
                     }
-                    else if (screenWidth > 1220)
+                    else if (screenWidth > 1242)
                     {
                         outgoingFontSize *= 1.5;
                     }
                     else if (screenWidth > 1080)
                     {
-                        outgoingFontSize *= 1.50;
+                        outgoingFontSize *= 1.3;
                     }
                     else if (screenWidth < 800)
                     {
@@ -62,7 +62,7 @@ namespace SmeData.Mobile.Converters
                     {
                         outgoingFontSize += 6;
                     }
-                    else if (screenWidth > 1220)
+                    else if (screenWidth > 1242)
                     {
                         outgoingFontSize += 4;
                     }
@@ -72,7 +72,7 @@ namespace SmeData.Mobile.Converters
                     }
                     else if (screenWidth < 800)
                     {
-                        outgoingFontSize -= 1;
+                        outgoingFontSize -= 3;
                     }
                 }
 

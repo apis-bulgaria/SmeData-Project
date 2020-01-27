@@ -52,7 +52,7 @@
     <value>Aiuto</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>lingua</value>
+    <value>Lingua</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>impostazioni</value>
@@ -117,11 +117,38 @@
   <data name="FAQ" xml:space="preserve">
     <value>Domande frequenti</value>
   </data>
+  <data name="GdprPocket" xml:space="preserve">
+    <value>GDPR in tasca</value>
+  </data>
+  <data name="CaseLaw" xml:space="preserve">
+    <value>Giurisprudenza</value>
+  </data>
+  <data name="DocumentContent" xml:space="preserve">
+    <value>EU quadro giuridico</value>
+  </data>
+  <data name="Guidelines" xml:space="preserve">
+    <value>Linee guida</value>
+  </data>
+  <data name="InternationalCaseLaw" xml:space="preserve">
+    <value>Giurisprudenza internazionale</value>
+  </data>
+  <data name="InternationalTreaties" xml:space="preserve">
+    <value>Trattati internazionali</value>
+  </data>
   <data name="Legislation" xml:space="preserve">
     <value>Legislazioni</value>
   </data>
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
+  </data>
+  <data name="NationalCaseLaw" xml:space="preserve">
+    <value>Giurisprudenza nazionale</value>
+  </data>
+  <data name="NationalGuidelines" xml:space="preserve">
+    <value>Linee guida nazionali</value>
+  </data>
+  <data name="PagesInfoText" xml:space="preserve">
+    <value>Fornire indicazioni pratiche sulle regole del GDPR alle PMI. Sono costituiti dai seguenti componenti ...</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value>Opinioni</value>

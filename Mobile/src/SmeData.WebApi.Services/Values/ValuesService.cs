@@ -4,6 +4,7 @@ using SmeData.SharedModels.Link;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SmeData.SharedModels.Document;
 
 namespace SmeData.WebApi.Services.Values
 {
@@ -20,6 +21,27 @@ namespace SmeData.WebApi.Services.Values
         {
             var fileName = @".\Data\translations.csv";
             var res = System.IO.File.ReadAllText(fileName);
+            return res;
+        }
+
+        public List<SmeDocItem> GetGdprRecitalsEN()
+        {
+            var fileName = @".\Data\GDPR_Recitals_en.json";
+            var res = JsonConvert.DeserializeObject<List<SmeDocItem>>(System.IO.File.ReadAllText(fileName));
+            return res;
+        }
+
+        public List<SmeDocItem> GetGdprRecitalsIT()
+        {
+            var fileName = @".\Data\GDPR_Recitals_it.json";
+            var res = JsonConvert.DeserializeObject<List<SmeDocItem>>(System.IO.File.ReadAllText(fileName));
+            return res;
+        }
+
+        public List<SmeDocItem> GetGdprRecitalsBG()
+        {
+            var fileName = @".\Data\GDPR_Recitals_bg.json";
+            var res = JsonConvert.DeserializeObject<List<SmeDocItem>>(System.IO.File.ReadAllText(fileName));
             return res;
         }
 

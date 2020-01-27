@@ -23,8 +23,13 @@ using SmeData.Mobile.Models.Settings;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page for displaying documents saved by the user
+    /// </summary>
     public class OfflineDocumentsPageViewModel : BaseViewModel
     {
+        public ObservableCollection<OfflineDocument> allDocsToShow = new ObservableCollection<OfflineDocument>();
+        public ObservableCollection<OfflineDocument> allMainDocsToShow = new ObservableCollection<OfflineDocument>();
         public ObservableCollection<OfflineDocument> allDocs = new ObservableCollection<OfflineDocument>();
 
         private readonly AppRepository documentsRepository;
@@ -34,15 +39,16 @@ namespace SmeData.Mobile.ViewModels
         public ICommand TabCommand { get; set; }
         public ICommand UpdateDocCommand { get; set; }
         public ICommand EraseDocCommand { get; set; }
-        
+
         public ICommand UpdateAllDocsCommand { get; set; }
 
         public string UpdateAllDocsButtonFont { get => $"t|14|{ScreenWidth}"; }
 
-        public OfflineDocumentsPageViewModel(INavigationService navigationService, AppRepository documentsRepository, HttpService httpService, IPageDialogService dialogService) : base(navigationService)
+        public OfflineDocumentsPageViewModel(INavigationService navigationService, AppRepository documentsRepository, HttpService httpService, IPageDialogService dialogService, SettingsModel settings) : base(navigationService)
         {
             this.documentsRepository = documentsRepository;
             this.httpService = httpService;
+            this.settings = settings;
 
             this.TabCommand = new DelegateCommand<SmeDoc>(this.ShowDocument);
             this.UpdateDocCommand = new DelegateCommand<OfflineDocument>(this.UpdateDoc);
@@ -51,12 +57,34 @@ namespace SmeData.Mobile.ViewModels
             this.dialogService = dialogService;
         }
 
+        public ObservableCollection<OfflineDocument> AllDocsToShow
+        {
+            get => allDocsToShow;
+            set
+            {
+                allDocsToShow = value;
+                this.RaisePropertyChanged(nameof(this.AllDocsToShow));
+            }
+        }
+
+        public ObservableCollection<OfflineDocument> AllMainDocsToShow
+        {
+            get => allMainDocsToShow;
+            set
+            {
+                allMainDocsToShow = value;
+                this.RaisePropertyChanged(nameof(this.AllMainDocsToShow));
+            }
+        }
+
         public ObservableCollection<OfflineDocument> AllDocs
         {
             get => allDocs;
             set
             {
                 allDocs = value;
+                AllDocsToShow = new ObservableCollection<OfflineDocument>(allDocs.Where(x => !x.IsMainDoc).ToList());
+                AllMainDocsToShow = new ObservableCollection<OfflineDocument>(allDocs.Where(x => x.IsMainDoc && x.SmeDocument.Meta.LangId == (int)this.settings.Language).ToList());
                 this.RaisePropertyChanged(nameof(this.AllDocs));
             }
         }
@@ -96,6 +124,8 @@ namespace SmeData.Mobile.ViewModels
             IsAnyDocsForUpdate = false;
         }
 
+
+
         private async void UpdateDoc(OfflineDocument doc)
         {
             if (doc == null)
@@ -112,12 +142,31 @@ namespace SmeData.Mobile.ViewModels
                 }
 
                 var updatedDoc = await httpService.GetSmeDocByIdentifier(doc.SmeDocument.Meta.Idenitifier, null);
-                await documentsRepository.UpdateDocumentAsync(new DocumentModel() { Identifier = updatedDoc.Meta.Idenitifier, Title = updatedDoc.Meta.Title, LastChangeDate = updatedDoc.Meta.LastChangeDate, JsonSmeDoc = Compression.CompressString(JsonConvert.SerializeObject(updatedDoc)) });
+                await documentsRepository.UpdateDocumentAsync(
+                    new DocumentModel()
+                    {
+                        Identifier = updatedDoc.Meta.Idenitifier,
+                        Title = updatedDoc.Meta.Title,
+                        IsMainDoc = doc.IsMainDoc,
+                        IsToHide = doc.IsToHide,
+                        LastChangeDate = updatedDoc.Meta.LastChangeDate,
+                        JsonSmeDoc = Compression.CompressString(JsonConvert.SerializeObject(updatedDoc))
+                    });
 
                 AllDocs.Remove(doc);
-
                 var newDoc = new OfflineDocument(doc.SmeDocument, false);
                 AllDocs.Add(newDoc);
+
+                if (doc.IsMainDoc)
+                {
+                    AllMainDocsToShow.Remove(doc);
+                    AllMainDocsToShow.Add(newDoc);
+                }
+                else
+                {
+                    AllDocsToShow.Remove(doc);
+                    AllDocsToShow.Add(newDoc);
+                }
 
                 IsAnyDocsForUpdate = AllDocs.Any(x => x.IsForUpdate);
             }
@@ -143,7 +192,17 @@ namespace SmeData.Mobile.ViewModels
             try
             {
                 await documentsRepository.DeleteDocumentAsync(doc.SmeDocument.Meta.Idenitifier);
+
                 AllDocs.Remove(doc);
+
+                if (doc.IsMainDoc)
+                {
+                    AllMainDocsToShow.Remove(doc);
+                }
+                else
+                {
+                    AllDocsToShow.Remove(doc);
+                }
 
                 IsAnyDocsForUpdate = AllDocs.Any(x => x.IsForUpdate);
             }
@@ -188,6 +247,10 @@ namespace SmeData.Mobile.ViewModels
                 try
                 {
                     List<DocumentModel> allDocsSaved = await documentsRepository.GetDocumentsAsync();
+
+
+
+                    allDocsSaved = allDocsSaved.Where(x => !x.IsToHide).ToList();
                     List<SmeDoc> allDocsSaveSmeDocs = ConvertDocumentModelToSmeDocList(allDocsSaved);
 
                     List<LastChangeOfDoc> allDocIdentsWithLastChange = new List<LastChangeOfDoc>();
@@ -214,7 +277,18 @@ namespace SmeData.Mobile.ViewModels
                     AllDocsFinalList.AddRange(docsForUpdate);
                     AllDocsFinalList.AddRange(docsUpToDate);
 
+                    AllDocsFinalList.ForEach(x =>
+                    {
+                        x.IsToHide = true;
+
+                        if (allDocsSaved.Any(y => y.Identifier == x.SmeDocument.Meta.Idenitifier && y.IsMainDoc))
+                        {
+                            x.IsMainDoc = true;
+                        }
+                    });
+
                     AllDocs = new ObservableCollection<OfflineDocument>(AllDocsFinalList);
+
                     IsAnyDocsForUpdate = AllDocs.Any(x => x.IsForUpdate);
                 }
                 finally
@@ -237,7 +311,13 @@ namespace SmeData.Mobile.ViewModels
 
             foreach (var doc in allDocsSaved)
             {
-                resultList.Add(JsonConvert.DeserializeObject<SmeDoc>(Compression.DecompressString(doc.JsonSmeDoc)));
+                try
+                {
+                    resultList.Add(JsonConvert.DeserializeObject<SmeDoc>(Compression.DecompressString(doc.JsonSmeDoc)));
+                }
+                catch (Exception e)
+                {
+                }
             }
 
             return resultList;
@@ -249,6 +329,10 @@ namespace SmeData.Mobile.ViewModels
         public SmeDoc SmeDocument { get; set; }
 
         public bool IsForUpdate { get; set; }
+
+        public bool IsMainDoc { get; set; }
+
+        public bool IsToHide { get; set; }
 
         private bool isLoading = false;
         public bool IsLoading
@@ -263,10 +347,11 @@ namespace SmeData.Mobile.ViewModels
                 this.RaisePropertyChanged(nameof(this.IsLoading));
             }
         }
-        public OfflineDocument(SmeDoc smeDocument, bool isForUpdate)
+        public OfflineDocument(SmeDoc smeDocument, bool isForUpdate, bool isMainDoc = false)
         {
             this.SmeDocument = smeDocument;
             this.IsForUpdate = isForUpdate;
+            this.IsMainDoc = isMainDoc;
         }
     }
 }

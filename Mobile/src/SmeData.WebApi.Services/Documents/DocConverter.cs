@@ -3,7 +3,9 @@ using Newtonsoft.Json;
 using SmeData.SharedModels.Document;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 
 namespace SmeData.WebApi.Services.Documents
@@ -558,26 +560,36 @@ namespace SmeData.WebApi.Services.Documents
 
         public static SmeDocMeta GetSmeDocMeta(string xmlDoc)
         {
-            var docMeta = new SmeDocMeta();
-            docMeta.Title = Regex.Match(xmlDoc, @"\<FRBRname[^\<\>]*\svalue\s?\=\s?[""']([^""']+)[""']")?.Groups[1]?.Value;
-            docMeta.Language = Regex.Match(xmlDoc, @"\<FRBRlanguage[^\<\>]*\slanguage\s?\=\s?[""']([^""']+)[""']").Groups[1].Value;
-            docMeta.Country = Regex.Match(xmlDoc, @"\<FRBRcountry[^\<\>]*\svalue\s?\=\s?[""']([^""']+)[""']").Groups[1].Value;
-            docMeta.Idenitifier = Regex.Match(xmlDoc, @"\<[^\<\>]*class\s?=\s?[""']\#DocumentIdentifier[""'][^\<\>]*\>([^\<\>]+)").Groups[1].Value;
-            docMeta.DocNumber = Regex.Match(xmlDoc, @"\<FRBRnumber[^\<\>]*eId\s?=\s?[""']#DocNr[""'][^\<\>]*\svalue\s?\=\s?[""']([^""']+)[""']").Groups[1].Value;
+            var docMeta = new SmeDocMeta();//<FRBRalias value="Общ регламент относно защитата на данните" name="#ShortTitle" />
+            docMeta.Title = Regex.Match(xmlDoc, @"\<FRBRname[^\<\>]*\svalue\s?\=\s?""([^""]+)""")?.Groups[1]?.Value.Replace("&#xD;", " ").Replace("&#xA;", " ").Replace("  ", " ");
+            docMeta.ShortTitle = Regex.Match(xmlDoc, @"\<FRBRalias[^\<\>]*\svalue\s?\=\s?""([^""]+)""\s[^\<\>]*name\s?\=\s?""\s?\#ShortTitle\s?""")?.Groups[1]?.Value.Replace("&#xD;", " ").Replace("&#xA;", " ").Replace("  ", " ");
+            if (docMeta.ShortTitle == string.Empty)
+            {
+                docMeta.ShortTitle = Regex.Match(xmlDoc, @"\<FRBRalias[^\<\>]*\sname\s?\=\s?""\s?\#ShortTitle\s?""\s[^\<\>]*value\s?\=\s?""([^""]+)""")?.Groups[1]?.Value.Replace("&#xD;", " ").Replace("&#xA;", " ").Replace("  ", " ");
+            }
 
-            Match publicationDateMatch = Regex.Match(xmlDoc, @"\<FRBRdate[^\<\>]*\sdate\s?\=\s?[""']([^""']+)[""'][^\<\>]+name\s?\=\s?[""']\#DatePublication[""']");
+            docMeta.Language = Regex.Match(xmlDoc, @"\<FRBRlanguage[^\<\>]*\slanguage\s?\=\s?""([^""]+)""").Groups[1].Value;
+            docMeta.Country = Regex.Match(xmlDoc, @"\<FRBRcountry[^\<\>]*\svalue\s?\=\s?""([^""]+)""").Groups[1].Value;
+            docMeta.Idenitifier = Regex.Match(xmlDoc, @"\<[^\<\>]*class\s?=\s?""\#DocumentIdentifier""[^\<\>]*\>([^\<\>]+)").Groups[1].Value;
+            docMeta.DocNumber = Regex.Match(xmlDoc, @"\<FRBRnumber[^\<\>]*eId\s?=\s?""#ConsLegNr""[^\<\>]*\svalue\s?\=\s?""([^""]+)""").Groups[1].Value;
+            if (String.IsNullOrEmpty(docMeta.DocNumber))
+            {
+                docMeta.DocNumber = Regex.Match(xmlDoc, @"\<FRBRnumber[^\<\>]*eId\s?=\s?""#DocNr""[^\<\>]*\svalue\s?\=\s?""([^""]+)""").Groups[1].Value;
+            }
+
+            Match publicationDateMatch = Regex.Match(xmlDoc, @"\<FRBRdate[^\<\>]*\sdate\s?\=\s?""([^""]+)""[^\<\>]+name\s?\=\s?""\#DatePublication""");
             if (publicationDateMatch.Success && DateTime.TryParse(publicationDateMatch.Groups[1].Value, out var publDate))
             {
                 docMeta.PublicationDate = publDate;
             }
 
-            Match actDateMatch = Regex.Match(xmlDoc, @"\<FRBRdate[^\<\>]*\sdate\s?\=\s?[""']([^""']+)[""'][^\<\>]+name\s?\=\s?[""']\#DateDocument[""']");
+            Match actDateMatch = Regex.Match(xmlDoc, @"\<FRBRdate[^\<\>]*\sdate\s?\=\s?""([^""]+)""[^\<\>]+name\s?\=\s?""\#DateDocument""");
             if (actDateMatch.Success && DateTime.TryParse(actDateMatch.Groups[1].Value, out var actDate))
             {
                 docMeta.ActDate = actDate;
             }
 
-            Match lastChangedDateMatch = Regex.Match(xmlDoc, @"\<FRBRdate[^\<\>]*\sdate\s?\=\s?[""']([^""']+)[""'][^\<\>]+name\s?\=\s?[""']\#DateLastChangedEUCases[""']");
+            Match lastChangedDateMatch = Regex.Match(xmlDoc, @"\<FRBRdate[^\<\>]*\sdate\s?\=\s?""([^""]+)""[^\<\>]+name\s?\=\s?""\#DateLastChangedEUCases""");
             if (lastChangedDateMatch.Success && DateTime.TryParse(lastChangedDateMatch.Groups[1].Value, out var lastChangedDate))
             {
                 docMeta.LastChangeDate = lastChangedDate;
@@ -604,17 +616,14 @@ namespace SmeData.WebApi.Services.Documents
             return docMeta;
 
         }
-        public static SmeDoc DoDocConvert(string htmlStringDoc, string xmlDoc)
+
+        public static SmeDoc DoDocConvert(HtmlDocument htmlDoc, string xmlDoc)
         {
             SmeDoc devidedDoc = new SmeDoc();
 
             devidedDoc.Meta = GetSmeDocMeta(xmlDoc);
 
-
-            HtmlDocument htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(htmlStringDoc);
-
-            var mainDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class,'d-judgmentBody')]|//div[contains(@class,'d-mainBody')]");
+            var mainDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class,'d-judgmentBody')]|//div[contains(@class,'d-mainBody')]|//div[contains(@class,'d-body')]");
 
             if (mainDiv != null && devidedDoc.Meta.DocType != 2)
             {
@@ -627,25 +636,26 @@ namespace SmeData.WebApi.Services.Documents
             }
             else
             {
+                var gdprConsVersionCheck = Regex.Match(xmlDoc, @"\<FRBRnumber[^\<\>]*eId\s?=\s?""#ConsLegNr""[^\<\>]*\svalue\s?\=\s?""02016R0679");
+                bool isConsGdpr = gdprConsVersionCheck.Success;
+
                 devidedDoc.Items = GetRecitalsFromPrefaceHtml(htmlDoc);
                 devidedDoc.Items.AddRange(GetDevidedLegalPartFromBodyHtml(htmlDoc, devidedDoc.Meta.Idenitifier));
             }
 
-            if (devidedDoc.Meta.Idenitifier != null &&
-                (devidedDoc.Meta.Idenitifier == "51300c8d-df7b-4924-9e00-7538863d5324" ||
-                 devidedDoc.Meta.Idenitifier == "634976e7-84bd-4723-b818-66bd5b5d6473" ||
-                 devidedDoc.Meta.Idenitifier == "64147400-389d-4212-b1ab-eba5e522a30d"))
+            if (devidedDoc.Meta.Idenitifier != null && Regex.IsMatch(devidedDoc.Meta.DocNumber, @"^[30]2016R0679", RegexOptions.IgnoreCase))
             {
                 var smeItems = devidedDoc.Items;
-                GetRecitalsAndOldArticles(artsAndRecs, artsAndOldArts, smeItems);
+                GetRecitalsAndOldArticlesRelations(artsAndRecs, artsAndOldArts, smeItems);
                 devidedDoc.Items = smeItems;
             }
 
-            var returnedDocs = JsonConvert.SerializeObject(devidedDoc);
+            //var returnedDocs = JsonConvert.SerializeObject(devidedDoc);
+
             return devidedDoc;
         }
 
-        private static void GetRecitalsAndOldArticles(Dictionary<string, List<string>> artsAndRecs, Dictionary<string, List<string>> artsAndOldArts, List<SmeDocItem> smeItems)
+        private static void GetRecitalsAndOldArticlesRelations(Dictionary<string, List<string>> artsAndRecs, Dictionary<string, List<string>> artsAndOldArts, List<SmeDocItem> smeItems)
         {
             foreach (var item in smeItems)
             {
@@ -667,7 +677,7 @@ namespace SmeData.WebApi.Services.Documents
 
                 if (item.Childs != null && item.Childs.Count > 0)
                 {
-                    GetRecitalsAndOldArticles(artsAndRecs, artsAndOldArts, item.Childs);
+                    GetRecitalsAndOldArticlesRelations(artsAndRecs, artsAndOldArts, item.Childs);
                 }
             }
         }
@@ -676,7 +686,51 @@ namespace SmeData.WebApi.Services.Documents
         {
             List<SmeDocItem> resultItems = new List<SmeDocItem>();
 
-            var allContentDivs = htmlDoc.DocumentNode.SelectSingleNode("/div/div/div")?.ChildNodes;
+            //var titleNode = htmlDoc.DocumentNode.SelectSingleNode("//*[contains(@class,'docTitle')]");
+            //if (titleNode != null && !string.IsNullOrWhiteSpace(titleNode.InnerText))
+            //{
+            //    SmeDocItem titleItem = new SmeDocItem();
+            //    titleItem.Type = SmeDocItemType.Title;
+            //    titleItem.Text = titleNode.OuterHtml;
+            //    resultItems.Add(titleItem);
+            //}
+
+            var allContentDivs = htmlDoc.DocumentNode.SelectNodes("//div[contains(@class,'d-recital')]");
+
+            if (allContentDivs == null)
+            {
+                allContentDivs = htmlDoc.DocumentNode.SelectNodes("//div[contains(@class,'d-preamble')]//table");
+            }
+
+            if (allContentDivs == null)
+            {
+                allContentDivs = htmlDoc.DocumentNode.SelectNodes("//div[contains(@class,'d-preface')]//table");
+
+                if (allContentDivs == null || !allContentDivs.Any(x => Regex.IsMatch(x.InnerHtml, @"d-recitals")))
+                {
+                    var preface = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class,'d-preface')]");
+                    if (preface != null && !string.IsNullOrWhiteSpace(preface.InnerText))
+                    {
+                        SmeDocItem prefaceEl = new SmeDocItem();
+                        prefaceEl.Text = preface.OuterHtml;
+                        prefaceEl.Type = SmeDocItemType.Preface;
+                        resultItems.Add(prefaceEl);
+
+                        return resultItems;
+                    }
+                }
+            }
+            else
+            {
+                var preface = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class,'d-preface')]");
+                if (preface != null && !string.IsNullOrWhiteSpace(preface.InnerText))
+                {
+                    SmeDocItem prefaceEl = new SmeDocItem();
+                    prefaceEl.Text = preface.OuterHtml;
+                    prefaceEl.Type = SmeDocItemType.Preface;
+                    resultItems.Add(prefaceEl);
+                }
+            }
 
             SmeDocItem notRecItem = new SmeDocItem();
             notRecItem.Type = SmeDocItemType.Text;
@@ -685,11 +739,16 @@ namespace SmeData.WebApi.Services.Documents
             {
                 foreach (HtmlNode divNode in allContentDivs)
                 {
-                    Match matchRec = Regex.Match(divNode.InnerText, @"^\s*\((\d+)\)\s+");
+                    if (divNode.Attributes[@"class"].Value.Contains("d-recitals"))
+                    {
+                        continue;
+                    }
+
+                    Match matchRec = Regex.Match(divNode.InnerText, @"^\s*\((\d+)\)\s*");
 
                     if (matchRec.Success)
                     {
-                        if (notRecItem != null)
+                        if (notRecItem != null && !string.IsNullOrWhiteSpace(notRecItem.Text))
                         {
                             resultItems.Add(notRecItem);
                             notRecItem = null;
@@ -710,14 +769,47 @@ namespace SmeData.WebApi.Services.Documents
                             notRecItem.Type = SmeDocItemType.Text;
                         }
 
-                        notRecItem.Text += divNode.OuterHtml;
+                        if (!string.IsNullOrWhiteSpace(divNode.InnerText))
+                        {
+                            notRecItem.Text += divNode.OuterHtml;
+                        }
                     }
                 }
 
-                if (notRecItem != null)
+                if (notRecItem != null && !string.IsNullOrWhiteSpace(notRecItem.Text))
                 {
                     resultItems.Add(notRecItem);
                 }
+            }
+
+            //if (isConsGdpr && !resultItems.Any(x => x.Id.StartsWith("rec_")))
+            //{
+            //    var url = @"https://smedata.apis.bg/api/values/gdprRecitalsEn";
+
+            //    switch (language)
+            //    {
+            //        case "bul":
+            //            url = @"https://smedata.apis.bg/api/values/gdprRecitalsBg";
+            //            break;
+            //        case "ita":
+            //            url = @"https://smedata.apis.bg/api/values/gdprRecitalsIt";
+            //            break;
+            //        default:
+            //            break;
+            //    }
+
+            //    using (HttpClient client = new HttpClient())
+            //    {
+            //        var response = client.GetAsync(url);
+            //        var json = response.Result.Content.ReadAsStringAsync().Result;
+
+            //        resultItems = JsonConvert.DeserializeObject<List<SmeDocItem>>(json);
+            //    }
+            //}
+
+            if (resultItems == null)
+            {
+                return new List<SmeDocItem>();
             }
 
             return resultItems;
@@ -725,9 +817,9 @@ namespace SmeData.WebApi.Services.Documents
 
         public static List<SmeDocItem> GetDevidedLegalPartFromBodyHtml(HtmlDocument htmlDoc, string docIdent)
         {
-            var mainAnchors = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class,'d-body')]")?.SelectNodes("./a[@class='doc-anchor']");
-
             List<SmeDocItem> resultItems = new List<SmeDocItem>();
+
+            var mainAnchors = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class,'d-body')]")?.SelectNodes("./a[@class='doc-anchor']");
 
             if (mainAnchors != null)
             {
@@ -750,7 +842,10 @@ namespace SmeData.WebApi.Services.Documents
 
                         GetAndSetChildsNodes(currentBaseEl, currBaseNode, docIdent);
 
-                        resultItems.Add(currentBaseEl);
+                        if (Regex.IsMatch(Regex.Replace(currentBaseEl.Text, @"\<[^\<\>]*\>", string.Empty).Trim(), @"[\p{L}\d]"))
+                        {
+                            resultItems.Add(currentBaseEl);
+                        }
                     }
                 }
             }
@@ -764,7 +859,10 @@ namespace SmeData.WebApi.Services.Documents
                     currentBaseEl.Text += currAnchor.OuterHtml;
                     currentBaseEl.TreeLevel = 0;
 
-                    resultItems.Add(currentBaseEl);
+                    if (Regex.IsMatch(Regex.Replace(currentBaseEl.Text, @"\<[^\<\>]*\>", string.Empty).Trim(), @"[\p{L}\d]"))
+                    {
+                        resultItems.Add(currentBaseEl);
+                    }
                 }
             }
 
@@ -778,7 +876,10 @@ namespace SmeData.WebApi.Services.Documents
                     additionalDocElement.Text = additionalDoc.OuterHtml;
                     additionalDocElement.TreeLevel = 0;
 
-                    resultItems.Add(additionalDocElement);
+                    if (Regex.IsMatch(Regex.Replace(additionalDocElement.Text, @"\<[^\<\>]*\>", string.Empty).Trim(), @"[\p{L}\d]"))
+                    {
+                        resultItems.Add(additionalDocElement);
+                    }
                 }
             }
 

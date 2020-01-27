@@ -11,6 +11,8 @@ using SmeData.Shared.Common;
 using SmeData.SharedModels.Document;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,22 +21,59 @@ using Xamarin.Forms;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Home page of the application with navigation to all main catagories
+    /// </summary>
     public class WelcomePageViewModel : BaseViewModel
     {
         private static bool isStartUp = true;
         private readonly IPageDialogService dialogService;
-        private readonly AppRepository documentsRepository;
+        private AppRepository documentsRepository;
         private readonly HttpService httpService;
+        protected readonly DocumentService docService;
 
+        /// <summary>
+        /// Command which is executed when Legal Framework button is pressed
+        /// </summary>
         public ICommand LegalFrameworkCommand { get; set; }
+
+        /// <summary>
+        /// Command which is executed when Legal Framework button is pressed
+        /// </summary>
         public ICommand GuideForCitizensCommand { get; set; }
+
+        /// <summary>
+        /// Command which is executed when Legal Framework button is pressed
+        /// </summary>
         public ICommand GuideForSmesCommand { get; set; }
+
+        /// <summary>
+        /// Command which is executed when Legal Framework button is pressed
+        /// </summary>
         public ICommand GdprDictionaryCommand { get; set; }
+
+        /// <summary>
+        /// Command which is executed when Search button in toolbar is pressed
+        /// </summary>
         public ICommand SearchPageCommand { get; set; }
 
+        /// <summary>
+        /// Information for font size calculation for text in main buttons
+        /// </summary>
         public string MainButtonsFont { get => $"t|18|{ScreenWidth}"; }
+
+        /// Information for size calculation for main imag
+        /// </summary>
         public string MainTitleImageSide { get => $"i|40|{ScreenWidth}"; }
-        public string SmeDataIntroTextFont { get => $"t|12|{ScreenWidth}"; }
+
+        /// <summary>
+        /// Information for font size calculation for intro text
+        /// </summary>
+        public string SmeDataIntroTextFont { get => $"t|11|{ScreenWidth}"; }
+
+        /// <summary>
+        /// Information for font size calculation for main title
+        /// </summary>
         public string MainTitleFont { get => $"t|32|{ScreenWidth}"; }
 
         public WelcomePageViewModel(INavigationService navigationService, IPageDialogService dialogService, AppRepository documentsRepository, HttpService httpService, DocumentService docService) : base(navigationService)
@@ -42,6 +81,7 @@ namespace SmeData.Mobile.ViewModels
             this.dialogService = dialogService;
             this.documentsRepository = documentsRepository;
             this.httpService = httpService;
+            this.docService = docService;
 
             this.LegalFrameworkCommand = new DelegateCommand(this.ShowLegalFramework);
             this.GuideForCitizensCommand = new DelegateCommand(this.ShowGuideForCitizens);
@@ -50,18 +90,81 @@ namespace SmeData.Mobile.ViewModels
             this.SearchPageCommand = new DelegateCommand(this.ShowSearchPage);
         }
 
+
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
+            //if (!Application.Current.Properties.ContainsKey("FirstUse"))
+            //{
+            //    Application.Current.Properties["FirstUse"] = false;
+
+            //    string[] docIdentifiers = new string[] { "0989a240-0f15-4f98-9f70-987ca23e3ed1", "" };
+
+            //    foreach (var ident in docIdentifiers)
+            //    {
+            //        var currentDocument = await this.docService.GetSmeDocByIdentifier(ident, string.Empty);
+
+            //        if (!string.IsNullOrWhiteSpace(currentDocument?.Meta?.Idenitifier))
+            //        {
+            //            var document = new DocumentModel
+            //            {
+            //                Identifier = currentDocument.Meta.Idenitifier,
+            //                Title = currentDocument.Meta.Title,
+            //                LastChangeDate = currentDocument.Meta.LastChangeDate,
+            //                JsonSmeDoc = Compression.CompressString(JsonConvert.SerializeObject(currentDocument)),
+            //            };
+
+            //            await documentsRepository.AddDocumentAsync(document);
+            //        }
+            //    }
+            //}
+
             base.OnNavigatedTo(parameters);
+
             if (isStartUp)
             {
-                //if (!(await ConnectivityHelper.CheckInternetConection(this.dialogService)))
-                //{
-                //    return;
-                //}
+                //globalLog = Xamarin.Forms.DependencyService.Get<ICrossLogging>().ReturnLog();
+
                 isStartUp = false;
 
                 var allDocsSaved = await documentsRepository.GetDocumentsAsync();
+
+                var allSystemDocs = allDocsSaved.Where(x => x.IsToHide).ToList();
+
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    List<LastChangeOfDoc> allSystemDocIdentsWithLastChange = new List<LastChangeOfDoc>();
+
+                    foreach (var doc in allSystemDocs)
+                    {
+                        allSystemDocIdentsWithLastChange.Add(new LastChangeOfDoc() { Ident = doc.Identifier, LastChangeDate = doc.LastChangeDate });
+                    }
+
+                    List<LastChangeOfDoc> updatedSystemDocuments = new List<LastChangeOfDoc>();
+
+                    updatedSystemDocuments = await httpService.GetUpdatedDocuments(allSystemDocIdentsWithLastChange);
+
+                    if (updatedSystemDocuments.Count > 0)
+                    {
+                        foreach (var systemDoc in updatedSystemDocuments)
+                        {
+                            var updatedSystemDoc = await httpService.GetSmeDocByIdentifier(systemDoc.Ident, null);
+                            documentsRepository.UpdateDocumentAsync(
+                                new DocumentModel()
+                                {
+                                    Identifier = updatedSystemDoc.Meta.Idenitifier,
+                                    Title = updatedSystemDoc.Meta.Title,
+                                    IsMainDoc = true,
+                                    IsToHide = true,
+                                    LastChangeDate = updatedSystemDoc.Meta.LastChangeDate,
+                                    JsonSmeDoc = Compression.CompressString(JsonConvert.SerializeObject(updatedSystemDoc))
+                                });
+                        }
+                    }
+                }
+
+
+                allDocsSaved = allDocsSaved.Where(x => !x.IsToHide).ToList();
+
                 List<LastChangeOfDoc> allDocIdentsWithLastChange = new List<LastChangeOfDoc>();
 
                 foreach (var doc in allDocsSaved)

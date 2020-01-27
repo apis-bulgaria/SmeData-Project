@@ -17,6 +17,9 @@ using Xamarin.Forms.Extended;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page for searching in all documents and navigating to them
+    /// </summary>
     public class SearchPageViewModel : BaseViewModel
     {
         private readonly HttpService httpService;
@@ -59,7 +62,7 @@ namespace SmeData.Mobile.ViewModels
             if (doc is DocumentResponseModel docResp)
             {
                 if (!string.IsNullOrEmpty(docResp.DocIdentifier))
-                {
+                {//abbedPage?selectedTab=MiddleTab/ViewA/ViewB
                     this.navigationService.NavigateAsync($"{pageToNavigate}?{UrlNavHelper.IDENTIFIER}={docResp.DocIdentifier}&{UrlNavHelper.FULL_TITLE}={Uri.EscapeDataString(docResp.FullTitle)}&{UrlNavHelper.SEARCH_TEXT}={SearchedText}");
                 }
                 else

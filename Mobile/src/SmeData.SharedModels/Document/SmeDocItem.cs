@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SmeData.SharedModels.Document
 {
-    public enum SmeDocItemType { Title, Recital, Section, Chapter, Part, Article, Paragraph, SubParagraph, Point, Sentence, Letter, Number, Text, DocTitle };
+    public enum SmeDocItemType { Title, Recital, Section, Chapter, Part, Article, Paragraph, SubParagraph, Point, Sentence, Letter, Number, Text, DocTitle, Preface };
     public class SmeDocItem : INotifyPropertyChanged
     {
         public string Id { get; set; } = string.Empty;
@@ -24,6 +24,13 @@ namespace SmeData.SharedModels.Document
         public List<string> OldArticles { get; set; } = new List<string>();
         public List<SmeDocItem> Childs { get; set; } = new List<SmeDocItem>();
 
+        public bool IsBookmarkVisible
+        {
+            get
+            {
+                return (this.Type != SmeDocItemType.DocTitle) && (this.Type != SmeDocItemType.Recital);
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public SmeDocItem Clone()
@@ -47,6 +54,6 @@ namespace SmeData.SharedModels.Document
             };
         }
 
-        
+
     }
 }

@@ -10,6 +10,9 @@ using Xamarin.Forms;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Main page of the application contaning side menu
+    /// </summary>
     public class MainPageViewModel : BaseViewModel
     {
         public DelegateCommand<string> NavigateCommand { get; set; }

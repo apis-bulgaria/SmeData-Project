@@ -8,7 +8,8 @@
             Title="{Binding [EUlegalframework], Source={x:Static i18n:Translator.Instance}}"
             Style="{StaticResource tabbedPageBarBackground}"
             x:Name="euLegalPage"
-            AutomationId="attlEuLegal">
+            AutomationId="attlEuLegal"
+            BackgroundColor="White">
     <TabbedPage.Resources>
         <ResourceDictionary>
             <converters:SizeConverter x:Key="SizeConverter" />

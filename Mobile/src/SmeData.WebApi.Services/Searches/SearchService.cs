@@ -25,5 +25,7 @@ namespace SmeData.WebApi.Services.Searches
             return docIds;
         }
 
+        
+
     }
 }

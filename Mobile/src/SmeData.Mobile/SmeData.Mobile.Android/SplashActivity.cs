@@ -25,7 +25,7 @@ namespace SmeData.Mobile.Droid
 
         private void LoadActivity()
         {
-            //System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(100);
             RunOnUiThread(() => StartActivity(typeof(MainActivity)));
         }
     }

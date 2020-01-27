@@ -12,13 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AkomaNtosoXml.Xslt.Core" Version="4.1.35" />
-    <PackageReference Include="AkomaNtosoXml.Xslt.Transformation" Version="2.1.16" />
+    <PackageReference Include="AkomaNtosoXml.Xslt.Core" Version="4.2.1" />
+    <PackageReference Include="AkomaNtosoXml.Xslt.Transformation" Version="2.2.0" />
     <PackageReference Include="FtiSearchColorizer" Version="1.0.2" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.12" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.17" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
-    <PackageReference Include="Xamarin.UITest" Version="3.0.3" />
+    <PackageReference Include="Xamarin.UITest" Version="3.0.5" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,5 +8,7 @@ namespace SmeData.Mobile.Models.Settings
     public class SettingsModel
     {
         public SmeLanguage Language { get; set; }
+
+        public bool ShowDocsOnWifiOnly { get; set; }
     }
 }

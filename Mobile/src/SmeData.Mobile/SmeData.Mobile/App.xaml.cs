@@ -19,7 +19,14 @@ using Microsoft.AppCenter.Crashes;
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using SmeData.Mobile.Data.Models;
+using SmeData.Shared.Common;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using SmeData.SharedModels.Document;
+using System.Collections.Generic;
+using Xamarin.Essentials;
+using SmeData.WebApi.Models;
 
 namespace SmeData.Mobile
 {
@@ -53,8 +60,8 @@ namespace SmeData.Mobile
         protected override void OnStart()
         {
             AppCenter.Start("android=c426ed62-b3a3-4852-898c-10efbf47da3b;" +
-                  "uwp={Your UWP App secret here};" +
-                  "ios={Your iOS App secret here}",
+                            "uwp={Your UWP App secret here};" +
+                            "ios={Your iOS App secret here}",
                   typeof(Analytics), typeof(Crashes));
             var assembly = typeof(Properties.Resources).GetTypeInfo().Assembly; // "EmbeddedImages" should be a class in your app
             foreach (var res in assembly.GetManifestResourceNames())
@@ -108,25 +115,27 @@ namespace SmeData.Mobile
             containerRegistry.RegisterForNavigation<NationalGuidelinesPage, NationalGuidelinesPageViewModel>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
 
-            var dbPath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, "data");
+            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "data");
             if (!Directory.Exists(dbPath))
             {
                 Directory.CreateDirectory(dbPath);
             }
 
             dbPath = Path.Combine(dbPath, "database.sqlite");
+
             var repository = new AppRepository(dbPath);
             containerRegistry.RegisterInstance(repository);
 
             var settings = SettingsHelper.LoadFromDb(repository);
-            this.SetCulture(settings);
             containerRegistry.RegisterInstance(settings);
 
-            var service = new HttpService(@"https://smedata.apis.bg/api/");
-            DocumentHelper.HttpService = service;
-            containerRegistry.RegisterInstance(service);
+            var httpService = new HttpService(@"https://smedata.apis.bg/api/");
+            DocumentHelper.HttpService = httpService;
+            containerRegistry.RegisterInstance(httpService);
 
-            containerRegistry.RegisterInstance(new DocumentService(service, repository));
+            DocumentService docService = new DocumentService(httpService, repository);
+
+            containerRegistry.RegisterInstance(new DocumentService(httpService, repository));
             containerRegistry.RegisterForNavigation<OfflineDocumentsPage, OfflineDocumentsPageViewModel>();
             containerRegistry.RegisterForNavigation<ExpandableListViewCommonPage, ExpandableListViewCommonPageViewModel>();
             containerRegistry.RegisterForNavigation<NationalOpinionsPage, NationalOpinionsPageViewModel>();
@@ -137,11 +146,8 @@ namespace SmeData.Mobile
             containerRegistry.RegisterForNavigation<NationalAdministrativeCourtSofiaPage, NationalAdministrativeCourtSofiaPageViewModel>();
             containerRegistry.RegisterForNavigation<NationalSupremeCourtOfCassationPage, NationalSupremeCourtOfCassationPageViewModel>();
             containerRegistry.RegisterForNavigation<NationalConstitutionalCourtPage, NationalConstitutionalCourtPageViewModel>();
-        }
-
-        private void SetCulture(SettingsModel settings)
-        {
-            
+            containerRegistry.RegisterForNavigation<EuDataProtectionBoardPage, EuDataProtectionBoardPageViewModel>();
+            containerRegistry.RegisterForNavigation<DocCommonShowPage, DocCommonShowPageViewModel>();
         }
 
         protected override void OnInitialized()
@@ -149,7 +155,5 @@ namespace SmeData.Mobile
             this.InitializeComponent();
             NavigationService.NavigateAsync(nameof(Views.MainPage) + "/" + nameof(NavigationPage) + "/" + nameof(WelcomePage));
         }
-
-       
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using NpgsqlTypes;
 using SmeData.SharedModels.Document;
 using SmeData.WebApi.Data.Eucases;
 using SmeData.WebApi.Models;
@@ -38,12 +40,39 @@ namespace SmeData.WebApi.Services.Documents
             }
         }
 
-        public SpDocumentModel GetDocRecordByDocNumberAndLang(string docNumber, int langId)
+        public string GetShortLangByLangId(int langId)
         {
             using (var db = this.factory.CreateReadOnly())
             using (var command = db.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandType = CommandType.Text;
+                command.CommandText = "select short_lang from langs where id = @_lang_id";
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("@_lang_id", NpgsqlTypes.NpgsqlDbType.Integer) { Value = langId });
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+                var res = (string)command.ExecuteScalar();
+                return res;
+            }
+        }
+
+        public string GetDocNumberByDocLangId(int doclangId)
+        {
+            using (var db = this.factory.CreateReadOnly())
+            using (var command = db.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "select doc_number from vw_doc_langs_mat where doc_lang_id = @_doc_lang_id";
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("@_doc_lang_id", NpgsqlTypes.NpgsqlDbType.Integer) { Value = doclangId });
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+                var res = (string)command.ExecuteScalar();
+                return res;
+            }
+        }
+
+        private int GetDocLangIdByDocNumberAndLang(string docNumber, int langId)
+        {
+            using (var db = this.factory.CreateReadOnly())
+            using (var command = db.Database.GetDbConnection().CreateCommand())
+            {
                 command.CommandText = "SELECT public.get_document_by_doc_number(@_doc_number, @_lang_id, @_user_id)";
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("@_doc_number", NpgsqlTypes.NpgsqlDbType.Varchar) { Value = docNumber });
                 command.Parameters.Add(new Npgsql.NpgsqlParameter("@_lang_id", NpgsqlTypes.NpgsqlDbType.Integer) { Value = langId });
@@ -55,12 +84,49 @@ namespace SmeData.WebApi.Services.Documents
                     if (reader.Read())
                     {
                         dynamic record = reader.GetValue(0);
+
+                        return record == null ? 0 : record[0];
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+        public SpDocumentModel GetDocRecordByDocNumberAndLang(string docNumber, int langId)
+        {
+            using (var db = this.factory.CreateReadOnly())
+            using (var command = db.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+
+                command.CommandText = "SELECT public.get_last_cons_doc_lang_id(@_doc_number, @_from_lang_id, @_lang_id, 0, true)";
+                command.Parameters.Add(new NpgsqlParameter("@_doc_number", NpgsqlDbType.Varchar) { Value = docNumber });
+                command.Parameters.Add(new NpgsqlParameter("@_from_lang_id", NpgsqlDbType.Integer) { Value = langId });
+                command.Parameters.Add(new NpgsqlParameter("@_lang_id", NpgsqlDbType.Integer) { Value = langId });
+                if (command.Connection.State == ConnectionState.Closed)
+                    command.Connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+
+                        int docLangId = 0;
+                        if (reader.IsDBNull(0))
+                        {
+                            docLangId = this.GetDocLangIdByDocNumberAndLang(docNumber, langId);
+                        }
+                        else
+                        {
+                            docLangId = reader.GetInt32(0);
+                        }
                         return new SpDocumentModel
                         {
-                            DocLanguageId = record[0],
-                            LangId = record[1],
-                            ShortLang = record[2],
-                            DocNumber = docNumber
+                            DocLanguageId = docLangId,
+                            LangId = langId,
+                            ShortLang = this.GetShortLangByLangId(langId),
+                            DocNumber = this.GetDocNumberByDocLangId(docLangId)
                         };
                     }
                 }
@@ -140,6 +206,39 @@ namespace SmeData.WebApi.Services.Documents
             }
         }
 
+        public String GetRecitalsPreambleForConsVersion(int docLangId)
+        {
+            using (var dbContext = this.factory.CreateReadOnly())
+            using (var connection = dbContext.Database.GetDbConnection())
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandType = CommandType.Text;
+                command.CommandText = "select x.doc_lang_id, x.par_text_id, x.content from public.get_missing_recitals_info(@cons_doc_lang_id) as x";
+                command.Parameters.Add(new Npgsql.NpgsqlParameter("@cons_doc_lang_id", NpgsqlDbType.Integer) { Value = docLangId });
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+
+
+                var recitalsDocLangId = 0;
+                var preambleParTextId = 0;
+                var preambleContent = (String)null;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        recitalsDocLangId = reader.GetInt32(0);
+                        preambleParTextId = reader.GetInt32(1);
+                        preambleContent = reader.GetString(2);
+
+                    }
+                }
+
+                return preambleContent;
+            }
+        }
+
         public void UpdateLastChangeDoc(LastChangeOfDoc doc)
         {
             using (var db = this.factory.CreateReadOnly())
@@ -158,28 +257,95 @@ namespace SmeData.WebApi.Services.Documents
             }
         }
 
+
+        public LastChangeOfDoc GetLastChangeDocForConsByIdentifier(String identifier)
+        {
+            using (var connection = this.factory.CreateReadOnly().Database.GetDbConnection())
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "select x.identifier, x.eucases_change_date from public.get_cons_change_info(@cons_identifier) as x";
+                command.Parameters.Add(new NpgsqlParameter("@cons_identifier", identifier));
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new LastChangeOfDoc
+                        {
+                            Ident = identifier,
+                            NewIdent = reader.GetString(0),
+                            LastChangeDate = reader.GetDateTime(1)
+                        };
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
         public IList<DocumentResponseModel> GetDocListData(int[] ids)
         {
             using (var db = this.factory.CreateReadOnly())
+            using (var connection = db.Database.GetDbConnection())
+            using (var command = connection.CreateCommand())
             {
-                var hs = new HashSet<int>(ids);
-                var res = db.VwDocLangsMats.Where(x => hs.Contains(x.DocLangId)).Select(x => new DocumentResponseModel
-                {
-                    Country = x.Country,
-                    DocId = x.DocId,
-                    DocLangId = x.DocLangId,
-                    DocType = x.DocType,
-                    FullTitle = x.FullTitle,
-                    ShortTitle = string.IsNullOrEmpty(x.ShortTitle) ? x.FullTitle : x.ShortTitle, //must change after ShortTitle column is available
-                    LangId = x.LangId,
-                    PublicationDate = x.PublDate,
-                    OriginalLang = x.Country,
-                    DocIdentifier = x.DocIdentifier,
-                    DocNumber = x.DocNumber,
-                    SubTitle = x.SubTitle,
-                }).ToList();
+                command.CommandType = CommandType.Text;
+                command.CommandText = @"
+                    select 
+                        x.country,
+                        x.doc_id,
+                        x.doc_lang_id,
+                        x.doc_type_flag,
+                        x.full_title,
+                        x.short_title,
+                        x.lang_id,
+                        x.publication_date,
+                        x.original_lang,
+                        x.identifier,
+                        x.doc_number,
+                        x.sub_title
+                    from get_vw_doc_langs_by_ids(@ids) as x";
 
-                return res;
+                var param = new NpgsqlParameter("@ids", NpgsqlDbType.Array | NpgsqlDbType.Integer);
+                param.Value = ids;
+
+                command.Parameters.Add(param);
+
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+
+                var result = new List<DocumentResponseModel>();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new DocumentResponseModel
+                        {
+                            Country = reader.GetString(0),
+                            DocId = reader.GetInt32(1),
+                            DocLangId = reader.GetInt32(2),
+                            DocType = reader.GetInt32(3),
+                            FullTitle = reader.GetValue<String>(4),
+                            ShortTitle = reader.GetValue<String>(5),
+                            LangId = reader.GetInt32(6),
+                            PublicationDate = reader.GetValue<DateTime?>(7),
+                            OriginalLang = reader.GetString(8),
+                            DocIdentifier = reader.GetValue<String>(9),
+                            DocNumber = reader.GetValue<String>(10),
+                            SubTitle = reader.GetValue<String>(11),
+                        });
+                    }
+                }
+
+                return result;
             }
         }
     }

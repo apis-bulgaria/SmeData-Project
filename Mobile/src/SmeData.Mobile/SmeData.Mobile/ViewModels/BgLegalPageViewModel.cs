@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Tabbed page for bulgarian lagislation, case law and guidelines documents related to GDPR
+    /// </summary>
     public class BgLegalPageViewModel : BaseViewModel
     {
         public ICommand GoToDecisionsCommand { get; set; }
@@ -19,8 +22,10 @@ namespace SmeData.Mobile.ViewModels
         public ICommand GoToAdministrativeCourtSofiaCommand { get; set; }
         public ICommand GoToOtherCourtsCommand { get; set; }
 
+        /// <summary>
+        /// Information for font size calculation for text in buttons on page
+        /// </summary>
         public string ButtonsFont { get => $"t|18|{ScreenWidth}"; }
-
 
         public BgLegalPageViewModel(INavigationService navigationService) : base(navigationService)
         {
@@ -32,30 +37,49 @@ namespace SmeData.Mobile.ViewModels
             this.GoToOtherCourtsCommand = new DelegateCommand(this.ShowOtherCourts);
         }
 
+        /// <summary>
+        /// Navigates to NationalDecisionsPage
+        /// </summary>
         private void ShowDecisions()
         {
             navigationService.NavigateAsync($"NationalDecisionsPage?{UrlNavHelper.CLASSIFIER}=7E749A0F-64D8-460C-8269-9A3FBC5C2351;6136AA37-17D0-4BFD-A618-AB1D99F6C250");
         }
 
+        /// <summary>
+        /// Navigates to NationalOpinionsPage
+        /// </summary>
         private void ShowOpinions()
         {
             navigationService.NavigateAsync($"NationalOpinionsPage?{UrlNavHelper.CLASSIFIER}=7E749A0F-64D8-460C-8269-9A3FBC5C2351;8266D4E8-E768-4817-81D7-FFF925926E43");
         }
 
+        /// <summary>
+        /// Navigates to NationalGuidelinesPage
+        /// </summary>
         private void ShowGuidelines()
         {
             navigationService.NavigateAsync($"NationalGuidelinesPage?{UrlNavHelper.CLASSIFIER}=7E749A0F-64D8-460C-8269-9A3FBC5C2351;9B122477-A600-488F-9A9E-3B780B6A0B50");
         }
 
+        /// <summary>
+        /// Navigates to NationalSupremeAdministrativeCourtPage
+        /// </summary>
         private void ShowSupremeAdministrativeCourt()
         {
             navigationService.NavigateAsync($"NationalSupremeAdministrativeCourtPage?{UrlNavHelper.CLASSIFIER}=7e749a0f-64d8-460c-8269-9a3fbc5c2351;fe8a24db-1e8a-49fd-9d80-bce857c6c944;E8C8803D-2C5A-434B-AC17-C07DE92B547F");
         }
+
+        /// <summary>
+        /// Navigates to NationalAdministrativeCourtSofiaPage
+        /// </summary>
         private void ShowAdministrativeCourtSofia()
         {
             navigationService.NavigateAsync($"NationalAdministrativeCourtSofiaPage?{UrlNavHelper.CLASSIFIER}=7e749a0f-64d8-460c-8269-9a3fbc5c2351;fe8a24db-1e8a-49fd-9d80-bce857c6c944;FAB8CE42-8136-415B-9880-AA783E9E135B");
         }
 
+        /// <summary>
+        /// Navigates to NationalOtherCourtsPage
+        /// </summary>
         private void ShowOtherCourts()
         {
             navigationService.NavigateAsync($"NationalOtherCourtsPage?{UrlNavHelper.CLASSIFIER}=7e749a0f-64d8-460c-8269-9a3fbc5c2351;fe8a24db-1e8a-49fd-9d80-bce857c6c944;EFD0367A-570B-4F8F-A5C0-2EFDC08F0BD4");

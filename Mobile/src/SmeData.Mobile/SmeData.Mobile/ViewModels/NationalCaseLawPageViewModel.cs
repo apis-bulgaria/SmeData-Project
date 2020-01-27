@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with case law document, related to GDPR, form Bulgaria and Italy
+    /// </summary>
     public class NationalCaseLawPageViewModel : BaseViewModel
     {
         public ICommand GoToSupremeAdministrativeCourtCommand { get; set; }

@@ -7,6 +7,9 @@ using Xamarin.Forms;
 
 namespace SmeData.Mobile.CustomControls
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CustomWebView : WebView
     {
         public static readonly BindableProperty PannedCommandProperty = BindableProperty.Create(

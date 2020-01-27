@@ -4,6 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              x:Class="SmeData.Mobile.Views.SettingsPage"
              xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
              Title="{Binding [Settings], Source={x:Static i18n:Translator.Instance}}"
@@ -23,48 +24,41 @@
     <Grid Padding="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
         <Label Text="{Binding [Language], Source={x:Static i18n:Translator.Instance}}"
                Grid.Row="0"
                Grid.Column="0"
                FontSize="{Binding SettingItemFont, Converter={StaticResource SizeConverter}}"
                HorizontalOptions="StartAndExpand"
                VerticalOptions="Center"/>
-        <Picker Title="Select language" 
+        <Picker Title="{Binding [SelectLanguage], Source={x:Static i18n:Translator.Instance}}" 
                 ItemsSource ="{Binding LanguagesList}"
                 SelectedItem="{Binding CurrentLanguage}" 
                 Grid.Row="0"
                 Grid.Column="1"
+                FontSize="{Binding SettingItemFont, Converter={StaticResource SizeConverter}}"
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="Center"
                 AutomationId="apckrLanguage"/>
 
-        <!--<Label Text="{Binding [SaveDocumentsOnlyOnWifi], Source={x:Static i18n:Translator.Instance}}"
+        <Label Text="{Binding [WifiSettingsOption], Source={x:Static i18n:Translator.Instance}}" 
                Grid.Row="1"
                Grid.Column="0"
-               FontSize="20"
+               FontSize="{Binding SettingItemFont, Converter={StaticResource SizeConverter}}"
                HorizontalOptions="StartAndExpand"
                VerticalOptions="Center"/>
-        <Switch IsToggled ="{Binding IsSwitchedToggled}"
+        <Switch IsToggled="{Binding IsWifiOptionToggled}"
                 OnColor="{StaticResource NavigationPrimaryColor}"
+                ThumbColor="LightGray"
                 Grid.Row="1"
                 Grid.Column="1"
                 HorizontalOptions="EndAndExpand"
-                VerticalOptions="Center"/>-->
+                VerticalOptions="Center">
+        </Switch>
     </Grid>
-
 </ContentPage>
-
-<!--<Label Text="Some option" 
-               Grid.Row="1"
-               Grid.Column="0"
-               FontSize="20"
-               HorizontalOptions="StartAndExpand"
-               VerticalOptions="Center"/>
-<Switch IsToggled ="{Binding IsSwitchedToggled}"
-                OnColor="{StaticResource NavigationPrimaryColor}"
-                Grid.Row="1"
-                Grid.Column="1"
-                HorizontalOptions="EndAndExpand"
-                VerticalOptions="Center"/>-->

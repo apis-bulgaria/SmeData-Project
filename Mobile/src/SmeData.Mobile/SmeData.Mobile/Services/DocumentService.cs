@@ -21,7 +21,7 @@ namespace SmeData.Mobile.Services
             this.documentsRepository = documentsRepository;
         }
 
-        public async Task<SmeDoc> GetSmeDocByDocNumber(string docNumber, int langId, string searchText)
+        public async Task<SmeDoc> GetSmeDocByDocNumber(string docNumber, string searchText, int langId)
         {
             return await this.httpService.GetSmeDocByDocNumber(docNumber, langId, searchText);
         }
@@ -31,12 +31,12 @@ namespace SmeData.Mobile.Services
         //    return await this.httpService.GetUpdatedDocuments(docs);
         //}
 
-        public async Task<SmeDoc> GetSmeDocByIdentifier(string identifier, string searchText)
+        public async Task<SmeDoc> GetSmeDocByIdentifier(string identifier, string searchText, int langId)
         {
             //return await httpService.GetSmeDocByIdentifier(identifier, searchText);
-
+            
             var item = await this.documentsRepository.GetDocumentAsync(identifier);
-            if (item != null)
+            if (item != null && string.IsNullOrEmpty(searchText))
             {
                 return JsonConvert.DeserializeObject<SmeDoc>(Compression.DecompressString(item.JsonSmeDoc));
             }

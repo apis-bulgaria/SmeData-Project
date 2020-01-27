@@ -11,12 +11,18 @@ using Xamarin.Essentials;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with list of bulgarian legislation documents
+    /// </summary>
     public class BgLegislationPageViewModel : CommonLegislationPageViewModel
     {
         public BgLegislationPageViewModel(HttpService service, INavigationService navigationService, IPageDialogService dialogService, SettingsModel settings) : base(service, navigationService, dialogService, settings)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override string UrlAction => "bgleg";
     }
 }

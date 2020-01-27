@@ -16,7 +16,7 @@
             Style="{StaticResource tabbedPageBarBackground}"
             Appearing="TabbedPage_Appearing"
             behaviors:TabbedPageSelectedPageIndexBehavior.AttachBehavior="{Binding IsDocContentSelected}"
-            x:Name="docMainPage" >
+            x:Name="docMainPage">
     <!--<TabbedPage.Behaviors>
         <behaviors:TabbedPageNavigationBehavior />
     </TabbedPage.Behaviors>-->
@@ -25,6 +25,12 @@
             <converters:BookmarkToolbarImageConverter x:Key="BookmarkToolbarImageConverter" />
         </ResourceDictionary>
     </TabbedPage.Resources>
+    <TabbedPage.Behaviors>
+        <b:EventToCommandBehavior EventName="CurrentPageChanged" 
+                                      Command="{Binding PageChangeCommand}"
+                                      CommandParameter="{Binding Path=CurrentPage.TabIndex, Source={x:Reference docMainPage}}"
+                                       />
+    </TabbedPage.Behaviors>
     <TabbedPage.ToolbarItems>
         <ToolbarItem Command="{Binding Path=BindingContext.ToogleIsSearchBarVisibleCommand, Source={x:Reference docMainPage}}"
                      Icon="magnifier_white.png" />
@@ -38,7 +44,7 @@
     </TabbedPage.ToolbarItems>
     <!--<local:DocContentPage Title="Document content" />
     <local:DocPage Title="Selected entry" x:Name="tbDocContent"/>-->
-    <ContentPage Title="{Binding [DocumentContent], Source={x:Static i18n:Translator.Instance}}"
+    <ContentPage Title="{Binding [DocumentContent], Source={x:Static i18n:Translator.Instance}}" TabIndex="0"
                  x:Name="contPage">
         <ContentPage.Resources>
             <ResourceDictionary>
@@ -47,24 +53,29 @@
                 <converters:SizeConverter x:Key="SizeConverter" />
             </ResourceDictionary>
         </ContentPage.Resources>
-        <StackLayout Padding="10">
+        <StackLayout Padding="10"
+                     Margin="0">
             <ListView ItemsSource="{Binding DocumentItems}"
                       HasUnevenRows="True" 
                       SelectedItem="{Binding Path=BindingContext.SelectedItem, Source={x:Reference contPage}, Mode=TwoWay}"
                       ItemSelected="ListView_ItemSelected" 
-                      x:Name="lvContent" >
+                      x:Name="lvContent"
+                      Margin="0">
                 <ListView.Header>
                     <StackLayout>
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ExpandDocTitleLabelCommand}" 
                                                   NumberOfTapsRequired="1" />
                         </StackLayout.GestureRecognizers>
-                        <Label x:Name="DocTitleLabel"
-                               Text="{Binding CurrentDocTitle}"
-                               FontSize="{Binding DocTitleLabelFont, Converter={StaticResource SizeConverter}}"
-                               TextColor="DarkSlateGray"
-                               VerticalOptions="StartAndExpand"
-                               LineBreakMode="{Binding DocTitleLabelLineBreakMode}"/>
+                        <Grid WidthRequest="{Binding ScreenWidth}">
+                            <Label x:Name="DocTitleLabel"
+                                   Text="{Binding CurrentDocTitle}"
+                                   FontSize="{Binding DocTitleLabelFont, Converter={StaticResource SizeConverter}}"
+                                   TextColor="DarkSlateGray"
+                                   VerticalOptions="StartAndExpand"
+                                   LineBreakMode="{Binding DocTitleLabelLineBreakMode}"
+                                   MaxLines="{Binding DocTitleLabelMaxLines}"/>
+                        </Grid>
                         <BoxView HeightRequest="1" 
                                  BackgroundColor="DarkGray" 
                                  Margin="5"/>
@@ -100,7 +111,9 @@
                                        Grid.Row="0" 
                                        Grid.Column="1" 
                                        Margin="5"
-                                       HorizontalOptions="End">
+                                       HorizontalOptions="End"
+                                       IsVisible="{Binding IsBookmarkVisible}"
+                                       >
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Path=BindingContext.AddRemoveBookmarkCommand, Source={x:Reference contPage}}" 
                                                               CommandParameter="{Binding .}" 
@@ -114,34 +127,44 @@
             </ListView>
         </StackLayout>
     </ContentPage>
-    <ContentPage Title="{Binding [SelectedEntry], Source={x:Static i18n:Translator.Instance}}"
+    <ContentPage Title="{Binding [SelectedEntry], Source={x:Static i18n:Translator.Instance}}" TabIndex="1"
                  x:Name="tbDocContent">
         <ContentPage.Resources>
             <ResourceDictionary>
                 <c:WebNavigatingConverter x:Key="webNavigatingEventArgsConverter" />
+                <converters:BoolToGridRowHeightConverter x:Key="BoolToGridRowHeightConverter" />
             </ResourceDictionary>
         </ContentPage.Resources>
 
-        <StackLayout>
-            <StackLayout.GestureRecognizers>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding IsSearchVisible, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Right" 
                                         Command="{Binding PrevCommand}"
                                         Threshold="150"/>
                 <SwipeGestureRecognizer Direction="Left" 
                                         Command="{Binding NextCommand}"
                                         Threshold="150"/>
-            </StackLayout.GestureRecognizers>
-            <SearchBar x:Name="search"
-                       SearchCommand="{Binding SearchInDocCommand}"
-                       SearchCommandParameter="{Binding Text, Source={x:Reference search}}"
-                       IsVisible="{Binding IsSearchVisible}"/>
-            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+            </Grid.GestureRecognizers>
+            <customControls:SearchBarWithNavigation IsSearchVisible="{Binding IsSearchVisible}"
+                                                    SearchInDocCommand="{Binding SearchInDocCommand}"
+                                                    PrevMatchCommand="{Binding PrevMatchCommand}"
+                                                    NextMatchCommand="{Binding NextMatchCommand}"
+                                                    TextInField="{Binding TextInField}"
+                                                    SearchCounter="{Binding SearchCounter}"
+                                                    Grid.Row="0"/>
+           
             <customControls:CustomWebView x:Name="Description" 
                                           VerticalOptions ="FillAndExpand" 
                                           HorizontalOptions="FillAndExpand"
                                           BackgroundColor="AliceBlue" 
                                           Navigating="Description_Navigating"
-                                          PannedCommand="{Binding PPannedCommand}">
+                                          PannedCommand="{Binding PPannedCommand}"
+                                          Margin="10,0"
+                                          Grid.Row="1">
                 <WebView.Source>
                     <HtmlWebViewSource Html="{Binding HtmlText}"/>
                 </WebView.Source>
@@ -151,6 +174,10 @@
                                               EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
                 </WebView.Behaviors>
             </customControls:CustomWebView>
+            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"
+                                             HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Grid.Row="1"/>
             <!--<StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand"
                          MinimumHeightRequest="50"
@@ -166,6 +193,6 @@
                                                  Padding="25,0"
                                                  Margin="10,0"/>
             </StackLayout>-->
-        </StackLayout>
+        </Grid>
     </ContentPage>
 </TabbedPage>

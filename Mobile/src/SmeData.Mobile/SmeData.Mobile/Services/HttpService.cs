@@ -62,12 +62,23 @@ namespace SmeData.Mobile.Services
             }
         }
 
+        private string FixQuotes(string searchText)
+        {
+            if (string.IsNullOrEmpty(searchText))
+            {
+                return searchText;
+            }else
+            {
+                return searchText.Replace("“", "\"").Replace("”", "\"");
+            }
+        }
         public async Task<SmeDoc> GetSmeDocByIdentifier(string identifier, string searchText)
         {
+            searchText = this.FixQuotes(searchText);
             using (HttpClient client = new HttpClient())
             {
                 var url = Path.Combine(this.baseUrl, $"documents/docident?identifier={identifier}&searchText={searchText}");
-                var response = await client.GetAsync(url);
+                var response = await client.GetAsync(Uri.EscapeUriString(url));
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 return JsonConvert.DeserializeObject<SmeDoc>(json);
@@ -76,6 +87,7 @@ namespace SmeData.Mobile.Services
 
         public async Task<SmeDoc> GetSmeDocByDocNumber(string docNumber, int langId, string searchText)
         {
+            searchText = this.FixQuotes(searchText);
             using (HttpClient client = new HttpClient())
             {
                 var url = Path.Combine(this.baseUrl, $"documents/docnum?docNumber={docNumber}&langId={langId}&searchText={searchText}");
@@ -97,7 +109,7 @@ namespace SmeData.Mobile.Services
 
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var url = Path.Combine(this.baseUrl, $"documents/checkDocs");
+                var url = Path.Combine(this.baseUrl, $"documents/checkDocsv2");
                 var response = await client.PostAsync(url, byteContent);
                 var json = await response.Content.ReadAsStringAsync();
 

@@ -91,7 +91,7 @@ namespace SmeData.Mobile.iOS
                 tabFrame.Y = 0;
                 this.TabBarController.TabBar.Frame = tabFrame;
                 this.TabBarController.TabBar.BarTintColor = Color.FromHex("#E8E8E8").ToUIColor();
-                
+
                 CGSize size = new CGSize(this.TabBarController.TabBar.Frame.Width / this.TabBarController.TabBar.Items.Length, this.TabBarController.TabBar.Frame.Height);
 
                 //Background Color
@@ -103,11 +103,18 @@ namespace SmeData.Mobile.iOS
 
                     foreach (var tabItem in this.TabBarController.TabBar.Items)
                     {
-                        tabItem.SetTitleTextAttributes(new UITextAttributes() { Font = UIFont.FromName(fontFamily, 16), TextColor = Color.FromHex("#808080").ToUIColor(), TextShadowColor = UIColor.Clear }, UIControlState.Normal);
+                        tabItem.SetTitleTextAttributes(new UITextAttributes() { Font = UIFont.FromName("Arial", 16), TextColor = Color.FromHex("#808080").ToUIColor(), TextShadowColor = UIColor.Clear }, UIControlState.Normal);
                         tabItem.SetTitleTextAttributes(new UITextAttributes() { TextColor = Color.FromHex("#62BDD0").ToUIColor(), TextShadowColor = UIColor.Clear }, UIControlState.Selected);
-                        
 
-                        tabItem.TitlePositionAdjustment = new UIOffset(0, -8);
+                        if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+                        {
+                            tabItem.TitlePositionAdjustment = new UIOffset(0, -10);
+                        }
+                        else if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
+                        {
+                            tabItem.TitlePositionAdjustment = new UIOffset(0, 5);
+                        }
+
                         if (UIInterfaceOrientation.LandscapeLeft == orientation || UIInterfaceOrientation.LandscapeRight == orientation)
                         {
                             tabItem.TitlePositionAdjustment = new UIOffset(0, 0);
@@ -132,6 +139,13 @@ namespace SmeData.Mobile.iOS
             UIGraphics.EndImageContext();
 
             return image;
+        }
+
+        protected override void OnElementChanged(VisualElementChangedEventArgs e)
+        {
+            base.OnElementChanged(e);
+
+            OverrideUserInterfaceStyle = UIUserInterfaceStyle.Light;
         }
     }
 }

@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace SmeData.Mobile.ViewModels
 {
-    //public class CaseLawPageViewModel : CommonDocListViewPageViewModel
-    //{
-    //    public CaseLawPageViewModel(HttpService httpService, INavigationService navigationService, IPageDialogService dialogService, SettingsModel settings) : base(httpService, navigationService, dialogService, settings)
-    //    {
-    //        GetEuDocsByClassifier("0C6CC932-1EE3-4F9B-A1FD-B35B68F61578");
-    //    }
-    //}
-
+    /// <summary>
+    /// Page with list case law documents
+    /// </summary>
     public class CaseLawPageViewModel : CommonLegislationPageViewModel
     {
         public CaseLawPageViewModel(HttpService service, INavigationService navigationService, IPageDialogService dialogService, SettingsModel settings) : base(service, navigationService, dialogService, settings)

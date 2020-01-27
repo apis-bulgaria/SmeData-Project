@@ -9,6 +9,9 @@ using System.Windows.Input;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with buttons for selection of bulgarian ot italian national legal documents ralated to GDPR
+    /// </summary>
     public class NationalPageViewModel : BaseViewModel
     {
         public ICommand GoToBulgarianNationalDocsCommand { get; set; }

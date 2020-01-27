@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with training materials
+    /// </summary>
     public class TrainingMaterialsPageViewModel : BaseViewModel
     {
         public string HtmlString { get; set; }

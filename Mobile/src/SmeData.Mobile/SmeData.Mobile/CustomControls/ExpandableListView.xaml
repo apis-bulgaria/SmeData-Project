@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ListView  xmlns="http://xamarin.com/schemas/2014/forms"
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-           xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-           mc:Ignorable="d"
            x:Class="SmeData.Mobile.CustomControls.ExpandableListView"
            x:Name="thisListView"
            ItemsSource="{Binding ListViewItems}"
@@ -12,7 +9,8 @@
     <ListView.ItemTemplate>
         <DataTemplate>
             <ViewCell>
-                <Label Text="{Binding Content}" 
+                <Label x:Name="TextContent"
+                       Text="{Binding Content}" 
                        Margin="10"
                        AutomationId="alblExtendedListContent"/>
             </ViewCell>
@@ -31,7 +29,8 @@
                                               CommandParameter="{Binding .}"
                                               NumberOfTapsRequired="1" />
                     </Grid.GestureRecognizers>
-                    <Label Text="{Binding Header}"
+                    <Label x:Name="{TextHeader, Source={x:Reference thisListView}}"
+                           Text="{Binding Header}"
                            FontSize="Medium"
                            Grid.Row="0" 
                            Grid.Column="0"

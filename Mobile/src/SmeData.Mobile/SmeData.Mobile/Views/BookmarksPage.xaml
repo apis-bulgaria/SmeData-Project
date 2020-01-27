@@ -22,11 +22,11 @@
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <ListView ItemsSource="{Binding AllBookmarks}"
-                  IsGroupingEnabled="true"
-                  SeparatorVisibility="None"
-                  HasUnevenRows="True"
-                  Grid.Row="0">
+        <customControls:ListViewWithGrouping ItemsSource="{Binding AllBookmarks}"
+                                              IsGroupingEnabled="true"
+                                              SeparatorVisibility="None"
+                                              HasUnevenRows="True"
+                                              Grid.Row="0">
             <ListView.Behaviors>
                 <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
             </ListView.Behaviors>
@@ -41,7 +41,7 @@
                                FontSize="{Binding Path=BindingContext.DocTitleLabelFont, Converter={StaticResource SizeConverter}, Source={x:Reference bookmarksPage}}"
                                TextColor="DarkSlateGray"
                                Margin="10,0"
-                               VerticalOptions="Center"/>
+                               VerticalOptions="Center" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
@@ -77,7 +77,7 @@
                     <customControls:LoadingIndicator IsLoading="{Binding IsBusy}"/>
                 </Grid>
             </ListView.Footer>
-        </ListView>
+        </customControls:ListViewWithGrouping>
         <customControls:FramaButtonSmall LabelText="{Binding [ReloadBookmarks], Source={x:Static i18n:Translator.Instance}}"
                                          TabCommand="{Binding ReloadBookmarksCommand}"
                                          Style="{StaticResource btnWithImage}"

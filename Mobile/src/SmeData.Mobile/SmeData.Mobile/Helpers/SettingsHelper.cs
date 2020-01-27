@@ -26,16 +26,16 @@ namespace SmeData.Mobile.Helpers
                 repository.SetSettingsAsync(settingInDb);
             }
 
-            var res = new SettingsModel
-            {
-                Language = JsonConvert.DeserializeObject<SettingsModel>(settingInDb.SettingsJson).Language
-            };
+            var res = new SettingsModel();
+            var settings = JsonConvert.DeserializeObject<SettingsModel>(settingInDb.SettingsJson);
+
+            res.Language = settings.Language;
+            res.ShowDocsOnWifiOnly = settings.ShowDocsOnWifiOnly;
 
             switch (res.Language)
             {
                 case SmeLanguage.Bulgarian:
                     Properties.Resources.Culture = new CultureInfo("bg");
-                    
                     break;
                 case SmeLanguage.English:
                     Properties.Resources.Culture = new CultureInfo("en-US");
@@ -46,6 +46,7 @@ namespace SmeData.Mobile.Helpers
                 default:
                     break;
             }
+
             CrossMultilingual.Current.CurrentCultureInfo = Properties.Resources.Culture;
             return res;
         }

@@ -61,7 +61,7 @@
         </trans-unit>
         <trans-unit id="Language" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="needs-review-translation" state-qualifier="tm-suggestion">lingua</target>
+          <target state="translated">Lingua</target>
         </trans-unit>
         <trans-unit id="Settings" translate="yes" xml:space="preserve">
           <source>Settings</source>
@@ -161,15 +161,15 @@
         </trans-unit>
         <trans-unit id="GdprPocket" translate="yes" xml:space="preserve">
           <source>GDPR in Your Pocket</source>
-          <target state="new">GDPR in Your Pocket</target>
+          <target state="translated">GDPR in tasca</target>
         </trans-unit>
         <trans-unit id="CaseLaw" translate="yes" xml:space="preserve">
           <source>Case law</source>
-          <target state="new">Case law</target>
+          <target state="translated">Giurisprudenza</target>
         </trans-unit>
         <trans-unit id="DocumentContent" translate="yes" xml:space="preserve">
           <source>Document content</source>
-          <target state="new">Document content</target>
+          <target state="translated">EU quadro giuridico</target>
         </trans-unit>
         <trans-unit id="EUlegalframework" translate="yes" xml:space="preserve">
           <source>EU legal framework</source>
@@ -177,15 +177,15 @@
         </trans-unit>
         <trans-unit id="Guidelines" translate="yes" xml:space="preserve">
           <source>Guidelines</source>
-          <target state="new">Guidelines</target>
+          <target state="translated">Linee guida</target>
         </trans-unit>
         <trans-unit id="InternationalCaseLaw" translate="yes" xml:space="preserve">
           <source>International case law</source>
-          <target state="new">International case law</target>
+          <target state="translated">Giurisprudenza internazionale</target>
         </trans-unit>
         <trans-unit id="InternationalTreaties" translate="yes" xml:space="preserve">
           <source>International treaties</source>
-          <target state="new">International treaties</target>
+          <target state="translated">Trattati internazionali</target>
         </trans-unit>
         <trans-unit id="Legislation" translate="yes" xml:space="preserve">
           <source>Legislation</source>
@@ -197,15 +197,15 @@
         </trans-unit>
         <trans-unit id="NationalCaseLaw" translate="yes" xml:space="preserve">
           <source>National case law</source>
-          <target state="new">National case law</target>
+          <target state="translated">Giurisprudenza nazionale</target>
         </trans-unit>
         <trans-unit id="NationalGuidelines" translate="yes" xml:space="preserve">
           <source>National guidelines</source>
-          <target state="new">National guidelines</target>
+          <target state="translated">Linee guida nazionali</target>
         </trans-unit>
         <trans-unit id="PagesInfoText" translate="yes" xml:space="preserve">
           <source>Provide practical guidance on GDPR rules to SME. Consist of the fallowing components...</source>
-          <target state="new">Provide practical guidance on GDPR rules to SME. Consist of the fallowing components...</target>
+          <target state="translated">Fornire indicazioni pratiche sulle regole del GDPR alle PMI. Sono costituiti dai seguenti componenti ...</target>
         </trans-unit>
         <trans-unit id="ReloadBookmarks" translate="yes" xml:space="preserve">
           <source>Reload bookmarks</source>

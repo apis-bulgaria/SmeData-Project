@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Tabbed page for italian lagislation, case law and guidelines documents related to GDPR
+    /// </summary>
     public class ItLegalPageViewModel : BaseViewModel
     {
         public ICommand GoToDecisionsCommand { get; set; }

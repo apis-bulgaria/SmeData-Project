@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="31" android:versionName="1.10.12" package="com.ApisEurope.SmeData.Mobile" android:installLocation="internalOnly">
-	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="28" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="54" android:versionName="1.10.32" package="com.ApisEurope.SmeData.Mobile" android:installLocation="internalOnly">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<application android:label="SmeData.Mobile.Android" android:icon="@drawable/SmeDataLogo"></application>
+	<application android:label="GDPR in Your Pocket" android:icon="@drawable/SmeDataLogo" android:allowBackup="false" android:fullBackupContent="false"></application>
 </manifest>

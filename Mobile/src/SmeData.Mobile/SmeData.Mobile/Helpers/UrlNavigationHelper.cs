@@ -63,7 +63,14 @@ namespace SmeData.Mobile.Helpers
             m = Regex.Match(url, @"Celex=(.*)", RegexOptions.IgnoreCase);
             if (m.Success)
             {
-                navigationService.NavigateAsync($"DocMainPage?{UrlNavHelper.DOC_NUM}={m.Groups[1].Value}");
+                string celex = m.Groups[1].Value;
+                if (celex?.StartsWith("6") == true) {
+                    navigationService.NavigateAsync($"DocCaseLawShowPage?{UrlNavHelper.DOC_NUM}={celex}");
+                }
+                else
+                {
+                    navigationService.NavigateAsync($"DocMainPage?{UrlNavHelper.DOC_NUM}={celex}");
+                }
                 return;
             }
             m = Regex.Match(url, @"static_file(.*)", RegexOptions.IgnoreCase);

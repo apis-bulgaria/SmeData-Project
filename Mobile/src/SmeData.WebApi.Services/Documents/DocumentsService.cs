@@ -11,12 +11,12 @@ using System.Data;
 using FtiSearchColorizer;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using HtmlAgilityPack;
 
 namespace SmeData.WebApi.Services.Documents
 {
     public class DocumentsService : IDocumentsService
     {
-
         private IPathsProvider pathsProvider;
         private DocumentsServiceDbHelper dbHelper;
         public DocumentsService(IEuCasesContextFactory factory, IPathsProvider pathsProvider)
@@ -25,6 +25,7 @@ namespace SmeData.WebApi.Services.Documents
             AkomaNtosoPreProcessor.ReThrowExceptions = true;
             AkomaNtosoPreProcessor.RemoveHiddenElements = true;
             AkomaNtosoPreProcessor.ImagePath = "static_file";
+            AkomaNtosoPreProcessor.IsSmeData = true;
             this.pathsProvider = pathsProvider;
         }
 
@@ -92,34 +93,42 @@ namespace SmeData.WebApi.Services.Documents
                 else
                 {
                     var html = AkomaNtosoPreProcessor.ConvertToHtml(docText, new AkomaNtosoPreProcessorConfig());
-                    html = Regex.Replace(html, @"static_file[^""]+", (m) =>
-                    {
-                        var v = m.Value;
-                        foreach (var ext in this.imagesExtensions)
-                        {
-                            if (v.ToLower().EndsWith(ext))
-                            {
-                                v = v.Replace("static_file", "https://smedata.apis.bg/images");
-                                return v;
-                            }
-                        }
+                    html = this.ReplaceImgUrls(html);
 
-                        return v;
-
-                    }, RegexOptions.IgnoreCase);
                     if (!string.IsNullOrEmpty(searchText))
                     {
                         html = this.ColorizeSearch(searchText, html, docInfo.LangId);
                     }
+
+                    html = DocumentLinkRewrite.ReplaceNationalLegislation(html);
+
                     var res = this.CreateSmeDoc(html, docText, docInfo);
                     return res;
                 }
-
             }
             else
             {
                 return null;
             }
+        }
+
+        private string ReplaceImgUrls(string html)
+        {
+            return Regex.Replace(html, @"static_file[^""]+", (m) =>
+            {
+                var v = m.Value;
+                foreach (var ext in this.imagesExtensions)
+                {
+                    if (v.ToLower().EndsWith(ext))
+                    {
+                        v = v.Replace("static_file", "https://smedata.apis.bg/images");
+                        return v;
+                    }
+                }
+
+                return v;
+
+            }, RegexOptions.IgnoreCase);
         }
 
         private readonly HashSet<string> imagesExtensions = new HashSet<string>
@@ -154,7 +163,7 @@ namespace SmeData.WebApi.Services.Documents
             switch (langId)
             {
                 case 1: return ColorizeSearchFactory.Create(ColorizeLanguage.Bulgarian);
-                case 3: return ColorizeSearchFactory.Create(ColorizeLanguage.Italian);
+                case 5: return ColorizeSearchFactory.Create(ColorizeLanguage.Italian);
                 case 4: return ColorizeSearchFactory.Create(ColorizeLanguage.English);
                 default: throw new NotImplementedException($"Non supported language with id:{langId}");
             }
@@ -168,7 +177,22 @@ namespace SmeData.WebApi.Services.Documents
 
         private SmeDoc CreateSmeDoc(string html, string pt, SpDocumentModel docInfo)
         {
-            var res = DocConverter.DoDocConvert(html, pt);
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            var res = DocConverter.DoDocConvert(htmlDoc, pt);
+            if (res.Meta.IsConsolidatedEuLegislation && res.HasRecitals() == false)
+            {
+                var preambleWithRecitals = this.dbHelper.GetRecitalsPreambleForConsVersion(docInfo.DocLanguageId);
+                if (String.IsNullOrEmpty(preambleWithRecitals) == false)
+                {
+                    var preambleWithRecitalsHtml = AkomaNtosoPreProcessor.ConvertToHtml(preambleWithRecitals, new AkomaNtosoPreProcessorConfig());
+                    InsertRecitalsAtPreambleEnd(htmlDoc, preambleWithRecitalsHtml);
+                    res = DocConverter.DoDocConvert(htmlDoc, pt);
+                }
+            }
+
+
             this.FillMetaFromDocRecord(res, docInfo);
             var filePath = @".\data\smedata.css";
             if (!string.IsNullOrEmpty(this.pathsProvider.BasePath))
@@ -215,6 +239,34 @@ namespace SmeData.WebApi.Services.Documents
             return res;
         }
 
+        public IList<LastChangeOfDoc> GetUpdatedDocumentsV2(IList<LastChangeOfDoc> docsForCheck)
+        {
+            var dict = this.GetIdentsAndDates(docsForCheck);
+            var res = new List<LastChangeOfDoc>();
+            foreach (var item in docsForCheck)
+            {
+                if (dict.TryGetValue(item.Ident, out DateTime date))
+                {
+                    if (item.LastChangeDate < date/* || (item.LastChangeDate == null && date != null)*/)
+                    {
+                        res.Add(new LastChangeOfDoc { Ident = item.Ident, NewIdent = item.Ident, LastChangeDate = date });
+                    }
+                    else
+                    {
+                        var lastChange = this.dbHelper.GetLastChangeDocForConsByIdentifier(item.Ident);
+                        if (lastChange != null)
+                        {
+                            if (lastChange.Ident != item.Ident)
+                            {
+                                res.Add(lastChange);
+                            }
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
         private Dictionary<string, DateTime> GetIdentsAndDates(IList<LastChangeOfDoc> docsForCheck)
         {
             return this.dbHelper.GetIdentsAndDates(docsForCheck);
@@ -225,5 +277,28 @@ namespace SmeData.WebApi.Services.Documents
             this.dbHelper.UpdateLastChangeDoc(doc);
         }
 
+        private static void InsertRecitalsAtPreambleEnd(HtmlDocument akomaNtosoHtml, String preableWithRecitalsHtml)
+        {
+            var insertAfter = akomaNtosoHtml.DocumentNode
+                .SelectSingleNode(".//*[contains(concat(' ', @class, ' '), ' d-preamble ')]")
+                ?.ChildNodes
+                ?.LastOrDefault();
+
+            var preambleNode = HtmlNode.CreateNode(preableWithRecitalsHtml);
+
+            if (insertAfter != null)
+            {
+                var recitalsRoot = preambleNode.SelectSingleNode(".//*[contains(concat(' ', @class, ' '), ' d-recitals ')]");
+                insertAfter.ParentNode.InsertAfter(newChild: recitalsRoot, refChild: insertAfter);
+            }
+            else
+            {
+                // when there is no preamble
+                // we can insert the new preamble before the body
+                var insertBefore = akomaNtosoHtml.DocumentNode.SelectSingleNode(".//*[contains(concat(' ', @class, ' '), ' d-body ')]");
+                insertBefore.ParentNode.InsertBefore(newChild: preambleNode, refChild: insertBefore);
+
+            }
+        }
     }
 }

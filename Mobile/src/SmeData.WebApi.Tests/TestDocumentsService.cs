@@ -420,5 +420,13 @@ namespace Tests
         }
 
 
+        [Test]
+        public void TestGetSmeDocByDocIdentifier_ReplaceNationalLegislation()
+        {
+            var result = this.docsService.GetSmeDocByDocIdentifier("f7620c12-0bfe-4f2e-82ec-4ce9aeb97aa3", null);
+
+            throw new NotImplementedException();
+        }
+
     }
 }

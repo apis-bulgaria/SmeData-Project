@@ -6,6 +6,9 @@ using Xamarin.Forms;
 
 namespace SmeData.Mobile.Behaviors
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ActivePageTabbedPageBehavior : Behavior<TabbedPage>
     {
         protected override void OnAttachedTo(TabbedPage tabbedPage)

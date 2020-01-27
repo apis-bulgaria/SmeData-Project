@@ -13,7 +13,7 @@ namespace SmeData.Mobile.Views
 
         private void TabbedPage_Appearing(object sender, System.EventArgs e)
         {
-            this.SelectedItem = tbDocContent;
+            //this.SelectedItem = tbDocContent;
         }
 
         private void Description_Navigating(object sender, WebNavigatingEventArgs e)

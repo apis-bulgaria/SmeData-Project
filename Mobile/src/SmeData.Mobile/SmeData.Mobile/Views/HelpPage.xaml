@@ -25,21 +25,30 @@
         <ResourceDictionary>
             <converters:WebNavigatingConverter x:Key="webNavigatingEventArgsConverter" />
             <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:BoolToGridRowHeightConverter x:Key="BoolToGridRowHeightConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <SearchBar x:Name="search"
-                       SearchCommand="{Binding SearchInDocCommand}"
-                       SearchCommandParameter="{Binding Text, Source={x:Reference search}}"
-                       IsVisible="{Binding IsSearchVisible}"/>
-            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding IsSearchVisible, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <customControls:SearchBarWithNavigation IsSearchVisible="{Binding IsSearchVisible}"
+                                                SearchInDocCommand="{Binding SearchInDocCommand}"
+                                                PrevMatchCommand="{Binding PrevMatchCommand}"
+                                                NextMatchCommand="{Binding NextMatchCommand}"
+                                                TextInField="{Binding TextInField}"
+                                                SearchCounter="{Binding SearchCounter}"
+                                                    Grid.Row="0"/>
             <WebView x:Name="webView" 
                      VerticalOptions ="FillAndExpand" 
                      HorizontalOptions="FillAndExpand" 
                      Navigating="WebView_Navigating" 
                      BackgroundColor="AliceBlue"
-                     AutomationId="awvHelp">
+                     AutomationId="awvHelp"
+                      Margin="10,0"
+                      Grid.Row="1">
                 <WebView.Source>
                     <HtmlWebViewSource Html="{Binding HtmlText}"/>
                 </WebView.Source>
@@ -49,6 +58,10 @@
                                               EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
                 </WebView.Behaviors>
             </WebView>
-        </StackLayout>
+            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 Grid.Row="1"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

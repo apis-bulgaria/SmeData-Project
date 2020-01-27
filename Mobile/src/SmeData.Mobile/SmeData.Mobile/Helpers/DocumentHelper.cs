@@ -1,21 +1,20 @@
-﻿using SmeData.Mobile.Services;
+﻿using SmeData.Mobile.Models.Documents;
+using SmeData.Mobile.Services;
 using SmeData.SharedModels.Document;
 using SmeData.SharedModels.Language;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SmeData.Mobile.Helpers
 {
     public static class DocumentHelper
     {
         private static HashSet<SmeDocItemType> endLevelItemTypes = new HashSet<SmeDocItemType> {
-                //SmeDocItemType.Chapter,
                 SmeDocItemType.Article,
-                //SmeDocItemType.Part,
                 SmeDocItemType.Recital,
-                //SmeDocItemType.Section,
                 SmeDocItemType.Text,
                 SmeDocItemType.DocTitle
             };
@@ -38,7 +37,30 @@ namespace SmeData.Mobile.Helpers
             }
             FixRecitals(res);
             FixTitle(res);
+            return res;
+        }
 
+        public static List<ColorizeInfo> GetColorizeInfo(SmeDoc smeDoc)
+        {
+            var res = new List<ColorizeInfo>();
+            foreach (var item in smeDoc.Items)
+            {
+                var text = GetDisplayText(smeDoc, SmeLanguage.Bulgarian, item, false);
+                MatchCollection mc = Regex.Matches(text, @"ss_(\d+)");
+                if (mc.Count > 0)
+                {
+                    var matchedIds = new List<string>();
+                    foreach (Match m in mc)
+                    {
+                        res.Add(new ColorizeInfo
+                        {
+                            DocItem = item,
+                            MatchedId = m.Value
+                        });
+                    }
+
+                }
+            }
             return res;
         }
 
@@ -63,7 +85,7 @@ namespace SmeData.Mobile.Helpers
             {
                 return;
             }
-            var recitalItems = smeDoc.Items.Where(x => x.Type == SmeDocItemType.Recital);
+            var recitalItems = smeDoc.Items.Where(x => x.Type == SmeDocItemType.Recital).ToList();
             var cultureInfo = Properties.Resources.Culture;
             smeDoc.Items = smeDoc.Items.Where(x => x.Type != SmeDocItemType.Recital).ToList();
             var partSize = 30;
@@ -128,38 +150,46 @@ namespace SmeData.Mobile.Helpers
         {
             var cultureInfo = Properties.Resources.Culture;
             var sb = new StringBuilder();
+
             if (items?.Count > 0)
             {
                 sb.AppendLine($@"<button onclick=""showHideDiv('{elId}')"" >{title}</button><div  class=""gdpr-recital"" style=""display:none;"" id=""{elId}"" name=""{elId}"">");
+
                 foreach (var id in items)
                 {
                     var linkedItem = document.GetItemById(id, tryFindParents);
                     if (linkedItem != null)
                     {
-                        sb.AppendLine(GetDisplayText(document, lang, linkedItem, false) + "<hr>");
+                        sb.AppendLine($"{GetDisplayText(document, lang, linkedItem, false)}<hr>");
                     }
                 }
+
                 sb.AppendLine("</div>");
             }
+
             return sb.ToString();
         }
 
         private static void GetHtml(StringBuilder sb, SmeDocItem item, SmeDoc document, SmeLanguage lang, bool addArtRec = true)
         {
             sb.AppendLine(item.Text);
+
             if (addArtRec)
             {
                 sb.AppendLine(AddButtons(item.Recitals, $"{item.Id}_rec", Translator.GetString("Recitals"), document, lang));
                 sb.AppendLine(AddButtons(item.Articles, $"{item.Id}_art", Translator.GetString("Articles"), document, lang));
+
                 if (item.OldArticles?.Count > 0)
                 {
                     var od = OldDirective(lang);
+
                     if (od != null)
                     {
                         sb.AppendLine(AddButtons(item.OldArticles, $"{item.Id}_old_art", Translator.GetString("31995L0046"), od, lang, true));
                     }
                 }
             }
+
             foreach (var childItem in item.Childs)
             {
                 GetHtml(sb, childItem, document, lang, addArtRec);

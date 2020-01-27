@@ -7,6 +7,9 @@ using SQLiteNetExtensions;
 using SQLite;
 using SQLiteNetExtensionsAsync.Extensions;
 using System.Linq;
+using System.IO;
+using System.IO.Compression;
+using Xamarin.Forms;
 
 namespace SmeData.Mobile.Data
 {
@@ -15,7 +18,8 @@ namespace SmeData.Mobile.Data
         private readonly SQLiteAsyncConnection db;
         public AppRepository(string dbPath)
         {
-            this.db = new SQLiteAsyncConnection(dbPath);
+            this.db = DependencyService.Get<ISQLite>().GetConnection(dbPath);
+
             this.db.CreateTableAsync<DocumentModel>().Wait();
             this.db.CreateTableAsync<SettingsDbModel>().Wait();
             this.db.CreateTableAsync<BookmarksModel>().Wait();
@@ -23,7 +27,20 @@ namespace SmeData.Mobile.Data
 
         public async Task<int> AddDocumentAsync(DocumentModel item)
         {
-            return await this.db.InsertAsync(item);
+            if ((await this.db.Table<DocumentModel>().FirstOrDefaultAsync(x => x.Identifier == item.Identifier)) == null)
+            {
+                await this.db.InsertAsync(item).ConfigureAwait(false);
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+
+        public async Task<int> AddRangeAsync(List<DocumentModel> items)
+        {
+            return await this.db.InsertAllAsync(items).ConfigureAwait(false);
         }
 
         public async Task<int> DeleteDocumentAsync(string identifier)
@@ -38,11 +55,14 @@ namespace SmeData.Mobile.Data
 
         public async Task<List<DocumentModel>> GetDocumentsAsync(bool forceRefresh = false)
         {
-            return await this.db.Table<DocumentModel>().Take(100).ToListAsync();
+            return await this.db.Table<DocumentModel>().ToListAsync();
         }
 
         public async Task<int> UpdateDocumentAsync(DocumentModel item)
         {
+            var docForUpdate = await this.db.Table<DocumentModel>().FirstOrDefaultAsync(x => x.Identifier == item.Identifier);
+            item.IsMainDoc = docForUpdate.IsMainDoc;
+
             return await this.db.UpdateAsync(item);
         }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace SmeData.Mobile.Helpers
 {
@@ -14,11 +15,33 @@ namespace SmeData.Mobile.Helpers
         {
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
-                await dialogService.DisplayAlertAsync(Translator.GetString("Warning"), Translator.GetString("No Internet Access"), Translator.GetString("Ok"));
+                Device.BeginInvokeOnMainThread(() => {
+                    dialogService.DisplayAlertAsync(Translator.GetString("Warning"), Translator.GetString("No Internet Access"), Translator.GetString("Ok"));
+                });
+
                 return false;
             }
             return true;
         }
-        
+
+        public static async Task<bool> CheckForWifiConnection(IPageDialogService dialogService)
+        {
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await dialogService.DisplayAlertAsync(Translator.GetString("Warning"), Translator.GetString("No Internet Access"), Translator.GetString("Ok"));
+                return false;
+            }
+            else
+            {
+                var profiles = Connectivity.ConnectionProfiles;
+                if (!profiles.Contains(ConnectionProfile.WiFi))
+                {
+                    await dialogService.DisplayAlertAsync(Translator.GetString("Warning"), Translator.GetString("No Wifi Access"), Translator.GetString("Ok"));
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

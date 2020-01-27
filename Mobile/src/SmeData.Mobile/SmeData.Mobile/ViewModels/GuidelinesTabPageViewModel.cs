@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with list of guidelines 
+    /// </summary>
     public class GuidelinesTabPageViewModel : BaseViewModel
     {
         public ICommand GoToProtectionBoardDocsCommand { get; set; }
@@ -25,7 +28,7 @@ namespace SmeData.Mobile.ViewModels
 
         private void ShowProtectionBoardDocs()
         {
-            navigationService.NavigateAsync($"GuidelinesPage?{UrlNavHelper.CLASSIFIER}=0319DD51-EE78-4F0C-B948-E8F8BD0FE0E1 ");
+            navigationService.NavigateAsync($"EuDataProtectionBoardPage");
         }
 
         private void ShowProtectionSupervisorDocs()

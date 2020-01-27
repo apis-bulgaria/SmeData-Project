@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with information tools for small and medium enterprises (SMEs)
+    /// </summary>
     public class GuideForSmesPageViewModel : BaseViewModel
     {
         public ICommand GdprMadeSimpleCommand { get; set; }

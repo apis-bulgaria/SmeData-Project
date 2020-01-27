@@ -13,6 +13,7 @@ namespace SmeData.WebApi.Services.Documents
         List<GdprDictionaryResponseModel> GdprDictionary(int langId);
         SearchResultModel GetDocList(int[] ids, SearchApiModel model);
         IList<LastChangeOfDoc> GetUpdatedDocuments(IList<LastChangeOfDoc> docsForCheck);
+        IList<LastChangeOfDoc> GetUpdatedDocumentsV2(IList<LastChangeOfDoc> docsForCheck);
         void UpdateLastChangeDoc(LastChangeOfDoc doc);
     }
 }

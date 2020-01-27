@@ -26,11 +26,14 @@ namespace SmeData.Mobile.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             var _ = new TouchTracking.Forms.Droid.TouchEffect();
+
+            Xamarin.Forms.DependencyService.Register<AndroidLogging>();
+            System.Net.ServicePointManager.ServerCertificateValidationCallback += (o, cert, chain, errors) => true;
             LoadApplication(new App());
         }
 
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 

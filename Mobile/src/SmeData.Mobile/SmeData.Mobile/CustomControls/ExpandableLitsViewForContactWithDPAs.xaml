@@ -77,7 +77,8 @@
                                               CommandParameter="{Binding .}"
                                               NumberOfTapsRequired="1" />
                     </Grid.GestureRecognizers>
-                    <Label Text="{Binding Header}"
+                    <Label x:Name="TextL"
+                           Text="{Binding Header}"
                            FontSize="Medium"
                            Grid.Row="0" 
                            Grid.Column="0"

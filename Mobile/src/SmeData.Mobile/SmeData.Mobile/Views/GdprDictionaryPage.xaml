@@ -21,7 +21,8 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <customControls:ExpandableListView ListViewItems="{Binding DictionaryList}" AutomationId="attlGdprDictionary" />
+            <customControls:ExpandableListView ListViewItems="{Binding DictionaryList}" 
+                                               AutomationId="attlGdprDictionary" />
             <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
         </Grid>
     </ContentPage.Content>

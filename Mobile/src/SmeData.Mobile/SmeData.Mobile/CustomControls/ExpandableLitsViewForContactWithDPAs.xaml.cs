@@ -20,10 +20,20 @@ namespace SmeData.Mobile.CustomControls
             typeof(ObservableRangeCollection<ExpandableLVFocContactsWithDPAsViewModel>),
             typeof(ExpandableLitsViewForContactWithDPAs));
 
+        public static readonly BindableProperty LabelFontSizeProperty = BindableProperty.Create(nameof(LabelFontSize),
+          typeof(int),
+          typeof(ExpandableLitsViewForContactWithDPAs));
+
         public ICommand HeaderClickCommand { get; private set; }
         public ICommand CallNumberCommand { get; private set; }
         public ICommand OpenEmailClientCommand { get; private set; }
         public ICommand OpenUrlCommand { get; private set; }
+
+        public int LabelFontSize
+        {
+            get => (int)GetValue(LabelFontSizeProperty);
+            set => SetValue(LabelFontSizeProperty, value);
+        }
 
         public ExpandableLitsViewForContactWithDPAs()
         {

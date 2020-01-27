@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SmeData.SharedModels.ContactsDPAs;
+using SmeData.SharedModels.Document;
 using SmeData.SharedModels.Link;
 using SmeData.WebApi.Services.Values;
 
@@ -26,6 +27,27 @@ namespace SmeData.WebApi.Controllers
         public ActionResult<string> GetTranslations()
         {
             return this.valuesService.GetTranslations();
+        }
+
+        [HttpGet]
+        [Route("gdprRecitalsEn")]
+        public ActionResult<IEnumerable<SmeDocItem>> GetGdprRecitalsEN()
+        {
+            return this.valuesService.GetGdprRecitalsEN();
+        }
+
+        [HttpGet]
+        [Route("gdprRecitalsIt")]
+        public ActionResult<IEnumerable<SmeDocItem>> GetGdprRecitalsIT()
+        {
+            return this.valuesService.GetGdprRecitalsIT();
+        }
+
+        [HttpGet]
+        [Route("gdprRecitalsBg")]
+        public ActionResult<IEnumerable<SmeDocItem>> GetGdprRecitalsBG()
+        {
+            return this.valuesService.GetGdprRecitalsBG();
         }
 
         [HttpGet]

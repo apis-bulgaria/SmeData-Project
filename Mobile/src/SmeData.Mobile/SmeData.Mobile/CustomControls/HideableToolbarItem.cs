@@ -19,34 +19,34 @@ namespace SmeData.Mobile.CustomControls
             await Task.Delay(100);
             OnIsVisibleChanged(this, false, IsVisible);
         }
-
-        public ContentPage Parent { set; get; }
-
         public bool IsVisible
         {
             get { return (bool)GetValue(IsVisibleProperty); }
             set { SetValue(IsVisibleProperty, value); }
         }
 
-        public static BindableProperty IsVisibleProperty =
-            BindableProperty.Create<HideableToolbarItem, bool>(o => o.IsVisible, false, propertyChanged: OnIsVisibleChanged);
+        public static readonly BindableProperty IsVisibleProperty = BindableProperty.Create(nameof(IsVisible), typeof(bool), typeof(ToolbarItem), propertyChanged: OnIsVisibleChanged);
 
-        private static void OnIsVisibleChanged(BindableObject bindable, bool oldvalue, bool newvalue)
+        private static void OnIsVisibleChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var item = bindable as HideableToolbarItem;
+
+            bool newValueBool = (bool)newValue;
 
             if (item.Parent == null)
                 return;
 
-            var items = item.Parent.ToolbarItems;
-
-            if (newvalue && !items.Contains(item))
+            var items = (item.Parent as ContentPage).ToolbarItems;
+            if (items?.Count > 0)
             {
-                items.Add(item);
-            }
-            else if (!newvalue && items.Contains(item))
-            {
-                items.Remove(item);
+                if (newValueBool && !items.Contains(item))
+                {
+                    items.Add(item);
+                }
+                else if (!newValueBool && items.Contains(item))
+                {
+                    items.Remove(item);
+                }
             }
         }
     }

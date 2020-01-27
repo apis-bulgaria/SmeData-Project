@@ -17,6 +17,9 @@ using Xamarin.Essentials;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Common page for showing lists of legislation documents
+    /// </summary>
     public abstract class CommonLegislationPageViewModel : BaseViewModel
     {
         protected ObservableCollection<LegislationGroupItem> legislationDocs = new ObservableCollection<LegislationGroupItem>();
@@ -27,7 +30,15 @@ namespace SmeData.Mobile.ViewModels
         private bool isLoading;
         public ICommand TabCommand { get; set; }
 
+        /// <summary>
+        /// Information for font size calculation for heading in tab
+        /// </summary>
         public string DocInTabFont { get => $"t|16|{ScreenWidth}"; }
+
+        /// <summary>
+        /// Information for font size calculation for category headings in the list
+        /// </summary>
+        public string CategoryHeadingFont { get => $"t|18|{ScreenWidth}"; }
 
         public CommonLegislationPageViewModel(HttpService service, INavigationService navigationService, IPageDialogService dialogService, SettingsModel settings) : base(navigationService)
         {
@@ -38,6 +49,10 @@ namespace SmeData.Mobile.ViewModels
             this.synchronizationContext = SynchronizationContext.Current;
         }
 
+        /// <summary>
+        /// Override OnNavigatedTo method with added logic for load legislation documents
+        /// </summary>
+        /// <param name="parameters">Input parameters</param>
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -45,6 +60,10 @@ namespace SmeData.Mobile.ViewModels
             Task.Run(()=> GetAllLegislationDocs());
         }
 
+        /// <summary>
+        /// Method for navigating to selected document detailed view
+        /// </summary>
+        /// <param name="doc">Selected document</param>
         private void ShowDocument(object doc)
         {
             if (doc == null)
@@ -76,6 +95,9 @@ namespace SmeData.Mobile.ViewModels
             }
         }
 
+        /// <summary>
+        /// Observable collection for all legislation documents
+        /// </summary>
         public ObservableCollection<LegislationGroupItem> LegislationDocs
         {
             get => legislationDocs;
@@ -86,6 +108,9 @@ namespace SmeData.Mobile.ViewModels
             }
         }
 
+        /// <summary>
+        /// Property for activation/deactivation of loading indicator for list of all bookmarks
+        /// </summary>
         public bool IsLoading
         {
             get => isLoading;
@@ -98,12 +123,15 @@ namespace SmeData.Mobile.ViewModels
 
         protected abstract string UrlAction { get; }
 
+        /// <summary>
+        /// Method for filling LegislationDocs collection
+        /// </summary>
         public async Task GetAllLegislationDocs()
         {
             IsLoading = true;
             try
             {
-                if(! (await ConnectivityHelper.CheckInternetConection(this.dialogService)))
+                if(!(await ConnectivityHelper.CheckInternetConection(this.dialogService)))
                 {
                     return;
                 }

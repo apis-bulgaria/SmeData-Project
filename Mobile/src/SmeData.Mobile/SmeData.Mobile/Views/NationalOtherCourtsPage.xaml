@@ -20,7 +20,8 @@
     </ContentPage.Resources>
     <Grid>
         <ListView ItemsSource="{Binding EuDocs}"
-                  HasUnevenRows="True">
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None">
             <ListView.Behaviors>
                 <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
             </ListView.Behaviors>
@@ -31,7 +32,7 @@
                                 Text="{Binding FullTitle}" 
                                 HorizontalOptions="StartAndExpand"
                                 VerticalOptions="CenterAndExpand"
-                                TextColor="Gray"
+                                TextColor="Gray"      
                                 FontSize="{Binding BindingContext.DocTitlesFont, Converter={StaticResource SizeConverter}, Source={x:Reference nationalOtherCourtsPage}}"
                                 Grid.Row="0" 
                                 Grid.Column="1"
@@ -46,13 +47,13 @@
                         </Label>-->
 
                         <customControls:DocInTabListView LabelTitleText="{Binding Path=ShortTitle}"
-                                                             LabelSubTitleText="{Binding Path=SubTitle}"
-                                                             IsSubTitleNotNull="{Binding Path=SubTitle, Converter={StaticResource StringToBoolenConverter}}"
-                                                             ImageSource="{Binding Path=DocType, Converter={StaticResource DocTypeToImageSourceConverter}}" 
-                                                             TabCommand="{Binding Path=BindingContext.TabCommand, Source={x:Reference nationalOtherCourtsPage}}"
-                                                             CommandPar="{Binding .}"
-                                                             DefaultFontSize="{Binding BindingContext.DocInTabFont, Converter={StaticResource SizeConverter}, Source={x:Reference nationalOtherCourtsPage}}"
-                                                             AutomationId="alNationalOtherCourtsPage"/>
+                                                         LabelSubTitleText="{Binding Path=SubTitle}"
+                                                         IsSubTitleNotNull="{Binding Path=SubTitle, Converter={StaticResource StringToBoolenConverter}}"
+                                                         ImageSource="{Binding Path=DocType, Converter={StaticResource DocTypeToImageSourceConverter}}" 
+                                                         TabCommand="{Binding Path=BindingContext.TabCommand, Source={x:Reference nationalOtherCourtsPage}}"
+                                                         CommandPar="{Binding .}"
+                                                         DefaultFontSize="{Binding BindingContext.DocInTabFont, Converter={StaticResource SizeConverter}, Source={x:Reference nationalOtherCourtsPage}}"
+                                                        AutomationId="alNationalOtherCourtsPage"/>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

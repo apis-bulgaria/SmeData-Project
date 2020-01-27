@@ -22,6 +22,7 @@ namespace SmeData.SharedModels.Document
         public int LangId { get; set; }
         public int DocType { get; set; }
         public bool IsBlob { get; set; } = false;
+        public bool IsConsolidatedEuLegislation => this.Country == "EU" && this.DocType == 2 /*legi*/ && this.DocNumber.StartsWith("0");
     }
 
 }

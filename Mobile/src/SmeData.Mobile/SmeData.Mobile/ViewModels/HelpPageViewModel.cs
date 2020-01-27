@@ -11,6 +11,9 @@ using System.Linq;
 
 namespace SmeData.Mobile.ViewModels
 {
+    /// <summary>
+    /// Page with helping information about the application
+    /// </summary>
     public class HelpPageViewModel : BaseShowPageViewModel
     {
         public HelpPageViewModel(INavigationService navigationService, IPageDialogService dialogService, DocumentService docService, SettingsModel settings, HttpService httpService, AppRepository documentsRepository) : base(navigationService, dialogService, docService, settings, httpService, documentsRepository)

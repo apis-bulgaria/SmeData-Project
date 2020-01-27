@@ -19,6 +19,10 @@ namespace SmeData.Mobile.CustomControls
             typeof(ObservableRangeCollection<ExpandableLVViewModel>),
             typeof(ExpandableListView));
 
+        public static readonly BindableProperty LabelFontSizeProperty = BindableProperty.Create(nameof(LabelFontSize),
+           typeof(int),
+           typeof(ExpandableListView));
+
 
         public ICommand QuestionClickCommand { get; private set; }
 
@@ -26,6 +30,12 @@ namespace SmeData.Mobile.CustomControls
         {
             InitializeComponent();
             this.QuestionClickCommand = new DelegateCommand<ExpandableLVViewModel>(this.ExecuteQuestionClickCommand);
+        }
+
+        public int LabelFontSize
+        {
+            get => (int)GetValue(LabelFontSizeProperty);
+            set => SetValue(LabelFontSizeProperty, value);
         }
 
         public ObservableRangeCollection<ExpandableLVViewModel> ListViewItems

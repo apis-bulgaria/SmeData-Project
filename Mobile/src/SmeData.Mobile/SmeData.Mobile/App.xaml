@@ -2,13 +2,20 @@
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
-             xmlns:converter="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
              xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
              x:Class="SmeData.Mobile.App">
     <prism:PrismApplication.Resources>        
         <ResourceDictionary>
-            <converter:InverseBooleanConverter x:Key="inverseBool" />
+            <converters:InverseBooleanConverter x:Key="inverseBool" />
+            <converters:SizeConverter x:Key="SizeConverter" />
             <!--Global Styles-->
+            <Style x:Key="TabbedPageStyle" TargetType="TabbedPage">
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+            <Style x:Key="ContentPageStyle" TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
             <Color x:Key="NavigationPrimaryColor">#77D1E4</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimaryColor}" />
@@ -17,6 +24,7 @@
             <Style TargetType="TabbedPage" x:Key="tabbedPageBarBackground">
                 <Setter Property="BarBackgroundColor"  Value="#E8E8E8" />
                 <Setter Property="SelectedTabColor" Value="#77D1E4"/>
+                <Setter Property="BackgroundColor" Value="White" />
                 <!--<Setter Property="BarTextColor" Value="Red" />-->
             </Style>
             <Style TargetType="Frame" x:Key="btnWithImage">
@@ -42,7 +50,7 @@
                 <Setter Property="Margin" Value="10"/>
             </Style>
             <ControlTemplate x:Key="MainPageTemplate">
-                <Grid>
+                <Grid Margin="0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="45" />
@@ -64,8 +72,7 @@
                                VerticalOptions="Center"
                                Margin="0">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                                      Command="{TemplateBinding Parent.TabCommand}"
+                                <TapGestureRecognizer Command="{TemplateBinding Parent.TabCommand}"
                                                       CommandParameter="https://smedata.eu" />
                             </Image.GestureRecognizers>
                         </Image>
@@ -75,7 +82,7 @@
                                VerticalTextAlignment="Center" 
                                HorizontalTextAlignment="Center"
                                Text="{Binding [MainPageFooter], Source={x:Static i18n:Translator.Instance}}"
-                               FontSize="12" 
+                               FontSize="11" 
                                TextColor="#004494"
                                VerticalOptions="Center" />
                         <Image Source="eu_flag.png" 
@@ -87,5 +94,4 @@
             </ControlTemplate>
         </ResourceDictionary>
     </prism:PrismApplication.Resources>
-
 </prism:PrismApplication>
