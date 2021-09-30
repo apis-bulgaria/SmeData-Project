@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ActivityIndicator xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   x:Class="SmeData.Mobile.CustomControls.LoadingIndicator"
+                   IsVisible="{Binding IsLoading}" 
+                   IsRunning="{Binding IsLoading}"
+                   Color="Gray"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                     Property=Height,
+                                                                     Factor=0.33}"
+                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                     Property=Height,
+                                                                     Factor=0.33}" 
+                   AutomationProperties.IsInAccessibleTree="True"
+                   AutomationProperties.Name="Loading indicator"/>

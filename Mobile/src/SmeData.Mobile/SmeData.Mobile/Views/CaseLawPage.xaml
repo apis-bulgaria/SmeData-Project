@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             x:Class="SmeData.Mobile.Views.CaseLawPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="casePage"
+             Title="{Binding [CaseLaw], Source={x:Static i18n:Translator.Instance}}"
+             AutomationId="attlCaseLaw">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:StringToBoolenConverter x:Key="StringToBoolenConverter" />
+            <converters:DocTypeToImageSourceConverter x:Key="DocTypeToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="FillAndExpand" 
+                 HorizontalOptions="FillAndExpand">
+        <customControls:LoadingIndicator IsLoading="{Binding Path=BindingContext.IsLoading, Source={x:Reference casePage}}"/>
+        <customControls:ListViewWithGrouping ItemsSource="{Binding LegislationDocs}"
+                                             IsGroupingEnabled="true"
+                                             SeparatorVisibility="None"
+                                             HasUnevenRows="True">
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell BindingContextChanged="OnGroupHeaderCellBindingContextChanged">
+                        <StackLayout>
+                            <Frame BackgroundColor="#CEEEF5"
+                                   Padding="0"
+                                   Margin="0"
+                                   HasShadow="False">
+                                <Label Text="{Binding Heading}"
+                                       x:Name="HeadingLabel"
+                                       FontSize="{Binding BindingContext.CategoryHeadingFont, Converter={StaticResource SizeConverter}, Source={x:Reference casePage}}"
+                                       TextColor="Gray"
+                                       Margin="20,5,5,5"
+                                       VerticalOptions="Center"
+                                       LineBreakMode="WordWrap"
+                                       MaxLines="5"
+                                       AutomationProperties.IsInAccessibleTree="True"/>
+                            </Frame>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <customControls:DocInTabListView LabelTitleText="{Binding Path=ShortTitle}"
+                                                         LabelSubTitleText="{Binding Path=SubTitle}"
+                                                         IsSubTitleNotNull="{Binding Path=SubTitle, Converter={StaticResource StringToBoolenConverter}}"
+                                                         ImageSource="{Binding Path=DocType, Converter={StaticResource DocTypeToImageSourceConverter}}" 
+                                                         TabCommand="{Binding Path=BindingContext.TabCommand, Source={x:Reference casePage}}"
+                                                         CommandPar="{Binding .}"
+                                                         DefaultFontSize="{Binding BindingContext.DocInTabFont, Converter={StaticResource SizeConverter}, Source={x:Reference casePage}}" />
+                                                         <!--AutomationId="alDocInCaseLaw"-->
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </customControls:ListViewWithGrouping>
+    </StackLayout>
+</ContentPage>
+
+
+
+
+<!--<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             x:Class="SmeData.Mobile.Views.CaseLawPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="casePage"
+             Title="{Binding [CaseLaw], Source={x:Static i18n:Translator.Instance}}"
+             AutomationId="attlCaseLaw">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DocTypeToImageSourceConverter x:Key="DocTypeToImageSourceConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <ListView ItemsSource="{Binding EuDocs}"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True">
+            <ListView.Behaviors>
+                <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <customControls:DocInTabListView LabelText="{Binding Path=FullTitle}"
+                                                         ImageSource="{Binding Path=DocType, Converter={StaticResource DocTypeToImageSourceConverter}}" 
+                                                         TabCommand="{Binding Path=BindingContext.TabCommand, Source={x:Reference casePage}}"
+                                                         CommandPar="{Binding .}"
+                                                         DefaultFontSize="{Binding BindingContext.DocInTabFont, Converter={StaticResource SizeConverter}, Source={x:Reference casePage}}"
+                                                         AutomationId="alDocInCaseLaw"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Footer>
+                <Grid Padding="6" 
+                      IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" 
+                                 Property="IsVisible" 
+                                 Value="False">
+                            <Setter Property="HeightRequest"
+                                    Value="0" />
+                        </Trigger>
+                    </Grid.Triggers>
+                    <customControls:LoadingIndicator IsLoading="{Binding IsBusy}"/>
+                </Grid>
+            </ListView.Footer>
+        </ListView>
+        <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>-->

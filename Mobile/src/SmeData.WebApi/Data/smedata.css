@@ -1,0 +1,394 @@
+<meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1'/ >
+<style>
+.gdpr-recital {
+    background-color: #EEF9FB;
+}
+
+.d-c-s-smedata {
+    background-color: rgb(230, 251, 255);
+    font-weight: bold;
+}
+
+.d-c-title-table,
+.d-c-title-annex-2,
+.d-c-doc-ti,
+.d-c-sti-art,
+.d-c-title-division-2,
+.d-c-ti-section-2,
+.d-c-ti-section-1,
+.d-c-sti-art,
+.d-c-tbl-hdr,
+.d-c-disclaimer,
+.d-c-title-doc-first,
+.d-c-s-center {
+    font-weight: bold;
+    text-align: center;
+}
+
+.d-c-centerExtraLarge {
+    text-transform: capitalize;
+}
+
+.d-EURLEX .d-c-normal {
+    font-weight: normal !important;
+}
+
+.d-c-s-h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.d-c-italic,
+.d-c-s-italic,
+.d-i {
+    font-style: italic;
+}
+
+.d-c-s-bold,
+.d-b {
+    font-weight: bold;
+}
+
+body {
+    font-size: 13px;
+    font-family: 'Montserrat', 'Open Sans', sans-serif;
+    color: #3d3d3d;
+    width: 98%;
+    margin: 0 auto;
+    text-align: justify;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    padding-right:20px;
+}
+
+#s-SC2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#s-MEA1,
+#s-MEA2,
+#s-MEA3,
+#s-IA2,
+#s-MOA1,
+#s-MOA2 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#s-MOFTO {
+    text-align: center;
+}
+
+#s-FR {
+    text-align: center;
+    font-style: italic;
+}
+
+.d-c-xslt-disclaimer {
+    background: lightgray;
+    padding: 3px;
+    border: 1px solid black;
+}
+
+    .d-c-xslt-disclaimer * {
+        margin: 2px;
+    }
+
+.d-EURLEX .d-p,
+.d-EURLEX .d-td,
+.d-EURLEX .d-c-s-tag-td {
+    vertical-align: top;
+    margin: 10px 0;
+}
+
+.d-EURLEX .d-c-s-count,
+.d-EURLEX .d-c-s-normal {
+    margin: 3px 0;
+}
+
+/* document title*/
+.d-EURLEX .d-c-doc-ti,
+.d-EURLEX .d-blocksreq.d-content .d-c-sti-art,
+.d-EURLEX .d-c-s-index,
+.d-EURLEX .d-c-s-sum-title-1,
+.d-EURLEX .d-docTitle,
+.d-docTitle {
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px !important;
+    font-size: 14px;
+}
+
+.d-heading {
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+}
+
+.d-num {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.d-article > .d-num {
+    font-weight: normal !important;
+    margin: 5px 0 10px;
+}
+
+.d-chapter > .d-num {
+    font-size: 16px;
+    margin: 10px 0 5px;
+}
+
+.d-EURLEX.d-section .d-heading > .d-c-ti-section-2 {
+    display: block;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    text-align: center;
+}
+
+.d-EURLEX.d-chapter > .d-heading .d-c-ti-section-2 {
+    font-style: italic;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+}
+
+.d-body .d-EURLEX .d-c-s-tag-p {
+    margin: 3px 0;
+}
+
+.d-c-norm span:first-child {
+    margin-right: 20px;
+}
+
+.d-EURLEX .d-c-s-tag-table colgroup col:first-child {
+    width: 3% !important;
+}
+
+.d-EURLEX .d-c-s-tag-table colgroup col:last-child {
+    width: 97%;
+}
+
+/* table */
+.d-EURLEX.d-table {
+    width: 100%;
+    border: 0 none;
+}
+
+.d-EURLEX.d-td:first-of-type {
+    vertical-align: top;
+    width: 22px;
+}
+
+/* d-judgment */
+.d-EURLEX.d-judgment .d-header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.d-EURLEX .d-c-s-sum-title-1 {
+    font-size: 14px;
+    text-align: center;
+}
+
+.d-EURLEX .d-c-s-title-grseq-2,
+.d-EURLEX .d-c-s-title-grseq-3 {
+    margin-left: 33px;
+}
+
+/* d-judgmentBody */
+.d-EURLEX.d-judgmentBody .d-p {
+    margin: 0;
+}
+
+.d-EURLEX.d-judgmentBody .d-item {
+    margin: 7px 0;
+    width: 100%;
+}
+
+.d-EURLEX.d-judgmentBody .d-num {
+    margin: 0 20px 0 0;
+}
+
+.d-EURLEX.d-judgmentBody .d-c-s-C02AlineaAltA {
+    margin-left: 45px;
+}
+
+.d-EURLEX.d-judgmentBody .d-c-s-C09Marge0avecretrait {
+    margin-left: 70px;
+}
+
+.d-EURLEX.d-judgmentBody .d-c-s-C10Marge {
+    margin-left: 90px;
+}
+
+.d-EURLEX .d-c-s-C75Debutdesmotifs {
+    margin-left: 30px;
+}
+
+/* link  */
+.d-EURLEX.d-ref {
+    color: #4242d4;
+    text-decoration: none;
+}
+
+    .d-EURLEX.d-ref:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+.par-in-link {
+    display: none;
+}
+
+/* footer */
+.d-EURLEX .d-conclusions {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.d-EURLEX .d-c-signatory {
+    text-align: center;
+}
+
+.d-EURLEX.d-c-footnote {
+    color: #111;
+    text-decoration: none;
+}
+
+    .d-EURLEX.d-c-footnote:hover {
+        text-decoration: none;
+        cursor: inherit;
+    }
+
+.doc-go-prev,
+.doc-go-next {
+    background: #f0faff;
+    border: 1px solid #69CCE1;
+    border-radius: 3px;
+    color: #3d3d3d;
+    text-align: center;
+    min-width: 70px;
+    text-decoration: none;
+    padding: 5px 7px;
+    margin: 5px;
+    display: inline-block;
+}
+
+button {
+    text-align: center;
+    min-width: 70px;
+    padding: 5px 7px;
+    border: 1px solid #69CCE1;
+    border-radius: 3px;
+    margin: 5px;
+    font-size: 14px;
+    background: #69CCE1;
+    color: white;
+    display: inline-block;
+}
+
+    .doc-go-prev:hover,
+    .doc-go-next:hover,
+    button:hover,
+    .doc-go-prev:active,
+    .doc-go-next:active,
+    button:active {
+        background: #509ead;
+    }
+
+.doc-go-next {
+    float: right;
+}
+
+.srch_f {
+    padding: 0 2px !important;
+    background-color: #FEDEB7 !important;
+    display: inline;
+    text-decoration: none;
+}
+
+.srch_f1 {
+    padding: 0 2px !important;
+    background-color: #FEDEB7;
+    display: inline;
+    text-decoration: none;
+    font-weight: bold !important;
+}
+
+* .srch_f, * .srch_f1 {
+    text-indent: 0;
+}
+
+
+.d-SmeDataEuCommision .d-c-made-simple-agg .d-apis {
+    text-decoration: none;
+}
+
+
+.d-recital {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+    .d-recital .d-c-s-tag-p {
+        margin: 0 !important;
+    }
+
+ul {
+    list-style-type: none
+}
+
+.fa {
+    font-size: 1.5em !important;
+    margin-right: 5px;
+}
+
+.fa-file-pdf-o {
+    color: red;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    font-size: 13px;
+}
+
+</style >
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
+
+<script >
+function showHideDiv(divName) {
+    var x = document.getElementById(divName);
+    if (x.style.display === "none")
+
+{
+    x .style.display = "block";
+}
+
+else {
+    x .style.display = "none";
+}
+
+}
+</script >

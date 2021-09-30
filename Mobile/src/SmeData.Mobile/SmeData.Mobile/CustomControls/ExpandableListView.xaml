@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ListView  xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           x:Class="SmeData.Mobile.CustomControls.ExpandableListView"
+           x:Name="thisListView"
+           ItemsSource="{Binding ListViewItems}"
+           HasUnevenRows="true"
+           IsGroupingEnabled="True" >
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <Label x:Name="TextContent"
+                       Text="{Binding Content}" 
+                       Margin="10"
+                       AutomationId="alblExtendedListContent"/>
+            </ViewCell>
+        </DataTemplate>
+    </ListView.ItemTemplate>
+    <ListView.GroupHeaderTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <Grid MinimumHeightRequest="40"
+                      AutomationProperties.IsInAccessibleTree="True"
+                      AutomationProperties.HelpText="Click to expand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={x:Reference thisListView}, Path=QuestionClickCommand}" 
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="1" />
+                    </Grid.GestureRecognizers>
+                    <Label x:Name="{TextHeader, Source={x:Reference thisListView}}"
+                           Text="{Binding Header}"
+                           FontSize="Medium"
+                           Grid.Row="0" 
+                           Grid.Column="0"
+                           Margin="5"/>
+                    <Image Source="arrow_down.png"
+                           HorizontalOptions="End"
+                           Opacity="0.5"
+                           Grid.Row="0" 
+                           Grid.Column="1"
+                           Margin="10"
+                           AutomationId="aimgExtendedListArrow">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding IsExpanded}" 
+                                                 Value="true">
+                                        <Setter Property="Rotation" 
+                                                Value="180" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+    </ListView.GroupHeaderTemplate>
+</ListView>

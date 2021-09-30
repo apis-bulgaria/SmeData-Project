@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             x:Class="SmeData.Mobile.Views.InternationalTreatiesPage"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="intTreatiesPage"
+             Title="{Binding [InternationalTreaties], Source={x:Static i18n:Translator.Instance}}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DocTypeToImageSourceConverter x:Key="DocTypeToImageSourceConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:StringToBoolenConverter x:Key="StringToBoolenConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <ListView ItemsSource="{Binding EuDocs}"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="True">
+            <ListView.Behaviors>
+                <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <customControls:DocInTabListView LabelTitleText="{Binding Path=ShortTitle}"
+                                                         LabelSubTitleText="{Binding Path=SubTitle}"
+                                                         IsSubTitleNotNull="{Binding Path=SubTitle, Converter={StaticResource StringToBoolenConverter}}"
+                                                         ImageSource="{Binding Path=DocType, Converter={StaticResource DocTypeToImageSourceConverter}}" 
+                                                         TabCommand="{Binding Path=BindingContext.TabCommand, Source={x:Reference intTreatiesPage}}"
+                                                         CommandPar="{Binding .}"
+                                                         DefaultFontSize="{Binding BindingContext.DocInTabFont, Converter={StaticResource SizeConverter}, Source={x:Reference intTreatiesPage}}" />
+                                                        <!--AutomationId="alDocInIntTreaties"-->
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Footer>
+                <Grid Padding="6" 
+                      IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" 
+                                 Property="IsVisible" 
+                                 Value="False">
+                            <Setter Property="HeightRequest"
+                                    Value="0" />
+                        </Trigger>
+                    </Grid.Triggers>
+                    <customControls:LoadingIndicator IsLoading="{Binding IsBusy}"/>
+                </Grid>
+            </ListView.Footer>
+        </ListView>
+        <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>

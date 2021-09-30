@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainPageCaption" xml:space="preserve">
+    <value>Pagina principale</value>
+  </data>
+  <data name="GdprDictionary" xml:space="preserve">
+    <value>Dizionario GDPR</value>
+  </data>
+  <data name="GuideForCitizens" xml:space="preserve">
+    <value>Guida per i cittadini</value>
+  </data>
+  <data name="GuideForSMEs" xml:space="preserve">
+    <value>Guida per le PMI</value>
+  </data>
+  <data name="MainPageFooter" xml:space="preserve">
+    <value>Il progetto SMEDATA è finanziato dal programma UE per i diritti, l'uguaglianza e la cittadinanza (2014-2020)</value>
+  </data>
+  <data name="DecisionSupportTool" xml:space="preserve">
+    <value>Strumento di supporto decisionale</value>
+  </data>
+  <data name="EuropeanUnion" xml:space="preserve">
+    <value>Unione Europea</value>
+  </data>
+  <data name="GDPRMadeSimple" xml:space="preserve">
+    <value>GDPR reso semplice</value>
+  </data>
+  <data name="International" xml:space="preserve">
+    <value>Internazionale</value>
+  </data>
+  <data name="National" xml:space="preserve">
+    <value>Nazionale</value>
+  </data>
+  <data name="ContactNationalDPA" xml:space="preserve">
+    <value>Contatto con i DPA nazionali</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Segnalibri</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Aiuto</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>impostazioni</value>
+  </data>
+  <data name="TrainingMaterials" xml:space="preserve">
+    <value>Materiali formativi</value>
+  </data>
+  <data name="UsefulLinks" xml:space="preserve">
+    <value>Collegamenti utili</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Avanti</value>
+  </data>
+  <data name="Prev" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="SaveOffline" xml:space="preserve">
+    <value>Salva offline</value>
+  </data>
+  <data name="LegalLibrary" xml:space="preserve">
+    <value>Biblioteca legale</value>
+  </data>
+  <data name="EuropeanDataProtectionBoard" xml:space="preserve">
+    <value>Consiglio europeo per la protezione dei dati</value>
+  </data>
+  <data name="EuropeanDataProtectionSupervisor" xml:space="preserve">
+    <value>Supervisore europeo per la protezione dei dati</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Bulgaria" xml:space="preserve">
+    <value>Bulgaria</value>
+  </data>
+  <data name="OtherCourts" xml:space="preserve">
+    <value>Altri tribunali</value>
+  </data>
+  <data name="SupremeAdministrativeCourt" xml:space="preserve">
+    <value>Tribunale amministrativo supremo</value>
+  </data>
+  <data name="Decisions" xml:space="preserve">
+    <value>Decisioni</value>
+  </data>
+  <data name="Opinions" xml:space="preserve">
+    <value>Opinioni</value>
+  </data>
+  <data name="Italy" xml:space="preserve">
+    <value>Italia</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="UpdateAllDocuments" xml:space="preserve">
+    <value>Aggiorna tutti i documenti</value>
+  </data>
+  <data name="SearchInDocuments" xml:space="preserve">
+    <value>Cerca nei documenti</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Benvenuti</value>
+  </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>Domande frequenti</value>
+  </data>
+  <data name="GdprPocket" xml:space="preserve">
+    <value>GDPR in tasca</value>
+  </data>
+  <data name="CaseLaw" xml:space="preserve">
+    <value>Giurisprudenza</value>
+  </data>
+  <data name="DocumentContent" xml:space="preserve">
+    <value>EU quadro giuridico</value>
+  </data>
+  <data name="Guidelines" xml:space="preserve">
+    <value>Linee guida</value>
+  </data>
+  <data name="InternationalCaseLaw" xml:space="preserve">
+    <value>Giurisprudenza internazionale</value>
+  </data>
+  <data name="InternationalTreaties" xml:space="preserve">
+    <value>Trattati internazionali</value>
+  </data>
+  <data name="Legislation" xml:space="preserve">
+    <value>Legislazioni</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="NationalCaseLaw" xml:space="preserve">
+    <value>Giurisprudenza nazionale</value>
+  </data>
+  <data name="NationalGuidelines" xml:space="preserve">
+    <value>Linee guida nazionali</value>
+  </data>
+  <data name="PagesInfoText" xml:space="preserve">
+    <value>Fornire indicazioni pratiche sulle regole del GDPR alle PMI. Sono costituiti dai seguenti componenti ...</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Opinioni</value>
+  </data>
+  <data name="Erase" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+</root>

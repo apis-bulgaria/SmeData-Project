@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Frame xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+       x:Class="SmeData.Mobile.CustomControls.FrameButtonHorizontal"
+       x:Name="frameButtonHorizontal"
+       Margin="5"
+       AutomationProperties.IsInAccessibleTree="True">
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding TabCommand}" 
+                              CommandParameter="{Binding CommandPar}" />
+    </Frame.GestureRecognizers>
+    <Grid x:Name="gridContent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="ImageEntry"
+               Source="{Binding ImageSource}"
+               Margin="10"
+               Opacity="{Binding OpacityImage}"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+        <Label Text="{Binding LabelText}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding DefaultFontSize}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+    </Grid>
+</Frame>
+
+<!--FontSize="{OnIdiom 12, Phone=18, Tablet=28}"-->

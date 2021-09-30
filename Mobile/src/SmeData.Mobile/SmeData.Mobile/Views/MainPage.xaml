@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:views="clr-namespace:SmeData.Mobile.Views"
+                  x:Class="SmeData.Mobile.Views.MainPage"
+                  xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                  prism:ViewModelLocator.AutowireViewModel="True"
+                  xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+                  xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+                  MasterBehavior="Popover">
+    <MasterDetailPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </MasterDetailPage.Resources>
+    <MasterDetailPage.Master>
+        <NavigationPage Title="{Binding [Menu], Source={x:Static i18n:Translator.Instance}}">
+            <x:Arguments>
+                <ContentPage>
+                    <StackLayout Margin="20,10,0,0">
+                        <customControls:MenuItem LabelText= "{Binding [LegalLibrary], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="library.png" 
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="LegalFrameworkPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuLegalLibrary"-->
+                        <customControls:MenuItem LabelText= "{Binding [GdprDictionary], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="book.png" 
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="GdprDictionaryPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuGdprDictionary"-->
+                        <customControls:MenuItem LabelText= "{Binding [GuideForCitizens], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="group.png" 
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="GuideForCitizensPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuGuideForCitizens"-->
+                        <customControls:MenuItem LabelText= "{Binding [GuideForSMEs], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="suitcase.png" 
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="GuideForSmesPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuGuideForSMEs"-->
+
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="{StaticResource NavigationPrimaryColor}" 
+                                 Margin="5,8,50,8"/>
+
+                        <customControls:MenuItem LabelText= "{Binding [UsefulLinks], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="foreign.png" 
+                                                 Padding="2"
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="UsefulLinksPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuUsefulLinks"-->
+                        <customControls:MenuItem LabelText= "{Binding [Bookmarks], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="bookmark.png" 
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="BookmarksPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuBookmarks"-->
+                        <customControls:MenuItem LabelText= "{Binding [SavedDocuments], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="savedFiles.png" 
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="OfflineDocumentsPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuSavedDocuments"-->
+                        <customControls:MenuItem LabelText= "{Binding [Search], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="magnifier.png" 
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="SearchPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuSearch"-->
+
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="{StaticResource NavigationPrimaryColor}" 
+                                 Margin="5,8,50,8"/>
+
+                        <customControls:MenuItem LabelText= "{Binding [Settings], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="settings.png" 
+                                                 TabCommand="{Binding NavigateCommand}"
+                                                 CommandPar="SettingsPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuSettings"-->
+                        <customControls:MenuItem LabelText= "{Binding [Help], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="questionInfo.png" 
+                                                 TabCommand="{Binding HelpPageCommand}"
+                                                 CommandPar="HelpPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuHelp"-->
+                        <customControls:MenuItem LabelText= "{Binding [About], Source={x:Static i18n:Translator.Instance}}"
+                                                 ImageSource="information.png" 
+                                                 TabCommand="{Binding AboutPageCommand}"
+                                                 CommandPar="AboutPage"
+                                                 DefaultFontSize="{Binding MenuItemFont, Converter={StaticResource SizeConverter}}"
+                                                 DefaultHeightSize="{Binding MenuRowHeight, Converter={StaticResource SizeConverter}}"
+                                                 AutomationProperties.IsInAccessibleTree="True"/>
+                                                 <!--AutomationId="albMenuAbout"-->
+                    </StackLayout>
+                </ContentPage>
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Master>    
+</MasterDetailPage>

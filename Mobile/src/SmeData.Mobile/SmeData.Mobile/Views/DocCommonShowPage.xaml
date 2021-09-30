@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:behaviors="clr-namespace:SmeData.Mobile.Behaviors"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.DocCommonShowPage"
+             x:Name="docCommonShowPage"
+             AutomationId="attlDocCommonShowPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference docCommonShowPage}}" 
+                     Icon="home.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="{Binding [HomeButton], Source={x:Static i18n:Translator.Instance}}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:WebNavigatingConverter x:Key="webNavigatingEventArgsConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Padding="5">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ExpandDocTitleLabelCommand}" 
+                                          NumberOfTapsRequired="1" />
+                </StackLayout.GestureRecognizers>
+                <Label x:Name="DocTitleLabel"
+                       Text="{Binding CurrentDocTitle}"
+                       FontSize="{Binding DocTitleLabelFont, Converter={StaticResource SizeConverter}}"
+                       TextColor="DarkSlateGray"
+                       VerticalOptions="StartAndExpand"
+                       LineBreakMode="WordWrap"
+                       AutomationProperties.IsInAccessibleTree="True"/>
+                <BoxView HeightRequest="1" 
+                         BackgroundColor="DarkGray" 
+                         Margin="5,0"/>
+            </StackLayout>
+            <WebView x:Name="Description" 
+                     VerticalOptions ="FillAndExpand" 
+                     HorizontalOptions="FillAndExpand"
+                     BackgroundColor="AliceBlue" 
+                     Navigating="Description_Navigating"
+                     Margin="10,0"
+                      Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
+                <WebView.Behaviors>
+                    <b:EventToCommandBehavior EventName="Navigating"
+                                              Command="{Binding BindingContext.NavigatingCommand, Source={x:Reference docCommonShowPage}}"
+                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
+                </WebView.Behaviors>
+            </WebView>
+            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             x:Class="SmeData.Mobile.Views.SettingsPage"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             Title="{Binding [Settings], Source={x:Static i18n:Translator.Instance}}"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="settingsPage"
+             AutomationId="attlSettings">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference settingsPage}}" 
+                     AutomationId="aicnHome">
+            <ToolbarItem.IconImageSource>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="home.png" />
+                    <On Platform="UWP" Value="Assets/home.png" />
+                </OnPlatform>   
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Label Text="{Binding [Language], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Row="0"
+               Grid.Column="0"
+               FontSize="{Binding SettingItemFont, Converter={StaticResource SizeConverter}}"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="Center"/>
+        <Picker Title="{Binding [SelectLanguage], Source={x:Static i18n:Translator.Instance}}" 
+                ItemsSource ="{Binding LanguagesList}"
+                SelectedItem="{Binding CurrentLanguage}" 
+                Grid.Row="0"
+                Grid.Column="1"
+                MinimumHeightRequest="100"
+                FontSize="{Binding SettingItemFont, Converter={StaticResource SizeConverter}}"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center"
+                AutomationId="apckrLanguage"/>
+
+        <Label Text="{Binding [MsgUpdatesSettingsOption], Source={x:Static i18n:Translator.Instance}}" 
+               Grid.Row="1"
+               Grid.Column="0"
+               FontSize="{Binding SettingItemFont, Converter={StaticResource SizeConverter}}"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="Center" />
+        <Switch IsToggled="{Binding IsMsgUpdatesOptionToggled}"
+                OnColor="{StaticResource NavigationPrimaryColor}"
+                ThumbColor="LightGray"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center" />
+
+        <Label Text="{Binding [WifiSettingsOption], Source={x:Static i18n:Translator.Instance}}" 
+               Grid.Row="2"
+               Grid.Column="0"
+               FontSize="{Binding SettingItemFont, Converter={StaticResource SizeConverter}}"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="Center">
+            <Label.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <On Platform="Android, iOS">true</On>
+                    <On Platform="UWP">false</On>
+                </OnPlatform>
+            </Label.IsVisible>
+        </Label>        
+        <Switch IsToggled="{Binding IsWifiOptionToggled}"
+                OnColor="{StaticResource NavigationPrimaryColor}"
+                ThumbColor="LightGray"
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center">
+            <Switch.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <On Platform="Android, iOS">true</On>
+                    <On Platform="UWP">false</On>
+                </OnPlatform>
+            </Switch.IsVisible>
+        </Switch>      
+    </Grid>
+</ContentPage>

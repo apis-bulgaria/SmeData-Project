@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.OfflineDocumentsPage" 
+             x:Name="offlineDocumentsPage"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             Style="{StaticResource tabbedPageBarBackground}"
+             Title="{Binding [SavedDocuments], Source={x:Static i18n:Translator.Instance}}"
+             AutomationId="attlOfflineDocuments">
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference offlineDocumentsPage}}" 
+                     Icon="home.png" 
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Home button"/>
+    </TabbedPage.ToolbarItems>
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToGridColumnSpanConverter x:Key="BoolToGridColumnSpanConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+    <ContentPage Title="{Binding [UserDocuments], Source={x:Static i18n:Translator.Instance}}"
+                 ControlTemplate="{StaticResource MainPageTemplate}"
+                 x:Name="tab1">
+        <ContentPage.Content>
+            <StackLayout x:Name="Layout">
+                <Button Command="{Binding UpdateAllDocsCommand}" 
+                        Text="{Binding [UpdateAllDocuments], Source={x:Static i18n:Translator.Instance}}"
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="Fill" 
+                        TextColor="#5bd149"
+                        BackgroundColor="White"
+                        BorderColor="Gray"
+                        BorderWidth="1"
+                        CornerRadius="5"
+                        FontSize="{Binding UpdateAllDocsButtonFont, Converter={StaticResource SizeConverter}}"
+                        Padding="5"
+                        Margin="10"
+                        HeightRequest="40"
+                        IsVisible="{Binding IsAnyDocsForUpdate}"
+                        AutomationProperties.IsInAccessibleTree="True"/>
+                <ListView x:Name="DocsListView"
+                      ItemsSource="{Binding AllDocsToShow}"
+                      RowHeight="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell x:Name="cell">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="8*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="ThisLabel"
+                                           Text="{Binding SmeDocument.Meta.Title}" 
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="CenterAndExpand"
+                                           TextColor="Gray"
+                                           FontSize="16"
+                                           Grid.Row="0" 
+                                           Grid.Column="0"
+                                           Margin="5,5,10,5"
+                                           MaxLines="4"
+                                           LineBreakMode="TailTruncation"
+                                           AutomationProperties.IsInAccessibleTree="True">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer x:Name="ThisCommand"
+                                                              Command="{Binding BindingContext.TabCommand, Source={x:Reference offlineDocumentsPage}}" 
+                                                              CommandParameter="{Binding SmeDocument}"
+                                                              NumberOfTapsRequired="1" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Grid Grid.Column="1">
+                                        <customControls:LoadIndicatorButton LabelText="{Binding [Update], Source={x:Static i18n:Translator.Instance}}"
+                                                                            BackgroundColor="White"
+                                                                            BtnCommand="{Binding BindingContext.UpdateDocCommand, Source={x:Reference offlineDocumentsPage}}" 
+                                                                            CommandPar="{Binding .}"
+                                                                            IsButtonBusy="{Binding IsLoading}"
+                                                                            IsVisible="{Binding IsForUpdate}"
+                                                                            Grid.Row="0"
+                                                                            HorizontalOptions="FillAndExpand"/>
+                                        <Button x:Name="btnErase" 
+                                                Text="{Binding [Erase], Source={x:Static i18n:Translator.Instance}}"
+                                                Command="{Binding BindingContext.EraseDocObjectCommand, Source={x:Reference DocsListView}}" 
+                                                CommandParameter="{Binding .}" 
+                                                Grid.Row="1"
+                                                HorizontalOptions="FillAndExpand" 
+                                                TextColor="#e33b3b"
+                                                BackgroundColor="White"
+                                                BorderColor="Gray"
+                                                BorderWidth="1"
+                                                CornerRadius="5"
+                                                FontSize="{OnIdiom 11, Phone=10, Tablet=20}"
+                                                Padding="5"
+                                                HeightRequest="40"
+                                                Margin="5"
+                                                AutomationProperties.IsInAccessibleTree="True"/>
+                                    </Grid>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+
+    <ContentPage Title="{Binding [SystemDocuments], Source={x:Static i18n:Translator.Instance}}"
+                 ControlTemplate="{StaticResource MainPageTemplate}"
+                 x:Name="tab2">
+        <ContentPage.Content>
+            <StackLayout>
+                <Button Command="{Binding UpdateAllMainDocsCommand}" 
+                        Text="{Binding [UpdateAllDocuments], Source={x:Static i18n:Translator.Instance}}"
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="Fill" 
+                        TextColor="#5bd149"
+                        BackgroundColor="White"
+                        BorderColor="Gray"
+                        BorderWidth="1"
+                        CornerRadius="5"
+                        FontSize="{Binding UpdateAllDocsButtonFont, Converter={StaticResource SizeConverter}}"
+                        Padding="5"
+                        Margin="10"
+                        HeightRequest="40"
+                        IsVisible="{Binding IsAnyMainDocsForUpdate}"
+                        AutomationProperties.IsInAccessibleTree="True"/>
+                <ListView x:Name="DocsListView2"
+                      ItemsSource="{Binding AllMainDocsToShow}"
+                      RowHeight="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="8*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="ThisLabel2"
+                                           Text="{Binding SmeDocument.Meta.Title}" 
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="CenterAndExpand"
+                                           TextColor="Gray"
+                                           FontSize="16"
+                                           Grid.Row="0" 
+                                           Grid.Column="0"
+                                           Margin="5,5,10,5"
+                                           MaxLines="4"
+                                           LineBreakMode="TailTruncation"
+                                           Grid.ColumnSpan="{Binding IsForUpdate, Converter={StaticResource BoolToGridColumnSpanConverter}}"
+                                           AutomationProperties.IsInAccessibleTree="True">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer x:Name="ThisCommand2"
+                                                              Command="{Binding BindingContext.TabCommand, Source={x:Reference offlineDocumentsPage}}" 
+                                                              CommandParameter="{Binding SmeDocument}"
+                                                              NumberOfTapsRequired="1" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <customControls:LoadIndicatorButton LabelText="{Binding [Update], Source={x:Static i18n:Translator.Instance}}"
+                                                                        BackgroundColor="White"
+                                                                        BtnCommand="{Binding BindingContext.UpdateDocCommand, Source={x:Reference offlineDocumentsPage}}" 
+                                                                        CommandPar="{Binding .}"
+                                                                        IsButtonBusy="{Binding IsLoading}"
+                                                                        IsVisible="{Binding IsForUpdate}"
+                                                                        Grid.Column="1"
+                                                                        HorizontalOptions="FillAndExpand"/>
+                                    
+                                    <!--<Grid Grid.Column="1">
+                                        <customControls:LoadIndicatorButton LabelText="{Binding [Update], Source={x:Static i18n:Translator.Instance}}"
+                                                                        BackgroundColor="White"
+                                                                        BtnCommand="{Binding BindingContext.UpdateDocCommand, Source={x:Reference offlineDocumentsPage}}" 
+                                                                        CommandPar="{Binding .}"
+                                                                        IsButtonBusy="{Binding IsLoading}"
+                                                                        IsVisible="{Binding IsForUpdate}"
+                                                                        Grid.Row="0"
+                                                                        HorizontalOptions="FillAndExpand"/>
+                                        <Button x:Name="btnErase2" 
+                                            Text="{Binding [Erase], Source={x:Static i18n:Translator.Instance}}"
+                                            Command="{Binding BindingContext.EraseDocCommand, Source={x:Reference offlineDocumentsPage}}" 
+                                            CommandParameter="{Binding .}" 
+                                            Grid.Row="1"
+                                            HorizontalOptions="FillAndExpand" 
+                                            TextColor="#e33b3b"
+                                            BackgroundColor="White"
+                                            BorderColor="Gray"
+                                            BorderWidth="1"
+                                            CornerRadius="5"
+                                            FontSize="{OnIdiom 11, Phone=11, Tablet=20}"
+                                            Padding="5"
+                                            HeightRequest="40"
+                                            Margin="5"/>
+                                    </Grid>-->
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+</TabbedPage>
+
+
+<!--Grid.ColumnSpan="{Binding IsForUpdate, Converter={StaticResource BoolToGridColumnSpanConverter}}"-->

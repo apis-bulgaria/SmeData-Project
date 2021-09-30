@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.BookmarksPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             Title="{Binding [Bookmarks], Source={x:Static i18n:Translator.Instance}}"
+             x:Name="bookmarksPage"
+             AutomationId="attlBookmarks">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <customControls:ListViewWithGrouping ItemsSource="{Binding AllBookmarks}"
+                                              IsGroupingEnabled="true"
+                                              SeparatorVisibility="None"
+                                              HasUnevenRows="True"
+                                              Grid.Row="0">
+            <ListView.Behaviors>
+                <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+            </ListView.Behaviors>
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <BoxView HeightRequest="1" 
+                                     BackgroundColor="DimGray" 
+                                     Margin="10"/>
+                            <Label Text="{Binding DocTitle}"
+                                   FontSize="{Binding Path=BindingContext.DocTitleLabelFont, Converter={StaticResource SizeConverter}, Source={x:Reference bookmarksPage}}"
+                                   TextColor="DarkSlateGray"
+                                   Margin="10,0"
+                                   VerticalOptions="Center"
+                                   AutomationProperties.IsInAccessibleTree="True"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="30,5,0,5">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.GoToElementViewCommand, Source={x:Reference bookmarksPage}}" 
+                                                      CommandParameter= "{Binding .}" 
+                                                      NumberOfTapsRequired="1" />
+                            </StackLayout.GestureRecognizers>
+                            <Label Text="{Binding PartHeading}" 
+                                       FontSize="{Binding Path=BindingContext.BookmarksFont, Converter={StaticResource SizeConverter}, Source={x:Reference bookmarksPage}}"
+                                       TextColor="Gray"
+                                       LineBreakMode="TailTruncation"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Footer>
+                <Grid Padding="6" 
+                      IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" 
+                                 Property="IsVisible" 
+                                 Value="False">
+                            <Setter Property="HeightRequest"
+                                    Value="0" />
+                        </Trigger>
+                    </Grid.Triggers>
+                    <customControls:LoadingIndicator IsLoading="{Binding IsBusy}"/>
+                </Grid>
+            </ListView.Footer>
+        </customControls:ListViewWithGrouping>
+                <Frame HeightRequest="40"
+                       AutomationProperties.IsInAccessibleTree="True"
+                       Style="{StaticResource btnWithImage}"
+                        Grid.Row="1"
+                        Margin="20,0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ReloadBookmarksCommand}" 
+                              NumberOfTapsRequired="1" />
+                    </Frame.GestureRecognizers>
+                    <Grid x:Name="gridContent"
+                          Margin="20,3">
+                        <Label Text="{Binding [ReloadBookmarks], Source={x:Static i18n:Translator.Instance}}"
+                               Margin="2"
+                               FontSize="{Binding DefaultFontSize}"
+                               TextColor="Gray"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>           
+        <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>

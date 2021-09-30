@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="SmeData.Mobile.CustomControls.DocInTabListView"
+      Margin="0,5">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="12*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.GestureRecognizers>
+        <TapGestureRecognizer x:Name="ThisCommand"
+                              Command="{Binding TabCommand}" 
+                              CommandParameter="{Binding CommandPar}" 
+                              NumberOfTapsRequired="1" />
+    </Grid.GestureRecognizers>
+    <Image x:Name="ThisImage"
+           Source="{Binding ImageSource}"
+           HorizontalOptions="Center"
+           VerticalOptions="Start"
+           Opacity="0.5"
+           Grid.Row="0" 
+           Grid.Column="0"
+           Margin="15,5,5,5">
+    </Image>
+    <StackLayout Grid.Row="0" 
+                 Grid.Column="1"
+                 VerticalOptions="StartAndExpand"
+                 AutomationProperties.IsInAccessibleTree="True">
+        <Label x:Name="TitleLabel"
+               Text="{Binding LabelTitleText}" 
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="StartAndExpand"
+               TextColor="Gray"
+               FontSize="{Binding DefaultFontSize}"
+               Margin="5,5,5,0"/>
+        <Label x:Name="SubTitleLabel"
+               Text="{Binding LabelSubTitleText}" 
+               IsVisible="{Binding IsSubTitleNotNull}"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               TextColor="Gray"
+               FontAttributes="Italic"
+               Margin="5,0,5,5"/>
+    </StackLayout>
+</Grid>

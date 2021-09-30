@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.UsefulLinksPage"
+             Title="{Binding [UsefulLinks], Source={x:Static i18n:Translator.Instance}}"
+             x:Name="usefulLinksPage"
+             AutomationId="attlUsefulLinks">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <ListView ItemsSource="{Binding Links}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.GoToLinkCommand, Source={x:Reference usefulLinksPage}}"
+                                                      CommandParameter="{Binding LinkUrl}" />
+                            </StackLayout.GestureRecognizers>
+                            <Label Text="{Binding LinkText}"
+                                   HorizontalOptions="StartAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   Margin="5"
+                                   FontSize="{Binding Path=BindingContext.LinksFont, Converter={StaticResource SizeConverter}, Source={x:Reference usefulLinksPage}}"
+                                   AutomationProperties.IsInAccessibleTree="True"/>
+                            <Image x:Name="LinkImage"
+                                   Source="foreign.png"
+                                   Margin="10"
+                                   HeightRequest="{Binding Path=BindingContext.ImageFont, Converter={StaticResource SizeConverter}, Source={x:Reference usefulLinksPage}}"
+                                   Opacity="0.5"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="End"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+
+</ContentPage>

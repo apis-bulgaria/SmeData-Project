@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:SmeData.Mobile.Views"
+            x:Class="SmeData.Mobile.Views.ItLegalPage"
+            xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+            xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+            xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+            Style="{StaticResource tabbedPageBarBackground}"
+            x:Name="itLegalPage"
+            Title="{Binding [Italy], Source={x:Static i18n:Translator.Instance}}"
+            AutomationId="attlItaly">
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference itLegalPage}}" 
+                     Icon="home.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Home button"/>
+    </TabbedPage.ToolbarItems>
+    <local:ItLegislationPage Title="{Binding [Legislation], Source={x:Static i18n:Translator.Instance}}" AutomationId="atbItLegislation" />
+    <ContentPage Title="{Binding [CaseLaw], Source={x:Static i18n:Translator.Instance}}" 
+                 AutomationId="atbItCaseLaw">
+        <ContentPage.Content>
+            <StackLayout Padding="5">
+
+                <OnPlatform x:TypeArguments="Frame">
+                    <On Platform="UWP">
+                        <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToConstitutionalCourtCommand}" />
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Image 
+               Source="copy.png"
+               Margin="10"
+               Opacity="0.5"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                                <Label Text="{Binding [ConstitutionalCourt], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                            </Grid>
+                        </Frame>
+                    </On>
+                    <On Platform="Android, iOS">
+                        <customControls:FrameButtonHorizontal LabelText= "{Binding [ConstitutionalCourt], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToConstitutionalCourtCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                    </On>
+                </OnPlatform>
+
+                <OnPlatform x:TypeArguments="Frame">
+                    <On Platform="UWP">
+                        <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToSupremeCourtOfCassationCommand}" />
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Image 
+               Source="copy.png"
+               Margin="10"
+               Opacity="0.5"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                                <Label Text="{Binding [SupremeCourtOfCassation], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                            </Grid>
+                        </Frame>
+                    </On>
+                    <On Platform="Android, iOS">
+                        <customControls:FrameButtonHorizontal LabelText= "{Binding [SupremeCourtOfCassation], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToSupremeCourtOfCassationCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                    </On>
+                </OnPlatform>
+
+                <OnPlatform x:TypeArguments="Frame">
+                    <On Platform="UWP">
+                        <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToOtherCourtsCommand}" />
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Image 
+               Source="copy.png"
+               Margin="10"
+               Opacity="0.5"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                                <Label Text="{Binding [OtherCourts], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                            </Grid>
+                        </Frame>
+                    </On>
+                    <On Platform="Android, iOS">
+                        <customControls:FrameButtonHorizontal LabelText= "{Binding [OtherCourts], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToOtherCourtsCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                    </On>
+                </OnPlatform>
+               
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="{Binding [Guidelines2], Source={x:Static i18n:Translator.Instance}}" 
+                 AutomationId="atbItGuidelines">
+        <ContentPage.Content>
+            <StackLayout Padding="5">
+
+                <OnPlatform x:TypeArguments="Frame">
+                    <On Platform="UWP">
+                        <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToOpinionsCommand}" />
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Image 
+               Source="copy.png"
+               Margin="10"
+               Opacity="0.5"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                                <Label Text="{Binding [Opinions], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                            </Grid>
+                        </Frame>
+                    </On>
+                    <On Platform="Android, iOS">
+                        <customControls:FrameButtonHorizontal LabelText= "{Binding [Opinions], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToOpinionsCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                    </On>
+                </OnPlatform>
+
+                <OnPlatform x:TypeArguments="Frame">
+                    <On Platform="UWP">
+                        <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToGuidelinesCommand}" />
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Image 
+               Source="copy.png"
+               Margin="10"
+               Opacity="0.5"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                                <Label Text="{Binding [Guidelines1], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                            </Grid>
+                        </Frame>
+                    </On>
+                    <On Platform="Android, iOS">
+                        <customControls:FrameButtonHorizontal LabelText= "{Binding [Guidelines1], Source={x:Static i18n:Translator.Instance}}"
+                                                      ImageSource="copy.png" 
+                                                      TabCommand="{Binding GoToGuidelinesCommand}"
+                                                      OpacityImage="0.5"
+                                                      Style="{StaticResource btn2WithImage}"
+                                                      DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                    </On>
+                </OnPlatform>
+                
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+</TabbedPage>

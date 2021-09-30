@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:behaviors="clr-namespace:SmeData.Mobile.Behaviors"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.DocCaseLawShowPage"
+             x:Name="docCaseLawShowPage"
+             AutomationId="attlDocCaseLawShow">
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Command="{Binding Path=BindingContext.ToogleIsSearchBarVisibleCommand, Source={x:Reference docCaseLawShowPage}}"
+                     Icon="magnifier_white.png"  />-->        
+        <customControls:HideableToolbarItem Command="{Binding Path=BindingContext.ToogleIsSearchBarVisibleCommand, Source={x:Reference docCaseLawShowPage}}"
+                                            Icon="magnifier_white.png"  Parent="{x:Reference docCaseLawShowPage}" 
+                                            IsVisible="{Binding Path=BindingContext.IsTbSearchVisible, Source={x:Reference docCaseLawShowPage}}" x:Name="tbSearch"
+                                            AutomationProperties.IsInAccessibleTree="True"
+                                            AutomationProperties.Name="Search button"/>
+        <!--<ToolbarItem Command="{Binding Path=BindingContext.DecreaseFontCommand, Source={x:Reference docCaseLawShowPage}}"
+                     Icon="font_down.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Font decrease button"/>
+        <ToolbarItem Command="{Binding Path=BindingContext.IncreaseFontCommand, Source={x:Reference docCaseLawShowPage}}"
+                     Icon="font_up.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Font increase button"/>-->
+        <ToolbarItem Command="{Binding Path=BindingContext.SaveOfflineCommand, Source={x:Reference docCaseLawShowPage}}"
+                     CommandParameter="{Binding}"
+                     Icon="save.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="{Binding [SaveButton], Source={x:Static i18n:Translator.Instance}}"/>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference docCaseLawShowPage}}" 
+                     Icon="home.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="{Binding [HomeButton], Source={x:Static i18n:Translator.Instance}}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:WebNavigatingConverter x:Key="webNavigatingEventArgsConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:BoolToGridRowHeightConverter x:Key="BoolToGridRowHeightConverter" />
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="{Binding IsSearchVisible, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Padding="5"
+                         Grid.Row="0">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ExpandDocTitleLabelCommand}" 
+                                          NumberOfTapsRequired="1" />
+                </StackLayout.GestureRecognizers>
+                <Label x:Name="DocTitleLabel"
+                       Text="{Binding CurrentDocTitle}"
+                       FontSize="{Binding DocTitleLabelFont, Converter={StaticResource SizeConverter}}"
+                       TextColor="DarkSlateGray"
+                       VerticalOptions="Start"
+                       LineBreakMode="{Binding DocTitleLabelLineBreakMode}"
+                       MaxLines="{Binding DocTitleLabelMaxLines}"
+                       AutomationProperties.IsInAccessibleTree="True"/>
+                <BoxView HeightRequest="1" 
+                         BackgroundColor="DarkGray" 
+                         Margin="5,0"/>
+            </StackLayout>
+            <customControls:SearchBarWithNavigation IsSearchVisible="{Binding IsSearchVisible}"
+                                                SearchInDocCommand="{Binding SearchInDocCommand}"
+                                                PrevMatchCommand="{Binding PrevMatchCommand}"
+                                                NextMatchCommand="{Binding NextMatchCommand}"
+                                                TextInField="{Binding TextInField}"
+                                                SearchCounter="{Binding SearchCounter}"
+                                                    Grid.Row="1"/>
+                <WebView x:Name="Description" 
+                         VerticalOptions ="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand"
+                         BackgroundColor="AliceBlue" 
+                         Navigating="Description_Navigating"
+                         Margin="10,0"
+                         Grid.Row="2"
+                         Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
+                    <WebView.Behaviors>
+                        <b:EventToCommandBehavior EventName="Navigating"
+                                              Command="{Binding BindingContext.NavigatingCommand, Source={x:Reference docCaseLawShowPage}}"
+                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
+                    </WebView.Behaviors>
+                </WebView>
+                <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 Grid.Row="2"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

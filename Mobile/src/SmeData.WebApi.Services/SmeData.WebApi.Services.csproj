@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AkomaNtosoXml.Xslt.Core" Version="4.3.23" />
+    <PackageReference Include="AkomaNtosoXml.Xslt.Transformation" Version="2.3.8" />
+    <PackageReference Include="FtiSearchColorizer" Version="1.0.2" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.21" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
+    <PackageReference Include="Xamarin.UITest" Version="3.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmeData.SharedModels\SmeData.SharedModels.csproj" />
+    <ProjectReference Include="..\SmeData.WebApi.Data\SmeData.WebApi.Data.csproj" />
+    <ProjectReference Include="..\SmeData.WebApi.Models\SmeData.WebApi.Models.csproj" />
+  </ItemGroup>
+
+</Project>

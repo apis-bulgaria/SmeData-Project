@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.ContactWithNationalDPSsPage"
+             x:Name="contactDpas"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             Title="{Binding [ContactNationalDPA], Source={x:Static i18n:Translator.Instance}}"
+             AutomationId="attlContactNationalDPA">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference contactDpas}}" 
+                     Icon="home.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="{Binding [HomeButton], Source={x:Static i18n:Translator.Instance}}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <!--<customControls:ExpandableLitsViewForContactWithDPAs ListViewItems="{Binding DictionaryList}" />-->
+        <ListView ItemsSource="{Binding ExpandedList}"
+                  HasUnevenRows="true"
+                  IsGroupingEnabled="True" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Margin="10,5,10,10"
+                               FontSize="{Binding  Path=BindingContext.ContactInfoFont, Converter={StaticResource SizeConverter}, Source={x:Reference contactDpas}}"
+                               AutomationProperties.IsInAccessibleTree="True">
+                               <!--AutomationId="alblExtendedListContentForContactWithDPAs"-->
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Content.NameInstitution}" 
+                                          FontAttributes="Bold"
+                                          AutomationProperties.IsInAccessibleTree="True"/>
+
+                                    <Span Text="&#x0a;Address: " />
+                                    <Span Text="{Binding Content.Address}" />
+
+                                    <Span Text="&#x0a;Tel: " />
+                                    <Span Text="{Binding Content.Telephone}" 
+                                              TextColor="Blue">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.CallNumberCommand, Source={x:Reference contactDpas}}"
+                                                                  CommandParameter="{Binding Content.Telephone}"
+                                                                  NumberOfTapsRequired="1"/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
+
+                                    <Span Text="&#x0a;Fax: " />
+                                    <Span Text="{Binding Content.Fax}"/>
+
+                                    <Span Text="&#x0a;Email: " />
+                                    <Span Text="{Binding Content.Email}" 
+                                          TextColor="Blue">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OpenEmailClientCommand, Source={x:Reference contactDpas}}"
+                                                                  CommandParameter="{Binding Content.Email}"
+                                                                  NumberOfTapsRequired="1"/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
+
+                                    <Span Text="&#x0a;Website: " />
+                                    <Span Text="{Binding Content.Website}" 
+                                          TextColor="Blue">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.OpenUrlCommand, Source={x:Reference contactDpas}}"
+                                                                  CommandParameter="{Binding Content.Website}"
+                                                                  NumberOfTapsRequired="1"/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid MinimumHeightRequest="40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.HeaderClickCommand, Source={x:Reference contactDpas}}" 
+                                                      CommandParameter="{Binding .}"
+                                                      NumberOfTapsRequired="1" />
+                            </Grid.GestureRecognizers>
+                            <Label Text="{Binding Header}"
+                                   FontSize="{Binding Path=BindingContext.ContactHeaderFont, Converter={StaticResource SizeConverter}, Source={x:Reference contactDpas}}"
+                                   Grid.Row="0" 
+                                   Grid.Column="0"
+                                   Margin="5"
+                                   AutomationProperties.IsInAccessibleTree="True"
+                                   AutomationProperties.HelpText="Double tab to expand"/>
+                            <Image Source="arrow_down.png"
+                                   HorizontalOptions="End"
+                                   Opacity="0.5"
+                                   Grid.Row="0" 
+                                   Grid.Column="1"
+                                   Margin="10">
+                                   <!--AutomationId="aimgExtendedListArrow"-->
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Style.Triggers>
+                                            <DataTrigger TargetType="Image"
+                                                         Binding="{Binding IsExpanded}" 
+                                                         Value="true">
+                                                <Setter Property="Rotation" 
+                                                        Value="180" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

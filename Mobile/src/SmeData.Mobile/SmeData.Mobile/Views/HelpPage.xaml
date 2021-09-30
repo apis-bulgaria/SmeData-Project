@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             mc:Ignorable="d"
+             x:Class="SmeData.Mobile.Views.HelpPage"
+             x:Name="pageHelp"
+             Title="{Binding [Help], Source={x:Static i18n:Translator.Instance}}"
+             AutomationId="attlHelp">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.ToogleIsSearchBarVisibleCommand, Source={x:Reference pageHelp}}"
+                     Icon="magnifier_white.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Search button"/>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference pageHelp}}" 
+                     Icon="home.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Home button"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:WebNavigatingConverter x:Key="webNavigatingEventArgsConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:BoolToGridRowHeightConverter x:Key="BoolToGridRowHeightConverter" />
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding IsSearchVisible, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <customControls:SearchBarWithNavigation IsSearchVisible="{Binding IsSearchVisible}"
+                                                    SearchInDocCommand="{Binding SearchInDocCommand}"
+                                                    PrevMatchCommand="{Binding PrevMatchCommand}"
+                                                    NextMatchCommand="{Binding NextMatchCommand}"
+                                                    TextInField="{Binding TextInField}"
+                                                    SearchCounter="{Binding SearchCounter}"
+                                                    Grid.Row="0"/>
+            <WebView x:Name="webView" 
+                     VerticalOptions ="FillAndExpand" 
+                     HorizontalOptions="FillAndExpand" 
+                     Navigating="WebView_Navigating" 
+                     BackgroundColor="AliceBlue"
+                     Margin="10,0"
+                     Grid.Row="1"                     
+                     Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
+                     <!--AutomationId="awvHelp"-->
+                <WebView.Behaviors>
+                    <b:EventToCommandBehavior EventName="Navigating"
+                                              Command="{Binding BindingContext.NavigatingCommand,Source={x:Reference pageHelp}}"
+                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
+                </WebView.Behaviors>
+            </WebView>
+            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"
+                                             HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Grid.Row="1"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

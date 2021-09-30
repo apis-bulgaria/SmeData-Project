@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="it" original="SMEDATA.MOBILE/PROPERTIES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6912.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="SMEDATA.MOBILE/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="MainPageCaption" translate="yes" xml:space="preserve">
+          <source>Main page</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Pagina principale</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
+        <trans-unit id="GdprDictionary" translate="yes" xml:space="preserve">
+          <source>GDPR Dictionary</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Dizionario GDPR</target>
+        </trans-unit>
+        <trans-unit id="GuideForCitizens" translate="yes" xml:space="preserve">
+          <source>Guide for citizens</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Guida per i cittadini</target>
+        </trans-unit>
+        <trans-unit id="GuideForSMEs" translate="yes" xml:space="preserve">
+          <source>Guide for SMEs</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Guida per le PMI</target>
+        </trans-unit>
+        <trans-unit id="MainPageFooter" translate="yes" xml:space="preserve">
+          <source>SMEDATA Project is funded by the EU's Rights, Equality and Citizenship Programme (2014-2020)</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Il progetto SMEDATA è finanziato dal programma UE per i diritti, l'uguaglianza e la cittadinanza (2014-2020)</target>
+        </trans-unit>
+        <trans-unit id="DecisionSupportTool" translate="yes" xml:space="preserve">
+          <source>Decision Support Tool</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Strumento di supporto decisionale</target>
+        </trans-unit>
+        <trans-unit id="EuropeanUnion" translate="yes" xml:space="preserve">
+          <source>European Union</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Unione Europea</target>
+        </trans-unit>
+        <trans-unit id="GDPRMadeSimple" translate="yes" xml:space="preserve">
+          <source>GDPR Made Simple</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">GDPR reso semplice</target>
+        </trans-unit>
+        <trans-unit id="International" translate="yes" xml:space="preserve">
+          <source>International</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Internazionale</target>
+        </trans-unit>
+        <trans-unit id="National" translate="yes" xml:space="preserve">
+          <source>National</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Nazionale</target>
+        </trans-unit>
+        <trans-unit id="ContactNationalDPA" translate="yes" xml:space="preserve">
+          <source>Contact with National DPAs</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Contatto con i DPA nazionali</target>
+        </trans-unit>
+        <trans-unit id="Bookmarks" translate="yes" xml:space="preserve">
+          <source>Bookmarks</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Segnalibri</target>
+        </trans-unit>
+        <trans-unit id="Help" translate="yes" xml:space="preserve">
+          <source>Help</source>
+          <target state="translated">Aiuto</target>
+        </trans-unit>
+        <trans-unit id="Language" translate="yes" xml:space="preserve">
+          <source>Language</source>
+          <target state="translated">Lingua</target>
+        </trans-unit>
+        <trans-unit id="Settings" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">impostazioni</target>
+        </trans-unit>
+        <trans-unit id="TrainingMaterials" translate="yes" xml:space="preserve">
+          <source>Training materials</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Materiali formativi</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
+        <trans-unit id="UsefulLinks" translate="yes" xml:space="preserve">
+          <source>Useful links</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Collegamenti utili</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
+        <trans-unit id="Next" translate="yes" xml:space="preserve">
+          <source>Next</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Avanti</target>
+        </trans-unit>
+        <trans-unit id="Prev" translate="yes" xml:space="preserve">
+          <source>Previous</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Indietro</target>
+        </trans-unit>
+        <trans-unit id="SaveOffline" translate="yes" xml:space="preserve">
+          <source>Save offline</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Salva offline</target>
+        </trans-unit>
+        <trans-unit id="LegalLibrary" translate="yes" xml:space="preserve">
+          <source>Legal library</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Biblioteca legale</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
+        <trans-unit id="EuropeanDataProtectionBoard" translate="yes" xml:space="preserve">
+          <source>European Data Protection Board</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Consiglio europeo per la protezione dei dati</target>
+        </trans-unit>
+        <trans-unit id="EuropeanDataProtectionSupervisor" translate="yes" xml:space="preserve">
+          <source>European Data Protection Supervisor</source>
+          <target state="needs-review-translation" state-qualifier="mt-suggestion">Supervisore europeo per la protezione dei dati</target>
+        </trans-unit>
+        <trans-unit id="Search" translate="yes" xml:space="preserve">
+          <source>Search</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Cerca</target>
+        </trans-unit>
+        <trans-unit id="Bulgaria" translate="yes" xml:space="preserve">
+          <source>Bulgaria</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Bulgaria</target>
+        </trans-unit>
+        <trans-unit id="OtherCourts" translate="yes" xml:space="preserve">
+          <source>Other courts</source>
+          <target state="needs-review-translation">Altri tribunali</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
+        <trans-unit id="SupremeAdministrativeCourt" translate="yes" xml:space="preserve">
+          <source>Supreme Administrative Court</source>
+          <target state="needs-review-translation">Tribunale amministrativo supremo</target>
+        </trans-unit>
+        <trans-unit id="Decisions" translate="yes" xml:space="preserve">
+          <source>Decisions</source>
+          <target state="final" state-qualifier="tm-suggestion">Decisioni</target>
+        </trans-unit>
+        <trans-unit id="Opinions" translate="yes" xml:space="preserve">
+          <source>Opinions</source>
+          <target state="final" state-qualifier="tm-suggestion">Opinioni</target>
+        </trans-unit>
+        <trans-unit id="Italy" translate="yes" xml:space="preserve">
+          <source>Italy</source>
+          <target state="final" state-qualifier="tm-suggestion">Italia</target>
+        </trans-unit>
+        <trans-unit id="SavedDocuments" translate="yes" xml:space="preserve">
+          <source>Saved documents</source>
+          <target state="new">Saved documents</target>
+        </trans-unit>
+        <trans-unit id="Update" translate="yes" xml:space="preserve">
+          <source>Update</source>
+          <target state="translated">Aggiorna</target>
+        </trans-unit>
+        <trans-unit id="UpdateAllDocuments" translate="yes" xml:space="preserve">
+          <source>Update all documents</source>
+          <target state="translated">Aggiorna tutti i documenti</target>
+        </trans-unit>
+        <trans-unit id="SearchInDocuments" translate="yes" xml:space="preserve">
+          <source>Search in documents</source>
+          <target state="translated">Cerca nei documenti</target>
+        </trans-unit>
+        <trans-unit id="SmeDataIntroText" translate="yes" xml:space="preserve">
+          <source>The SMEDATA Project aims at ensuring the highest degree of privacy and personal data protection through innovative tools for SMEs and citizens.</source>
+          <target state="new">The SMEDATA Project aims at ensuring the highest degree of privacy and personal data protection through innovative tools for SMEs and citizens.</target>
+        </trans-unit>
+        <trans-unit id="Welcome" translate="yes" xml:space="preserve">
+          <source>Welcome</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Benvenuti</target>
+        </trans-unit>
+        <trans-unit id="FAQ" translate="yes" xml:space="preserve">
+          <source>Frequently asked questions</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Domande frequenti</target>
+        </trans-unit>
+        <trans-unit id="GdprPocket" translate="yes" xml:space="preserve">
+          <source>GDPR in Your Pocket</source>
+          <target state="translated">GDPR in tasca</target>
+        </trans-unit>
+        <trans-unit id="CaseLaw" translate="yes" xml:space="preserve">
+          <source>Case law</source>
+          <target state="translated">Giurisprudenza</target>
+        </trans-unit>
+        <trans-unit id="DocumentContent" translate="yes" xml:space="preserve">
+          <source>Document content</source>
+          <target state="translated">EU quadro giuridico</target>
+        </trans-unit>
+        <trans-unit id="EUlegalframework" translate="yes" xml:space="preserve">
+          <source>EU legal framework</source>
+          <target state="new">EU legal framework</target>
+        </trans-unit>
+        <trans-unit id="Guidelines" translate="yes" xml:space="preserve">
+          <source>Guidelines</source>
+          <target state="translated">Linee guida</target>
+        </trans-unit>
+        <trans-unit id="InternationalCaseLaw" translate="yes" xml:space="preserve">
+          <source>International case law</source>
+          <target state="translated">Giurisprudenza internazionale</target>
+        </trans-unit>
+        <trans-unit id="InternationalTreaties" translate="yes" xml:space="preserve">
+          <source>International treaties</source>
+          <target state="translated">Trattati internazionali</target>
+        </trans-unit>
+        <trans-unit id="Legislation" translate="yes" xml:space="preserve">
+          <source>Legislation</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Legislazioni</target>
+        </trans-unit>
+        <trans-unit id="Menu" translate="yes" xml:space="preserve">
+          <source>Menu</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Menu</target>
+        </trans-unit>
+        <trans-unit id="NationalCaseLaw" translate="yes" xml:space="preserve">
+          <source>National case law</source>
+          <target state="translated">Giurisprudenza nazionale</target>
+        </trans-unit>
+        <trans-unit id="NationalGuidelines" translate="yes" xml:space="preserve">
+          <source>National guidelines</source>
+          <target state="translated">Linee guida nazionali</target>
+        </trans-unit>
+        <trans-unit id="PagesInfoText" translate="yes" xml:space="preserve">
+          <source>Provide practical guidance on GDPR rules to SME. Consist of the fallowing components...</source>
+          <target state="translated">Fornire indicazioni pratiche sulle regole del GDPR alle PMI. Sono costituiti dai seguenti componenti ...</target>
+        </trans-unit>
+        <trans-unit id="ReloadBookmarks" translate="yes" xml:space="preserve">
+          <source>Reload bookmarks</source>
+          <target state="new">Reload bookmarks</target>
+        </trans-unit>
+        <trans-unit id="SelectedEntry" translate="yes" xml:space="preserve">
+          <source>Selected entry</source>
+          <target state="new">Selected entry</target>
+        </trans-unit>
+        <trans-unit id="String1" translate="yes" xml:space="preserve">
+          <source>Opinions</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Opinioni</target>
+        </trans-unit>
+        <trans-unit id="Erase" translate="yes" xml:space="preserve">
+          <source>Erase</source>
+          <target state="needs-review-translation" state-qualifier="tm-suggestion">Cancella</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.ExpandableListViewCommonPage"
+             Title="{Binding [FAQ], Source={x:Static i18n:Translator.Instance}}"
+             x:Name="expandableListViewCommonPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             AutomationId="attlFAQ">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference expandableListViewCommonPage}}" 
+                     Icon="home.png" 
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Home button"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <customControls:ExpandableListView ListViewItems="{Binding ExpandableDocList}" />
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             x:Class="SmeData.Mobile.Views.InternationalPage"
+             Title="{Binding [International], Source={x:Static i18n:Translator.Instance}}"
+             Style="{StaticResource tabbedPageBarBackground}"
+             x:Name="interPage"
+             AutomationId="attlInternational">
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference interPage}}" 
+                     Icon="home.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Home button"/>
+    </TabbedPage.ToolbarItems>
+    <local:InternationalTreatiesPage Title="{Binding [Treaties], Source={x:Static i18n:Translator.Instance}}" />
+    <local:InternationalCaseLawPage Title="{Binding [CaseLaw], Source={x:Static i18n:Translator.Instance}}" />
+</TabbedPage>

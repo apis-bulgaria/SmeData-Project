@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             x:Class="SmeData.Mobile.Views.BgLegislationPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="bgLegPage"
+             Title="{Binding [Legislation], Source={x:Static i18n:Translator.Instance}}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:StringToBoolenConverter x:Key="StringToBoolenConverter" />
+            <converters:DocTypeToImageSourceConverter x:Key="DocTypeToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <customControls:ListViewWithGrouping ItemsSource="{Binding LegislationDocs}"
+                                              IsGroupingEnabled="true"
+                                              SeparatorVisibility="None"
+                                              HasUnevenRows="True">
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell BindingContextChanged="OnGroupHeaderCellBindingContextChanged">
+                        <StackLayout>
+                            <Frame BackgroundColor="#CEEEF5"
+                                   Padding="0"
+                                   Margin="0"
+                                   HasShadow="False">
+                                <Label Text="{Binding Heading}"
+                                       x:Name="HeadingLabel"
+                                       FontSize="{Binding BindingContext.CategoryHeadingFont, Converter={StaticResource SizeConverter}, Source={x:Reference bgLegPage}}"
+                                       TextColor="Gray"
+                                       Margin="20,5,5,5"
+                                       VerticalOptions="Center"
+                                       LineBreakMode="WordWrap"
+                                       MaxLines="5"
+                                       AutomationProperties.IsInAccessibleTree="True"/>
+                            </Frame>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <customControls:DocInTabListView LabelTitleText="{Binding Path=ShortTitle}"
+                                                         LabelSubTitleText="{Binding Path=SubTitle}"
+                                                         IsSubTitleNotNull="{Binding Path=SubTitle, Converter={StaticResource StringToBoolenConverter}}"
+                                                         ImageSource="{Binding Path=DocType, Converter={StaticResource DocTypeToImageSourceConverter}}" 
+                                                         TabCommand="{Binding Path=BindingContext.TabCommand, Source={x:Reference bgLegPage}}"
+                                                         CommandPar="{Binding .}"
+                                                         DefaultFontSize="{Binding BindingContext.DocInTabFont, Converter={StaticResource SizeConverter}, Source={x:Reference bgLegPage}}" />
+                                                         <!--AutomationId="alDocInBgLegislation"-->
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </customControls:ListViewWithGrouping>
+        <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+    </StackLayout>
+</ContentPage>

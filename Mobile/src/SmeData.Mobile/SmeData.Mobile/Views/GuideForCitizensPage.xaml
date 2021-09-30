@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.GuideForCitizensPage" 
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             Title="{Binding [GuideForCitizens], Source={x:Static i18n:Translator.Instance}}"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="guideForCitizensPage"
+             AutomationId="attlGuideForCitizens">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference guideForCitizensPage}}" 
+                     Icon="home.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+            <Label Text="{Binding [GuideForCitizensInfoText], Source={x:Static i18n:Translator.Instance}}"
+                   Style="{StaticResource PageHeadingText}"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   AutomationProperties.Name="Home button"/>
+
+            <OnPlatform x:TypeArguments="Frame">
+                <On Platform="UWP">
+                    <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GdprMadeSimpleCommand}" />
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Image 
+               Source="open_book.png"
+               Margin="10"
+               Opacity="0.5"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding [GDPRMadeSimple], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </Frame>
+                </On>
+                <On Platform="Android, iOS">
+                    <customControls:FrameButtonHorizontal LabelText= "{Binding [GDPRMadeSimple], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="open_book.png" 
+                                                  TabCommand="{Binding GdprMadeSimpleCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationProperties.IsInAccessibleTree="True"/>
+                </On>
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="Frame">
+                <On Platform="UWP">
+                    <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ContanctWithNationalDpasCommand}" />
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Image 
+               Source="note.png"
+               Margin="10"
+               Opacity="0.5"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding [ContactNationalDPA], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </Frame>
+                </On>
+                <On Platform="Android, iOS">
+                    <customControls:FrameButtonHorizontal LabelText= "{Binding [ContactNationalDPA], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="note.png" 
+                                                  TabCommand="{Binding ContanctWithNationalDpasCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationProperties.IsInAccessibleTree="True"/>
+                </On>
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="Frame">
+                <On Platform="UWP">
+                    <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding FagCommand}" />
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Image 
+               Source="questions.png"
+               Margin="10"
+               Opacity="0.5"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding [FAQ], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </Frame>
+                </On>
+                <On Platform="Android, iOS">
+                    <customControls:FrameButtonHorizontal LabelText= "{Binding [FAQ], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="questions.png" 
+                                                  TabCommand="{Binding FagCommand}"
+                                                  OpacityImage="0.5"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+                                                  AutomationProperties.IsInAccessibleTree="True"/>
+                </On>
+            </OnPlatform>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\dsm.html" />
+    <None Remove="Data\nationalLegislationMap.txt" />
+    <None Remove="Data\smedata.css" />
+    <None Remove="Data\translations.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\nationalLegislationMap.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\translations.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\dsm.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\smedata.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AkomaNtosoXml.Xslt.Core" Version="4.3.23" />
+    <PackageReference Include="Apis.Common" Version="3.0.15" />
+    <PackageReference Include="Apis.Common.Asp.Middleware" Version="1.0.10-beta" />
+    <PackageReference Include="Apis.Common.Celex" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
+    <PackageReference Include="Xamarin.UITest" Version="3.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Helper\SmeData.Common.csproj" />
+    <ProjectReference Include="..\SmeData.SharedModels\SmeData.SharedModels.csproj" />
+    <ProjectReference Include="..\SmeData.WebApi.Data\SmeData.WebApi.Data.csproj" />
+    <ProjectReference Include="..\SmeData.WebApi.Models\SmeData.WebApi.Models.csproj" />
+    <ProjectReference Include="..\SmeData.WebApi.Services\SmeData.WebApi.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Data\contactsDPAs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Data\gdpr.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Data\gdpr_en.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Data\usefulLinks.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
+

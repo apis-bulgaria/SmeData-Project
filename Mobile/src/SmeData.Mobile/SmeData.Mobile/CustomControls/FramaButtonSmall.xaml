@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Frame xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="SmeData.Mobile.CustomControls.FramaButtonSmall" 
+       HeightRequest="40"
+       AutomationProperties.IsInAccessibleTree="True">
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding TabCommand}" 
+                              CommandParameter="{Binding CommandPar}" 
+                              NumberOfTapsRequired="1" />
+    </Frame.GestureRecognizers>
+    <Grid x:Name="gridContent"
+          Margin="20,3">
+        <Image x:Name="ImageEntry"
+               Source="{Binding ImageSource}"
+               Margin="2"
+               Opacity="0.5"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+        <Label Text="{Binding LabelText}"
+               Margin="2"
+               FontSize="{Binding DefaultFontSize}"
+               TextColor="Gray"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+    </Grid>
+</Frame>
+
+<!--FontSize="{OnIdiom 18, Phone=18, Tablet=28}"-->

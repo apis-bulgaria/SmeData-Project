@@ -1,0 +1,32 @@
+{
+  "images": [
+    {
+      "appearances": [],
+      "idiom": "universal",
+      "filename": "suitcase.pdf"
+    },
+    {
+      "appearances": [],
+      "scale": "1x",
+      "idiom": "universal",
+      "filename": "suitcase1.png"
+    },
+    {
+      "appearances": [],
+      "scale": "2x",
+      "idiom": "universal",
+      "filename": "suitcase2.png"
+    },
+    {
+      "appearances": [],
+      "scale": "3x",
+      "idiom": "universal",
+      "filename": "suitcase3.png"
+    }
+  ],
+  "properties": {},
+  "info": {
+    "version": 1,
+    "author": ""
+  }
+}

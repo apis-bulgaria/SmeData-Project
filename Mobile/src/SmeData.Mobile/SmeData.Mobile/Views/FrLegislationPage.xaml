@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             x:Class="SmeData.Mobile.Views.FrLegislationPage"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             x:Name="frLegPage"
+             Title="{Binding [Legislation], Source={x:Static i18n:Translator.Instance}}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DocTypeToImageSourceConverter x:Key="DocTypeToImageSourceConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:StringToBoolenConverter x:Key="StringToBoolenConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <ListView ItemsSource="{Binding EuDocs}"
+                  HasUnevenRows="True" 
+                  SeparatorVisibility="None">
+            <ListView.Behaviors>
+                <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <customControls:DocInTabListView LabelTitleText="{Binding Path=ShortTitle}"
+                                                         IsSubTitleNotNull="{Binding Path=SubTitle, Converter={StaticResource StringToBoolenConverter}}"
+                                                         ImageSource="{Binding Path=DocType, Converter={StaticResource DocTypeToImageSourceConverter}}" 
+                                                         TabCommand="{Binding Path=BindingContext.TabCommand, Source={x:Reference frLegPage}}"
+                                                         CommandPar="{Binding .}"
+                                                         DefaultFontSize="{Binding BindingContext.DocInTabFont, Converter={StaticResource SizeConverter}, Source={x:Reference frLegPage}}" />
+                        <!--AutomationId="alFrLegPage"-->
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Footer>
+                <Grid Padding="6" 
+                      IsVisible="{Binding IsBusy}">
+                    <Grid.Triggers>
+                        <Trigger TargetType="Grid" 
+                                 Property="IsVisible" 
+                                 Value="False">
+                            <Setter Property="HeightRequest"
+                                    Value="0" />
+                        </Trigger>
+                    </Grid.Triggers>
+                    <customControls:LoadingIndicator IsLoading="{Binding IsBusy}"/>
+                </Grid>
+            </ListView.Footer>
+        </ListView>
+        <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+            xmlns:local="clr-namespace:SmeData.Mobile.Views"
+            xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+            xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+            xmlns:behaviors="clr-namespace:SmeData.Mobile.Behaviors"
+            xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+            xmlns:c="clr-namespace:SmeData.Mobile.Converters"
+            xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+            x:Class="SmeData.Mobile.Views.DocMainPage"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.IsSwipePagingEnabled="False"
+            Title="{Binding DocTitle}"
+            Style="{StaticResource tabbedPageBarBackground}"
+            Appearing="TabbedPage_Appearing"
+            behaviors:TabbedPageSelectedPageIndexBehavior.AttachBehavior="{Binding IsDocContentSelected}"
+            x:Name="docMainPage">
+    <!--<TabbedPage.Behaviors>
+        <behaviors:TabbedPageNavigationBehavior />
+    </TabbedPage.Behaviors>-->
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <converters:BookmarkToolbarImageConverter x:Key="BookmarkToolbarImageConverter" />
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+    <TabbedPage.Behaviors>
+        <b:EventToCommandBehavior EventName="CurrentPageChanged" 
+                                  Command="{Binding PageChangeCommand}"
+                                  CommandParameter="{Binding Path=CurrentPage.TabIndex, Source={x:Reference docMainPage}}" />
+    </TabbedPage.Behaviors>
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.ToogleIsSearchBarVisibleCommand, Source={x:Reference docMainPage}}"
+                     Icon="magnifier_white.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Search button"/>
+        <!--<OnPlatform x:TypeArguments="ToolbarItem">
+            <On Platform="Android, UWP">
+                <ToolbarItem Command="{Binding Path=BindingContext.DecreaseFontCommand, Source={x:Reference docMainPage}}"
+                     Icon="font_down.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Font decrease button"/>               
+            </On>
+            <On Platform="iOS">
+                <ToolbarItem />
+            </On>
+        </OnPlatform>
+        <OnPlatform x:TypeArguments="ToolbarItem">
+            <On Platform="Android, UWP">
+                <ToolbarItem Command="{Binding Path=BindingContext.IncreaseFontCommand, Source={x:Reference docMainPage}}"
+                     Icon="font_up.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Font increase button"/>
+            </On>
+             <On Platform="iOS">
+                <ToolbarItem />
+            </On>
+        </OnPlatform>-->
+        <ToolbarItem Command="{Binding Path=BindingContext.SaveOfflineCommand, Source={x:Reference docMainPage}}"
+                     CommandParameter="{Binding}"
+                     Icon="save.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Save button"/>
+        <ToolbarItem Command="{Binding Path=BindingContext.AddRemoveBookmarkToolbarCommand, Source={x:Reference docMainPage}}"
+                     Icon="{Binding Path=BindingContext.SelectedItem.IsBookmarked, Source={x:Reference docMainPage},Converter={StaticResource BookmarkToolbarImageConverter}}"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Bookmark button"/>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference docMainPage}}" 
+                     Icon="home.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Home button"/>
+    </TabbedPage.ToolbarItems>
+    <!--<local:DocContentPage Title="Document content" />
+    <local:DocPage Title="Selected entry" x:Name="tbDocContent"/>-->
+    <ContentPage Title="{Binding [DocumentContent], Source={x:Static i18n:Translator.Instance}}" TabIndex="0"
+                 x:Name="contPage">
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <converters:MarginConverter x:Key="MarginConverter" />
+                <converters:BookmarksBoolToImageSourceConverter x:Key="BookmarksBoolToImageSourceConverter" />
+                <converters:SizeConverter x:Key="SizeConverter" />
+            </ResourceDictionary>
+        </ContentPage.Resources>
+        <StackLayout Padding="10"
+                     Margin="0">
+            <ListView ItemsSource="{Binding DocumentItems}"
+                      HasUnevenRows="True" 
+                      SelectedItem="{Binding Path=BindingContext.SelectedItem, Source={x:Reference contPage}, Mode=TwoWay}"
+                      ItemSelected="ListView_ItemSelected" 
+                      x:Name="lvContent"
+                      Margin="0">
+                <ListView.Header>
+                    <StackLayout>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ExpandDocTitleLabelCommand}" 
+                                                  NumberOfTapsRequired="1" />
+                        </StackLayout.GestureRecognizers>
+                        <Grid WidthRequest="{Binding ScreenWidth}">
+                            <Label x:Name="DocTitleLabel"
+                                   Text="{Binding CurrentDocTitle}"
+                                   FontSize="{Binding DocTitleLabelFont, Converter={StaticResource SizeConverter}}"
+                                   TextColor="DarkSlateGray"
+                                   VerticalOptions="StartAndExpand"
+                                   LineBreakMode="{Binding DocTitleLabelLineBreakMode}"
+                                   MaxLines="{Binding DocTitleLabelMaxLines}"/>
+                        </Grid>
+                        <BoxView />
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="6*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Margin="{Binding Path=TreeLevel, Converter={StaticResource MarginConverter}}" 
+                                             Grid.Row="0" 
+                                             Grid.Column="0">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.GoToElementViewCommand, Source={x:Reference contPage}}" 
+                                                              CommandParameter="{Binding .}" 
+                                                              NumberOfTapsRequired="1" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Label x:Name="ArtInListHeadingLabel" 
+                                           Text="{Binding Heading}" 
+                                           Font="Bold"
+                                           FontSize="{Binding Path=BindingContext.ArtInListHeadingLabelFont, Converter={StaticResource SizeConverter}, Source={x:Reference contPage}}"
+                                           Margin="5,5,5,0"
+                                           AutomationProperties.IsInAccessibleTree="True"/>
+                                    <Label x:Name="ArtInListSubheadingLabel" 
+                                           Text="{Binding SubHeading}" 
+                                           FontSize="{Binding Path=BindingContext.ArtInListSubheadingLabelFont, Converter={StaticResource SizeConverter}, Source={x:Reference contPage}}"
+                                           LineBreakMode="WordWrap"
+                                           Margin="5,0,5,5"
+                                           AutomationProperties.IsInAccessibleTree="True"/>
+                                </StackLayout>
+                                <Image Source="{Binding Path=IsBookmarked, Converter={StaticResource BookmarksBoolToImageSourceConverter}}"
+                                       Aspect="AspectFit" 
+                                       Opacity="0.5"
+                                       Grid.Row="0" 
+                                       Grid.Column="1" 
+                                       Margin="5"
+                                       HorizontalOptions="End"
+                                       IsVisible="{Binding IsBookmarkVisible}"
+                                       >
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.AddRemoveBookmarkCommand, Source={x:Reference contPage}}" 
+                                                              CommandParameter="{Binding .}" 
+                                                              NumberOfTapsRequired="1" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="{Binding [SelectedEntry], Source={x:Static i18n:Translator.Instance}}" TabIndex="1"
+                 x:Name="tbDocContent">
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <c:WebNavigatingConverter x:Key="webNavigatingEventArgsConverter" />
+                <converters:BoolToGridRowHeightConverter x:Key="BoolToGridRowHeightConverter" />
+            </ResourceDictionary>
+        </ContentPage.Resources>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding IsSearchVisible, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Right" 
+                                        Command="{Binding PrevCommand}"
+                                        Threshold="150"/>
+                <SwipeGestureRecognizer Direction="Left" 
+                                        Command="{Binding NextCommand}"
+                                        Threshold="150"/>
+            </Grid.GestureRecognizers>
+            <customControls:SearchBarWithNavigation IsSearchVisible="{Binding IsSearchVisible}"
+                                                    SearchInDocCommand="{Binding SearchInDocCommand}"
+                                                    PrevMatchCommand="{Binding PrevMatchCommand}"
+                                                    NextMatchCommand="{Binding NextMatchCommand}"
+                                                    TextInField="{Binding TextInField}"
+                                                    SearchCounter="{Binding SearchCounter}"
+                                                    Grid.Row="0"/>
+
+            <OnPlatform x:TypeArguments="View">
+                <On Platform="UWP">
+                    <customControls:CustomWebView x:Name="DescriptionUwp" 
+                                          VerticalOptions ="FillAndExpand" 
+                                          HorizontalOptions="FillAndExpand"
+                                          BackgroundColor="AliceBlue" 
+                                          Navigating="Description_Navigating"
+                                          Margin="10,0"
+                                          Grid.Row="1"
+                                          Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
+                        <customControls:CustomWebView.Behaviors>
+                            <b:EventToCommandBehavior EventName="Navigating" 
+                                              Command="{Binding BindingContext.NavigatingCommand,Source={x:Reference tbDocContent}}"
+                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
+                        </customControls:CustomWebView.Behaviors>
+                    </customControls:CustomWebView>
+                </On>
+                <On Platform="Android">
+                    <customControls:CustomWebView x:Name="DescriptionAndroid" 
+                                          VerticalOptions ="FillAndExpand" 
+                                          HorizontalOptions="FillAndExpand"
+                                          BackgroundColor="AliceBlue" 
+                                          Navigating="Description_Navigating"
+                                          PannedCommand="{Binding PPannedCommand}"
+                                          Margin="10,0"
+                                          Grid.Row="1"
+                                          Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
+
+                        <customControls:CustomWebView.Behaviors>
+                            <b:EventToCommandBehavior EventName="Navigating" 
+                                              Command="{Binding BindingContext.NavigatingCommand,Source={x:Reference tbDocContent}}"
+                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
+                        </customControls:CustomWebView.Behaviors>
+                    </customControls:CustomWebView>
+                </On>
+            <On Platform="iOS">
+                    <WebView x:Name="DescriptionIOS" 
+                             VerticalOptions ="FillAndExpand" 
+                             HorizontalOptions="FillAndExpand"
+                             BackgroundColor="AliceBlue" 
+                             Navigating="Description_Navigating"
+                             Margin="10,0"
+                             Grid.Row="1"
+                              Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
+                        <WebView.GestureRecognizers>
+                            <SwipeGestureRecognizer Command="{Binding LeftSwipeCommand}"
+                                                    Direction="Left" />
+                            <SwipeGestureRecognizer Command="{Binding RightSwipeCommand}"
+                                                    Direction="Right"/>
+                        </WebView.GestureRecognizers>
+                        <WebView.Behaviors>
+                            <b:EventToCommandBehavior EventName="Navigating" 
+                                              Command="{Binding BindingContext.NavigatingCommand,Source={x:Reference docMainPage}}"
+                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
+                        </WebView.Behaviors>
+                    </WebView>
+                </On>
+            </OnPlatform>
+            
+            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"
+                                             HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Grid.Row="1"/>
+            <!--<StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         MinimumHeightRequest="50"
+                         Padding="0,0,0,5">
+                <customControls:FramaButtonSmall ImageSource="arrow_left.png" 
+                                                 TabCommand="{Binding PrevCommand}"
+                                                 Style="{StaticResource btnWithImage}"
+                                                 Padding="25,0"
+                                                 Margin="10,0"/>
+                <customControls:FramaButtonSmall ImageSource="arrow_right.png" 
+                                                 TabCommand="{Binding NextCommand}"
+                                                 Style="{StaticResource btnWithImage}"
+                                                 Padding="25,0"
+                                                 Margin="10,0"/>
+            </StackLayout>-->
+        </Grid>
+    </ContentPage>
+</TabbedPage>

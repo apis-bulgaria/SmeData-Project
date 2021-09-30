@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ListView  xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           mc:Ignorable="d"
+           x:Class="SmeData.Mobile.CustomControls.ExpandableLitsViewForContactWithDPAs"
+           x:Name="thisListView"
+           ItemsSource="{Binding ListViewItems}"
+           HasUnevenRows="true"
+           IsGroupingEnabled="True" >
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <!--<Label Text="{Binding Content}" 
+                       Margin="10"
+                       AutomationId="alblExtendedListContentForContactWithDPAs"/>-->
+
+                <Label Margin="10,5,10,10"
+                       FontSize="Small"
+                       AutomationId="alblExtendedListContentForContactWithDPAs"
+                       AutomationProperties.IsInAccessibleTree="True">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Content.NameInstitution}"/>
+
+                            <Span Text="&#x0a;Address: " />
+                            <Span Text="{Binding Content.Address}" />
+
+                            <Span Text="&#x0a;Tel: " />
+                            <Span Text="{Binding Content.Telephone}" 
+                                  TextColor="Blue">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CallNumberCommand, Source={x:Reference thisListView}}"
+                                                          CommandParameter="{Binding Content.Telephone}"
+                                                          NumberOfTapsRequired="1"/>
+                                </Span.GestureRecognizers>
+                            </Span>
+
+                            <Span Text="&#x0a;Fax: " />
+                            <Span Text="{Binding Content.Fax}"/>
+
+                            <Span Text="&#x0a;Email: " />
+                            <Span Text="{Binding Content.Email}" 
+                                  TextColor="Blue">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenEmailClientCommand, Source={x:Reference thisListView}}"
+                                                          CommandParameter="{Binding Content.Email}"
+                                                          NumberOfTapsRequired="1"/>
+                                </Span.GestureRecognizers>
+                            </Span>
+
+                            <Span Text="&#x0a;Website: " />
+                            <Span Text="{Binding Content.Website}" 
+                                  TextColor="Blue">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenUrlCommand, Source={x:Reference thisListView}}"
+                                                          CommandParameter="{Binding Content.Website}"
+                                                          NumberOfTapsRequired="1"/>
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </ViewCell>
+        </DataTemplate>
+    </ListView.ItemTemplate>
+    <ListView.GroupHeaderTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <Grid MinimumHeightRequest="40"
+                      AutomationProperties.IsInAccessibleTree="True"
+                      AutomationProperties.HelpText="Click to expand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Path=HeaderClickCommand, Source={x:Reference thisListView}}" 
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="1" />
+                    </Grid.GestureRecognizers>
+                    <Label x:Name="TextL"
+                           Text="{Binding Header}"
+                           FontSize="Medium"
+                           Grid.Row="0" 
+                           Grid.Column="0"
+                           Margin="5"/>
+                    <Image Source="arrow_down.png"
+                           HorizontalOptions="End"
+                           Opacity="0.5"
+                           Grid.Row="0" 
+                           Grid.Column="1"
+                           Margin="10"
+                           AutomationId="aimgExtendedListArrow">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding IsExpanded}" 
+                                                 Value="true">
+                                        <Setter Property="Rotation" 
+                                                Value="180" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+    </ListView.GroupHeaderTemplate>
+</ListView>

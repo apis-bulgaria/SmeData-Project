@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            x:Class="SmeData.Mobile.CustomControls.SearchBarWithNavigation"    
+            HeightRequest="50" 
+            IsVisible="{Binding IsSearchVisible}"
+            WidthRequest="{Binding ScreenWidth}" 
+            Margin="0,4,4,4"
+            Padding="10,0,0,0" 
+            HorizontalOptions="CenterAndExpand"
+            x:Name="mainFlexLayout">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="11*"/>
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="2*"/>
+    </Grid.ColumnDefinitions>
+    <SearchBar x:Name="searchBar" 
+               SearchCommand="{Binding SearchInDocCommand}"
+               SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+               HorizontalOptions="Fill"
+               Text="{Binding TextInField}"
+               Margin="0"
+               Grid.Column="0"
+               AutomationProperties.IsInAccessibleTree="True"
+               AutomationProperties.Name="Search field"
+               AutomationProperties.HelpText="Tap here for search"/>
+    <Label x:Name="searchCounterLabel" 
+           Text="{Binding SearchCounter}"
+           FontSize="14"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           VerticalTextAlignment="Center"
+           HorizontalTextAlignment="Center"
+           MinimumWidthRequest="100"
+           Margin="2"
+           Padding="0"
+           Grid.Column="1"
+           AutomationProperties.IsInAccessibleTree="True"/>
+    <Frame x:Name="btnPrev" 
+           WidthRequest="80"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           Padding="3,8"
+           Margin="2"
+           Grid.Column="2"
+           CornerRadius="2"
+           BorderColor="Gray"
+           HasShadow="True"
+           AutomationProperties.IsInAccessibleTree="True"
+           AutomationProperties.Name="Previous result button"> 
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer x:Name="prevCommand"
+                                  Command="{Binding PrevMatchCommand}" 
+                                  NumberOfTapsRequired="1" />
+        </Frame.GestureRecognizers>
+        <Image Source="arrow_down.png" 
+               Opacity="0.5"
+               Rotation="180"/>
+    </Frame>
+    <Frame x:Name="btnNext" 
+           WidthRequest="80"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           Padding="3,8"
+           Margin="2"
+           Grid.Column="3"
+           CornerRadius="2"
+           BorderColor="Gray"
+           HasShadow="True"
+           AutomationProperties.IsInAccessibleTree="True"
+           AutomationProperties.Name="Next result button">
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer x:Name="nextCommand"
+                                  Command="{Binding NextMatchCommand}" 
+                                  NumberOfTapsRequired="1" />
+        </Frame.GestureRecognizers>
+        <Image Source="arrow_down.png" 
+               Opacity="0.5"/>
+    </Frame>
+</Grid>

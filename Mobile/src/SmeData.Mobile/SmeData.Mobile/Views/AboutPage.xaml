@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:local="clr-namespace:SmeData.Mobile.Views"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             mc:Ignorable="d"
+             x:Class="SmeData.Mobile.Views.AboutPage"
+             x:Name="pageAbout"
+             Title="{Binding [About], Source={x:Static i18n:Translator.Instance}}"
+             AutomationId="attlAbout">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference pageAbout}}" 
+                     Icon="home.png"
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="{Binding [HomeButton], Source={x:Static i18n:Translator.Instance}}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:WebNavigatingConverter x:Key="webNavigatingEventArgsConverter" />
+            <converters:SizeConverter x:Key="SizeConverter" />
+            <converters:HtmlSourceConverter x:Key="HtmlSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"/>
+            <WebView x:Name="webView" 
+                     VerticalOptions ="FillAndExpand" 
+                     HorizontalOptions="FillAndExpand" 
+                     Navigating="WebView_Navigating" 
+                     BackgroundColor="AliceBlue"
+                     Margin="10,0"
+                     Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
+                <!--AutomationId="awvAbout"-->
+                <WebView.Behaviors>
+                    <b:EventToCommandBehavior EventName="Navigating"
+                                              Command="{Binding BindingContext.NavigatingCommand,Source={x:Reference pageAbout}}"
+                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
+                </WebView.Behaviors>
+            </WebView>
+            <BoxView HeightRequest="1" 
+                     BackgroundColor="{StaticResource NavigationPrimaryColor}" 
+                     Margin="0"/>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                          VerticalOptions="Center"
+                          Margin="5,5,5,10">
+                <StackLayout.GestureRecognizers>
+                    <SwipeGestureRecognizer Command="{Binding VersionTapCommand}"
+                                            Direction="Left"
+                                            Threshold="20"/>
+                </StackLayout.GestureRecognizers>
+                <Label Text="{Binding [CurrentAppVersion], Source={x:Static i18n:Translator.Instance}}"
+                       FontSize="Small"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       AutomationProperties.IsInAccessibleTree="True"/>
+                <Label Text="{Binding AppVersion}"
+                       FontSize="Small"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       AutomationProperties.IsInAccessibleTree="True"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

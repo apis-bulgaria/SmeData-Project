@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:SmeData.Mobile.Views"
+            xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+            xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+            x:Class="SmeData.Mobile.Views.EuLegalPage"
+            Title="{Binding [EUlegalframework], Source={x:Static i18n:Translator.Instance}}"
+            Style="{StaticResource tabbedPageBarBackground}"
+            x:Name="euLegalPage"
+            AutomationId="attlEuLegal"
+            BackgroundColor="White">
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference euLegalPage}}" 
+                     Icon="home.png"  
+                     AutomationProperties.IsInAccessibleTree="True"
+                     AutomationProperties.Name="Home button"/>
+    </TabbedPage.ToolbarItems>
+    <local:LegislationPage Title="{Binding [Legislation], Source={x:Static i18n:Translator.Instance}}" />
+                           <!--AutomationId="atbLegislation"-->
+    <local:CaseLawPage Title="{Binding [CaseLaw], Source={x:Static i18n:Translator.Instance}}" />
+                       <!--AutomationId="atbCaseLaw"-->
+    <local:GuidelinesTabPage Title="{Binding [Guidelines1], Source={x:Static i18n:Translator.Instance}}" />
+                             <!--AutomationId="atbGuidelines"-->
+</TabbedPage>

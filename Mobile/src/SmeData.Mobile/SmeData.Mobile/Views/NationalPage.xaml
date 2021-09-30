@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
+             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+             xmlns:i18n="clr-namespace:SmeData.Mobile.Helpers;assembly=SmeData.Mobile" 
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SmeData.Mobile.Views.NationalPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             Title="{Binding [National], Source={x:Static i18n:Translator.Instance}}"
+             x:Name="nationalPage"
+             AutomationId="attlNational">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference nationalPage}}" 
+                     Icon="home.png" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SizeConverter x:Key="SizeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+
+            <OnPlatform x:TypeArguments="Frame">
+                <On Platform="UWP">
+                    <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToBulgarianNationalDocsCommand}" />
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Image 
+               Source="bg_flag.png"
+               Margin="10"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding [Bulgaria], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </Frame>
+                </On>
+                <On Platform="Android, iOS">
+                    <customControls:FrameButtonHorizontal LabelText= "{Binding [Bulgaria], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="bg_flag.png" 
+                                                  TabCommand="{Binding GoToBulgarianNationalDocsCommand}"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                  DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                </On>
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="Frame">
+                <On Platform="UWP">
+                    <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToItalianNationalDocsCommand}" />
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Image
+               Source="it_flag.png"
+               Margin="10"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding [Italy], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </Frame>
+                </On>
+                <On Platform="Android, iOS">
+                    <customControls:FrameButtonHorizontal LabelText= "{Binding [Italy], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="it_flag.png" 
+                                                  TabCommand="{Binding GoToItalianNationalDocsCommand}"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                   DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                </On>
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="Frame">
+                <On Platform="UWP">
+                    <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToGermanNationalDocsCommand}" />
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Image 
+               Source="de_flag.png"
+               Margin="10"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding [Germany], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </Frame>
+                </On>
+                <On Platform="Android, iOS">
+                    <customControls:FrameButtonHorizontal LabelText= "{Binding [Germany], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="de_flag.png" 
+                                                  TabCommand="{Binding GoToGermanNationalDocsCommand}"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                   DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                </On>
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="Frame">
+                <On Platform="UWP">
+                    <Frame Margin="5"
+                   AutomationProperties.IsInAccessibleTree="True"
+                   Style="{StaticResource btn2WithImage}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToFranceNationalDocsCommand}" />
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Image 
+               Source="fr_flag.png"
+               Margin="10"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding [France], Source={x:Static i18n:Translator.Instance}}"
+               Grid.Column="1"
+               Grid.Row="0"
+               FontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}"
+               TextColor="Gray"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </Frame>
+                </On>
+                <On Platform="Android, iOS">
+                    <customControls:FrameButtonHorizontal LabelText= "{Binding [France], Source={x:Static i18n:Translator.Instance}}"
+                                                  ImageSource="fr_flag.png" 
+                                                  TabCommand="{Binding GoToFranceNationalDocsCommand}"
+                                                  Style="{StaticResource btn2WithImage}"
+                                                   DefaultFontSize="{Binding ButtonsFont, Converter={StaticResource SizeConverter}}" />
+                </On>
+            </OnPlatform>            
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainPageCaption" xml:space="preserve">
+    <value>Main Page</value>
+  </data>
+  <data name="ContactNationalDPA" xml:space="preserve">
+    <value>Contact with National DPAs</value>
+  </data>
+  <data name="DecisionSupportTool" xml:space="preserve">
+    <value>Decision Support Tool</value>
+  </data>
+  <data name="EuropeanUnion" xml:space="preserve">
+    <value>European Union</value>
+  </data>
+  <data name="GdprDictionary" xml:space="preserve">
+    <value>GDPR Dictionary</value>
+  </data>
+  <data name="GDPRMadeSimple" xml:space="preserve">
+    <value>GDPR Made Simple</value>
+  </data>
+  <data name="GuideForCitizens" xml:space="preserve">
+    <value>Guide for citizens</value>
+  </data>
+  <data name="GuideForSMEs" xml:space="preserve">
+    <value>Guide for SMEs</value>
+  </data>
+  <data name="International" xml:space="preserve">
+    <value>International</value>
+  </data>
+  <data name="MainPageFooter" xml:space="preserve">
+    <value>SMEDATA Project is funded by the EU's Rights, Equality and Citizenship Programme (2014-2020)</value>
+  </data>
+  <data name="National" xml:space="preserve">
+    <value>National</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="TrainingMaterials" xml:space="preserve">
+    <value>Training Materials</value>
+  </data>
+  <data name="UsefulLinks" xml:space="preserve">
+    <value>Useful Links</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Prev" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="LegalLibrary" xml:space="preserve">
+    <value>Legal Library</value>
+  </data>
+  <data name="SaveOffline" xml:space="preserve">
+    <value>Save offline</value>
+  </data>
+</root>
