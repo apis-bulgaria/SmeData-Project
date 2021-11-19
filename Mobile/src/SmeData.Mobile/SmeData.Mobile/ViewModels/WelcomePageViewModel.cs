@@ -102,42 +102,42 @@ namespace SmeData.Mobile.ViewModels
 
                 isStartUp = false;
 
-                if (!settings.ShowMsgUpdates)
+                var allDocsSaved = await documentsRepository.GetDocumentsAsync();
+                var allSystemDocs = allDocsSaved.Where(x => x.IsMainDoc).ToList();
+
+                if ((Device.RuntimePlatform == Device.UWP && Connectivity.NetworkAccess == NetworkAccess.Internet) || (Device.RuntimePlatform != Device.UWP && ConnectivityHelper.IsWifiConnected()))
                 {
-                    var allDocsSaved = await documentsRepository.GetDocumentsAsync();
-                    var allSystemDocs = allDocsSaved.Where(x => x.IsMainDoc).ToList();
+                    List<LastChangeOfDoc> allSystemDocIdentsWithLastChange = new List<LastChangeOfDoc>();
 
-                    if ((Device.RuntimePlatform == Device.UWP && Connectivity.NetworkAccess == NetworkAccess.Internet) || (Device.RuntimePlatform != Device.UWP && ConnectivityHelper.IsWifiConnected()))
+                    foreach (var doc in allSystemDocs)
                     {
-                        List<LastChangeOfDoc> allSystemDocIdentsWithLastChange = new List<LastChangeOfDoc>();
-
-                        foreach (var doc in allSystemDocs)
-                        {
-                            allSystemDocIdentsWithLastChange.Add(new LastChangeOfDoc() { Ident = doc.Identifier, LastChangeDate = doc.LastChangeDate });
-                        }
-
-                        List<LastChangeOfDoc> updatedSystemDocuments = new List<LastChangeOfDoc>();
-                        updatedSystemDocuments = await httpService.GetUpdatedDocuments(allSystemDocIdentsWithLastChange);
-
-                        if (updatedSystemDocuments.Count > 0)
-                        {
-                            foreach (var systemDoc in updatedSystemDocuments)
-                            {
-                                var updatedSystemDoc = await httpService.GetSmeDocByIdentifier(systemDoc.Ident, null);
-                                documentsRepository.UpdateDocumentAsync(
-                                    new DocumentModel()
-                                    {
-                                        Identifier = updatedSystemDoc.Meta.Idenitifier,
-                                        Title = updatedSystemDoc.Meta.Title,
-                                        IsMainDoc = true,
-                                        IsToHide = true,
-                                        LastChangeDate = updatedSystemDoc.Meta.LastChangeDate,
-                                        JsonSmeDoc = Compression.CompressString(JsonConvert.SerializeObject(updatedSystemDoc))
-                                    });
-                            }
-                        }
+                        allSystemDocIdentsWithLastChange.Add(new LastChangeOfDoc() { Ident = doc.Identifier, LastChangeDate = doc.LastChangeDate });
                     }
 
+                    List<LastChangeOfDoc> updatedSystemDocuments = new List<LastChangeOfDoc>();
+                    updatedSystemDocuments = await httpService.GetUpdatedDocuments(allSystemDocIdentsWithLastChange);
+
+                    if (updatedSystemDocuments.Count > 0)
+                    {
+                        foreach (var systemDoc in updatedSystemDocuments)
+                        {
+                            var updatedSystemDoc = await httpService.GetSmeDocByIdentifier(systemDoc.Ident, null);
+                            documentsRepository.UpdateDocumentAsync(
+                                new DocumentModel()
+                                {
+                                    Identifier = updatedSystemDoc.Meta.Idenitifier,
+                                    Title = updatedSystemDoc.Meta.Title,
+                                    IsMainDoc = true,
+                                    IsToHide = true,
+                                    LastChangeDate = updatedSystemDoc.Meta.LastChangeDate,
+                                    JsonSmeDoc = Compression.CompressString(JsonConvert.SerializeObject(updatedSystemDoc))
+                                });
+                        }
+                    }
+                }
+
+                if (settings.ShowMsgUpdates)
+                {
                     allDocsSaved = allDocsSaved.Where(x => !x.IsMainDoc).ToList();
 
                     List<LastChangeOfDoc> allDocIdentsWithLastChange = new List<LastChangeOfDoc>();

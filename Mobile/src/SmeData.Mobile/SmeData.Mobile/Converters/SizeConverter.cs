@@ -15,6 +15,11 @@ namespace SmeData.Mobile.Converters
             {
                 string[] parts = ((string)value).Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
 
+                if (parts.Length == 1)
+                {
+                    return int.Parse(parts[0]);
+                }
+
                 string pointerSource = parts[0];
                 double incomingFontSize = double.Parse(parts[1]);
                 int screenWidth = int.Parse(parts[2]);

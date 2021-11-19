@@ -64,7 +64,7 @@ namespace SmeData.Mobile.ViewModels
             if (doc is DocumentResponseModel docResp)
             {
                 if (!string.IsNullOrEmpty(docResp.DocIdentifier))
-                {//abbedPage?selectedTab=MiddleTab/ViewA/ViewB
+                {
                     this.navigationService.NavigateAsync($"{pageToNavigate}?{UrlNavHelper.IDENTIFIER}={docResp.DocIdentifier}&{UrlNavHelper.FULL_TITLE}={Uri.EscapeDataString(docResp.FullTitle)}&{UrlNavHelper.SEARCH_TEXT}={SearchedText}");
                 }
                 else
@@ -157,24 +157,31 @@ namespace SmeData.Mobile.ViewModels
 
                 var seacrhResult = httpService.GetClassifier(searchModel).Result;
 
-                EuDocs = new InfiniteScrollCollection<DocumentResponseModel>
+                if (seacrhResult.Data.Count > 0)
                 {
-                    OnLoadMore = async () =>
+                    EuDocs = new InfiniteScrollCollection<DocumentResponseModel>
                     {
-                        IsBusy = true;
+                        OnLoadMore = async () =>
+                        {
+                            IsBusy = true;
 
-                        var items = await GetItemsAsync(seacrhResult, EuDocs.Count, pageSize);
+                            var items = await GetItemsAsync(seacrhResult, EuDocs.Count, pageSize);
 
-                        IsBusy = false;
-                        return items;
-                    },
-                    OnCanLoadMore = () =>
-                    {
-                        return EuDocs.Count < seacrhResult.TotalCount;
-                    }
-                };
+                            IsBusy = false;
+                            return items;
+                        },
+                        OnCanLoadMore = () =>
+                        {
+                            return EuDocs.Count < seacrhResult.TotalCount;
+                        }
+                    };
 
-                EuDocs.AddRange(GetItemsAsync(seacrhResult, 0, pageSize).Result);
+                    EuDocs.AddRange(GetItemsAsync(seacrhResult, 0, pageSize).Result);
+                }
+                else
+                {
+                    await this.dialogService.DisplayAlertAsync(Translator.GetString("Message"), $@"{Translator.GetString("NoResult")} ""{searchedText}""", Translator.GetString("Ok"));
+                }
             }
             catch (Exception ex)
             {

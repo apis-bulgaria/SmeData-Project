@@ -117,18 +117,27 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding LegalFrameworkCommand}" />
                             </Frame.GestureRecognizers>
-                            <StackLayout 
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center" >
+                            <Grid 
+                 HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
                                 <Image Source="library.png"  
-               Style="{StaticResource frImage}"
-               Opacity="0.5"/>
+                                       Aspect="AspectFit"
+                                       Style="{StaticResource frImage}"
+                                       Opacity="0.5"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
                                 <Label Text="{Binding [LegalLibrary], Source={x:Static i18n:Translator.Instance}}" 
-               TextColor="Gray"
-               FontSize="{Binding MainButtonsFont, Converter={StaticResource SizeConverter}}"
-               HorizontalOptions="CenterAndExpand"
-               HorizontalTextAlignment="Center"/>
-                            </StackLayout>
+                                       TextColor="Gray"                                  
+                                       Grid.Row="1"
+                                       Grid.Column="0"        
+                                       FontSize="{Binding MainButtonsFont, Converter={StaticResource SizeConverter}}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"/>
+                            </Grid>
                         </Frame>
                     </On>
                     <On Platform="Android, iOS">
@@ -144,8 +153,6 @@
                                             AutomationProperties.IsInAccessibleTree="True" />
                     </On>                   
                 </OnPlatform>
-
-                
                 <OnPlatform x:TypeArguments="Frame">
                     <On Platform="UWP">
                         <Frame Padding="5"
@@ -172,18 +179,27 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GdprDictionaryCommand}" />
                             </Frame.GestureRecognizers>
-                            <StackLayout
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center" >
+                            <Grid 
+                 HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
                                 <Image Source="book.png"  
-               Style="{StaticResource frImage}"
-               Opacity="0.5"/>
+              Aspect="AspectFit"
+                                       Style="{StaticResource frImage}"
+                                       Opacity="0.5"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
                                 <Label Text="{Binding [GdprDictionary], Source={x:Static i18n:Translator.Instance}}" 
-               TextColor="Gray"
-               FontSize="{Binding MainButtonsFont, Converter={StaticResource SizeConverter}}"
-               HorizontalOptions="CenterAndExpand"
-               HorizontalTextAlignment="Center"/>
-                            </StackLayout>
+                                                     TextColor="Gray"                                  
+                                       Grid.Row="1"
+                                       Grid.Column="0"        
+                                       FontSize="{Binding MainButtonsFont, Converter={StaticResource SizeConverter}}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"/>
+                            </Grid>
                         </Frame>
                     </On>
                     <On Platform="Android, iOS">
@@ -227,18 +243,27 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GuideForCitizensCommand}" />
                             </Frame.GestureRecognizers>
-                            <StackLayout
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center" >
+                            <Grid 
+                 HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
                                 <Image Source="group.png"  
-               Style="{StaticResource frImage}"
-               Opacity="0.5"/>
+              Aspect="AspectFit"
+                                       Style="{StaticResource frImage}"
+                                       Opacity="0.5"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
                                 <Label Text="{Binding [GuideForCitizens], Source={x:Static i18n:Translator.Instance}}" 
-               TextColor="Gray"
-               FontSize="{Binding MainButtonsFont, Converter={StaticResource SizeConverter}}"
-               HorizontalOptions="CenterAndExpand"
-               HorizontalTextAlignment="Center"/>
-                            </StackLayout>
+                                                   TextColor="Gray"                                  
+                                       Grid.Row="1"
+                                       Grid.Column="0"        
+                                       FontSize="{Binding MainButtonsFont, Converter={StaticResource SizeConverter}}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"/>
+                            </Grid>
                         </Frame>
                     </On>
                     <On Platform="Android, iOS">
@@ -282,18 +307,27 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GuideForSmesCommand}" />
                             </Frame.GestureRecognizers>
-                            <StackLayout
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center" >
+                            <Grid 
+                 HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
                                 <Image Source="suitcase.png"  
-               Style="{StaticResource frImage}"
-               Opacity="0.5"/>
+              Aspect="AspectFit"
+                                       Style="{StaticResource frImage}"
+                                       Opacity="0.5"
+                                       Grid.Row="0"
+                                       Grid.Column="0"/>
                                 <Label Text="{Binding [GuideForSMEs], Source={x:Static i18n:Translator.Instance}}" 
-               TextColor="Gray"
-               FontSize="{Binding MainButtonsFont, Converter={StaticResource SizeConverter}}"
-               HorizontalOptions="CenterAndExpand"
-               HorizontalTextAlignment="Center"/>
-                            </StackLayout>
+                                                    TextColor="Gray"                                  
+                                       Grid.Row="1"
+                                       Grid.Column="0"        
+                                       FontSize="{Binding MainButtonsFont, Converter={StaticResource SizeConverter}}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"/>
+                            </Grid>
                         </Frame>
                     </On>
                     <On Platform="Android, iOS">

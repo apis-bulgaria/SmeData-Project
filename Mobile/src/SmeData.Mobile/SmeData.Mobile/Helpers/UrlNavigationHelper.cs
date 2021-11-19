@@ -55,6 +55,7 @@ namespace SmeData.Mobile.Helpers
                 navigationService.NavigateAsync($"GdpMadeSimplePage?{UrlNavHelper.IDENTIFIER}={m.Groups[1].Value}");
                 return;
             }
+
             m = Regex.Match(url, @"\/(Base=.*)", RegexOptions.IgnoreCase);
             if (m.Success)
             {
@@ -62,6 +63,7 @@ namespace SmeData.Mobile.Helpers
                 Browser.OpenAsync(navUrl);
                 return;
             }
+
             m = Regex.Match(url, @"Celex=(.*)", RegexOptions.IgnoreCase);
             if (m.Success)
             {
@@ -73,8 +75,10 @@ namespace SmeData.Mobile.Helpers
                 {
                     navigationService.NavigateAsync($"DocMainPage?{UrlNavHelper.DOC_NUM}={celex}");
                 } 
+
                 return;
             }
+
             m = Regex.Match(url, @"static_file(.*)", RegexOptions.IgnoreCase);
             if (m.Success)
             {
@@ -84,8 +88,10 @@ namespace SmeData.Mobile.Helpers
                     var fileUrl = httpService.GetStaticFileContentUrl(urlParams[1], urlParams[2]);
                     Browser.OpenAsync(fileUrl, BrowserLaunchMode.SystemPreferred);
                 }
+
                 return;
             }
+
             //regex for proper http or https format
             if (!url.ToLower().StartsWith(@"file:///") && !url.ToLower().StartsWith(@"ms-appx-web:///"))
             {

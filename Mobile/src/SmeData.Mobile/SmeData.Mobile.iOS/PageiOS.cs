@@ -107,7 +107,7 @@ namespace SmeData.Mobile.iOS
 
                 if (this.TabBarController.TabBar.Items != null)
                 {
-                    var fontFamily = new UITextField().Font.Name;
+                    //var fontFamily = new UITextField().Font.Name;
 
                     foreach (var tabItem in this.TabBarController.TabBar.Items)
                     {

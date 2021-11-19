@@ -78,7 +78,7 @@ Treaties;Treaties;Договори;Trattati;Verträge;Traités
 31995L0046;95/46/EC;95/46/ЕО;95/46/CE;95/46/EG;95/46/CE
 Error;Error;Грешка;Errore;Fehler;Erreur
 Message;Message;Съобщение;Message;Nachricht ;Message
-Оk;ОК;Да;OK;OK;OK
+Оk;ОК;OK;OK;OK;OK
 WifiSettingsOption;Download documents only when WiFi is available;Сваляне на документи само при налична WiFi връзка;Scarica i documenti solo quando il WiFi è disponibile ;Laden Sie Dokumente nur herunter, wenn WiFi verfügbar ist;Télécharger des documents uniquement lorsque le Wi-Fi est disponible
 No Internet Access;No Internet Access;Липсва достъп до интернет;No Internet Access;Keiner Internetzugang;Pas d'accès Internet
 No Wifi Access;"You are not connected to Wifi network. If you want to open documents not only when connected to a Wifi network, disable this option from "Settings".";"Не сте свързани към Wifi мрежа. Ако желаете да отваряте документи не само, когато се свързан към Wifi мрежа, изключете тази настройка от "Настройки".";Non sei collegato alla rete Wifi. Se vuoi aprire documenti non solo quando sei connesso a una rete Wifi, disabilita questa opzione da Impostazioni.;"Sie sind nicht mit dem  WiFi-Netzwerk verbunden. Wenn Sie Dokumente nicht nur beim WiFi-Netzwerk öffnen möchten, deaktivieren Sie diese Option unter "Einstellungen".";"Vous n'êtes pas connecté au réseau Wifi". Si vous souhaitez ouvrir des documents non seulement lorsque vous êtes connecté à un réseau Wifi, désactivez cette option dans "Paramètres"."
@@ -88,9 +88,10 @@ UpdateDocumentExist;"There is an update of document(s) that you have saved on yo
 Warning;Warning;Предупреждение;Avvertimento;Warnung;Avertissement 
 CurrentAppVersion;Version: ;Версия: ;Versione: ;Version: ;Version:
 OtherDocuments;Other Documents;Други документи;Altri documenti;Andere Dokumente;Autres documents
-DocumentIsSaved;The document is saved;Документът е запазен;Il documento è stato salvato;Das Dokument wird gespeichert;Le document est enregistré 
+DocumentIsSaved;The document is saved in the "User documents" section;Документът е запазен в секция "Потребителски документи";Il documento è stato salvato nella sezione "Documenti dell'utente";Das Dokument wird im Abschnitt "Benutzerdokumente" gespeichert;Le document est enregistré dans la rubrique "Documents de l'utilisateur"
 DocumentIsUpdated;The document is updated;Документът е актуализиран;Il documento è stato aggiornato;Das Dokument wird aktualisiert;Le document est mis à jour
-DocumentIsAlreadySaved;The document is already saved. Do you want to update it?;Документът вече е запазен. Искате ли да го актуализирате?;Il documento è già stato salvato. Vuoi aggiornarlo?;Das Dokument ist bereits gespeichert. Möchten Sie es aktualisieren?;Le document est déjà enregistré. Voulez-vous le mettre à jour? 
+DocumentIsAlreadySaved;The document is already saved in the "User documents" section. Do you want to update it?;Документът вече е запазен в секция "Потребителски документи". Искате ли да го актуализирате?;Il documento è già stato salvato nella sezione "Documenti dell'utente". Vuoi aggiornarlo?;Das Dokument ist bereits im Abschnitt "Benutzerdokumente" gespeichert. Möchten Sie es aktualisieren?;Le document est déjà enregistré dans la section "Documents de l'utilisateur". Voulez-vous le mettre à jour? 
+DocumentIsAlreadySavedSystemDoc;The document is already saved in the "System documents" section. Do you want to update it?;Документът вече е запазен в секция "Системни документи". Искате ли да го актуализирате?;Il documento è già stato salvato nella sezione "Documenti di sistema". Vuoi aggiornarlo?;Das Dokument ist bereits im Abschnitt "Systemdokumente" gespeichert. Möchten Sie es aktualisieren?;Le document est déjà enregistré dans la section "Documents du système". Voulez-vous le mettre à jour? 
 SelectLanguage;Select language;Изберете език;Seleziona la lingua;Sprache auswählen;Sélectionner la langue
 UserDocuments;User documents;Потребителски документи;Documenti dell'utente;Benutzerdokumente;Documents de l'utilisateur
 SystemDocuments;System documents;Системни документи;Documenti di sistema;Systemdokumente;Documents du système 
@@ -106,3 +107,4 @@ FrCourtOfCassation;Court of Cassation;Касационен съд;Corte di cassa
 FrCouncilOfState;Council of State;Върховен административен съд;Consiglio di Stato;Staatsrat;Conseil d’Etat
 FrNCIL;National Commission on Informatics and Liberty;Национална комисия за информационни технологии и свободи;Commissione nazionale dell'informatica e della libertà;Nationale Kommission für Informatik und Freiheiten ;Commission nationale de l'informatique et des libertés
 MsgUpdatesSettingsOption;Receive messages about document updates;Получавайте съобщения за актуализации на документи;Ricevi messaggi sugli aggiornamenti dei documenti;Erhalten Sie Nachrichten über Dokumentaktualisierungen;Recevez des messages sur les mises à jour de documents
+NoResult;No results found for:;Няма намерени резултати за:;Nessun risultato trovato per:;Keine Ergebnisse gefunden für:;Aucun résultat trouvé pour:

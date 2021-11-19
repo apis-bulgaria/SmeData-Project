@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmeData.Mobile.UITests", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{BC2EED4C-141F-47F4-9323-18CBBB135737}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmeData.ToolsForDocumentsUpdate", "ToolsForDocumentsUpdate\SmeData.ToolsForDocumentsUpdate.csproj", "{FDDBD72B-27C6-4C53-8AB1-77EF44581DB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmeData.ToolsForDocumentsUpdate", "ToolsForDocumentsUpdate\SmeData.ToolsForDocumentsUpdate.csproj", "{FDDBD72B-27C6-4C53-8AB1-77EF44581DB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -537,7 +537,7 @@ Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 18
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://192.168.2.19:8080/tfs/apiscollection
+		SccTeamFoundationServer = http://tfsserver:8080/tfs/apiscollection
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = SmeData.Mobile\\SmeData.Mobile.Android\\SmeData.Mobile.Android.csproj
 		SccProjectName1 = SmeData.Mobile/SmeData.Mobile.Android

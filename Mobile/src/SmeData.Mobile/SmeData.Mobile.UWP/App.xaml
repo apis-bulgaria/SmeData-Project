@@ -6,5 +6,17 @@
     RequestedTheme="Light">
     <Application.Resources>
         <x:Double x:Key="AppBarExpandButtonThemeWidth">0</x:Double>
+        <Style TargetType="ToggleSwitch">
+            <Setter Property="OffContent" Value=" " />
+            <Setter Property="OnContent" Value=" " />
+            <Setter Property="Margin" Value="0,0,-110,0" /> 
+        </Style>
+        <Style
+             x:Key="TitleTextBlockStyle"
+             BasedOn="{StaticResource BaseTextBlockStyle}"
+             TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings" />
+        </Style>
     </Application.Resources>
 </Application>

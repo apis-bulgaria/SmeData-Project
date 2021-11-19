@@ -35,6 +35,7 @@
                 <Setter Property="BorderColor" Value="Gray"/>
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="BackgroundColor" Value="White" />
             </Style>
             <Style TargetType="Frame" x:Key="btn2WithImage">
                 <Setter Property="Margin" Value="15"/>
@@ -43,6 +44,7 @@
                 <Setter Property="BorderColor" Value="Gray"/>
                 <Setter Property="HeightRequest" Value="50"/>
                 <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="BackgroundColor" Value="White" />
             </Style>
             <Style TargetType="Label" x:Key="PageHeadingText">
                 <Setter Property="TextColor" Value="Gray"/>

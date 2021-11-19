@@ -14,7 +14,7 @@ namespace SmeData.ToolsForDocumentsUpdate
 
         public Tools()
         {
-            var cs = @"**********";
+            var cs = @"Server=********;Database=*********;User Id=*********;Password=**********; Timeout=300";
             this.factory = new EucasesContextFactory(new EuCasesContextFactorySettings(cs));
             this.pathsProvider = new PathsProvider()
             {

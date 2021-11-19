@@ -151,7 +151,6 @@ namespace SmeData.Mobile.ViewModels
         private void AddRemoveBookmarkToolbar()
         {
             this.DoAddRemoveBookmark(this.SelectedItem);
-            this.SelectedItem = this.SelectedItem;
         }
 
         #region Props
@@ -234,7 +233,7 @@ namespace SmeData.Mobile.ViewModels
                 this.colorizeInfos = new List<ColorizeInfo>();
                 this.currentColorizeIndex = -1;
 
-                if (smeDoc.Meta.IsBlob == true)
+                if (smeDoc?.Meta?.IsBlob == true)
                 {
                     var fileUrl = httpService.GetStaticFileContentUrl(identOrDocNum, smeDoc.Items[0]?.Text);
                     this.navigationService.GoBackAsync();
@@ -256,6 +255,7 @@ namespace SmeData.Mobile.ViewModels
                         {
                             await Browser.OpenAsync($"https://eur-lex.europa.eu/legal-content/{UrlNavHelper.GetEurlexCountryByLanguage(settings.Language)}/ALL/?uri=CELEX:{identOrDocNum}");
                         }
+
                         return;
                     }
 
@@ -443,35 +443,36 @@ namespace SmeData.Mobile.ViewModels
         /// <returns>Current doc item html</returns>
         public string GetCurrentDocItemHtml(bool colorizeNav = false)
         {
-            var res = DocumentHelper.GetDisplayText(this.CurrentDocument, settings.Language, CurrentDocument.Items[this.currentIndex]);
+            var result = DocumentHelper.GetDisplayText(this.CurrentDocument, settings.Language, CurrentDocument.Items[this.currentIndex]);
 
             var cultureInfo = Properties.Resources.Culture;
-            res += "<div>";
+            result += "<div>";
             if (this.currentIndex > 0)
             {
-                res += $"&nbsp;<a  class=\"doc-go-prev\" href=\"{UrlNavHelper.GO_PREV}\">{Translator.GetString("Prev")}</a>&nbsp;";
+                result += $"&nbsp;<a  class=\"doc-go-prev\" href=\"{UrlNavHelper.GO_PREV}\">{Translator.GetString("Prev")}</a>&nbsp;";
             }
 
             if (this.currentIndex < this.CurrentDocument?.Items.Count - 1)
             {
-                res += $"&nbsp;<a  class=\"doc-go-next\" href=\"{UrlNavHelper.GO_NEXT}\">{Translator.GetString("Next")}</a>&nbsp;";
+                result += $"&nbsp;<a  class=\"doc-go-next\" href=\"{UrlNavHelper.GO_NEXT}\">{Translator.GetString("Next")}</a>&nbsp;";
             }
 
-            res += "</div>";
+            result += "</div>";
             if (this.CurrentDocument.Meta.DocType == 2)
             {
-                res = $"<div class=\"d-body\">{res}</div>";
+                result = $"<div class=\"d-body\">{result}</div>";
             }
 
             if (colorizeNav)
             {
                 if (this.SelectedItem == this.colorizeInfos[this.currentColorizeIndex].DocItem)
                 {
-                    res += GetColorizeScript();
+                    result += GetColorizeScript();
                 }
             }
 
-            return res;
+            result = Regex.Replace(result, @"(\<a\s[^\<\>]*)target\s?=\s?""_?blank""", @"$1", RegexOptions.IgnoreCase);
+            return result;
         }
 
         /// <summary>
@@ -564,11 +565,11 @@ namespace SmeData.Mobile.ViewModels
 
         /// <summary>
         /// Add or removes bookmark of the doc item
-        /// </summary>
+        /// </summary> 
         /// <param name="docEntry">Input doc item</param>
         private void DoAddRemoveBookmark(SmeDocItem docEntry)
         {
-            var curDocList = DocumentItems;
+            var curDocList = new ObservableCollection<SmeDocItem>(DocumentItems);
             if (curDocList.Any(x => x.Id == docEntry.Id))
             {
                 var indexOfEl = curDocList.IndexOf(docEntry);
@@ -581,11 +582,12 @@ namespace SmeData.Mobile.ViewModels
                 }
                 else
                 {
-                    curDocList.Where(x => x.Id == docEntry.Id).FirstOrDefault().IsBookmarked = true;                    
+                    curDocList.Where(x => x.Id == docEntry.Id).FirstOrDefault().IsBookmarked = true;
                     SortedBookmarksAndPars.Add(dicKey, docEntry.Heading);
                 }
 
                 DocumentItems = new ObservableCollection<SmeDocItem>(curDocList);
+                this.SelectedItem = docEntry;
             }
         }
 

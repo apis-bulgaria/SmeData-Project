@@ -72,6 +72,12 @@ namespace SmeData.Mobile.ViewModels
             }
         }
 
+        public Action MouseOverAction { set; get; }
+        public void MouseOver(Action action)
+        {
+            MouseOverAction = action;
+        }
+
         public string DocTitleLabelFont { get => $"t|{DocTitleFont + settings.FontIndex}|{ScreenWidth}"; }
         
         /// <summary>
@@ -135,6 +141,12 @@ namespace SmeData.Mobile.ViewModels
             this.PrevMatchCommand = new DelegateCommand(this.GotoPrevMatch);
             this.DecreaseFontCommand = new DelegateCommand(this.DecreaseFont);
             this.IncreaseFontCommand = new DelegateCommand(this.IncreaseFont);
+
+            MouseOver(() =>
+            {
+                // do some sth
+                Console.WriteLine();
+            });
         }
 
         /// <summary>
@@ -718,17 +730,46 @@ namespace SmeData.Mobile.ViewModels
 
                 int updateStatus = await documentsRepository.AddDocumentAsync(document);
 
+                List<string> systemDocsIdents = new List<string>() {
+                "a5a8acc2-9184-4946-9698-0b7a8c2120de",
+                "52654854-513a-4516-8ee9-998fe73cc42e",
+                "0112b2e6-5792-4cb5-af11-ff7765a5df9c",
+                "7941c7fa-4459-48e0-9b4d-34328b64fcc0",
+                "91d0bdc5-79c7-4180-97f4-ef7d4437ddb2",
+                "2921c10b-60f2-4391-a808-fd651129d692",
+                "7642ae7b-a706-4901-8399-71085ac2adab",
+                "43b8c2ce-fd96-40d8-bebc-303dd9098911",
+                "a1fed601-9ebe-43b3-bae7-26302c102516",
+                "53e074a5-0b26-4fd3-bbab-13f7a418af4f",
+                "2e2fd43c-3dec-45ec-b127-9fbe719fa4c2",
+                "f6c17707-0bf6-42ae-bab5-5ab3a48771c2",
+                "44f9398a-729d-4501-9845-6e56aecffb4b",
+                "9df940ee-6e77-4181-8362-43788e625a2b",
+                "9859dd64-59d1-4491-a89d-1dbebcd4e04b"
+                };
+
                 switch (updateStatus)
                 {
                     case 1:
                         await this.dialogService.DisplayAlertAsync(Translator.GetString("Message"), Translator.GetString("DocumentIsSaved"), Translator.GetString("Ok"));
                         break;
                     case 2:
-                        if (await this.dialogService.DisplayAlertAsync(Translator.GetString("Message"), Translator.GetString("DocumentIsAlreadySaved"), Translator.GetString("Yes"), Translator.GetString("No")))
+                        if (systemDocsIdents.Contains(document.Identifier))
                         {
-                            await documentsRepository.UpdateDocumentAsync(document);
-                            await this.dialogService.DisplayAlertAsync(Translator.GetString("Message"), Translator.GetString("DocumentIsUpdated"), Translator.GetString("Ok"));
+                            if (await this.dialogService.DisplayAlertAsync(Translator.GetString("Message"), Translator.GetString("DocumentIsAlreadySavedSystemDoc"), Translator.GetString("Yes"), Translator.GetString("No")))
+                            {
+                                await documentsRepository.UpdateDocumentAsync(document);
+                                await this.dialogService.DisplayAlertAsync(Translator.GetString("Message"), Translator.GetString("DocumentIsUpdated"), Translator.GetString("Ok"));
+                            }
                         }
+                        else
+                        {
+                            if (await this.dialogService.DisplayAlertAsync(Translator.GetString("Message"), Translator.GetString("DocumentIsAlreadySaved"), Translator.GetString("Yes"), Translator.GetString("No")))
+                            {
+                                await documentsRepository.UpdateDocumentAsync(document);
+                                await this.dialogService.DisplayAlertAsync(Translator.GetString("Message"), Translator.GetString("DocumentIsUpdated"), Translator.GetString("Ok"));
+                            }
+                        }                       
                         break;
                     default:
                         break;

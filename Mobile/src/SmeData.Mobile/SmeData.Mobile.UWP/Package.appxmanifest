@@ -9,7 +9,7 @@
   <Identity
     Name="ApisEuropeAD.GDPRinYourPocket"
     Publisher="CN=82702653-EAF9-4AD2-B218-AFF8A1BDAB7E"
-    Version="1.0.52.0" />
+    Version="1.0.62.0" />
 
   <mp:PhoneIdentity PhoneProductId="eb33aa3d-98ea-4548-9909-864392f31e4b" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

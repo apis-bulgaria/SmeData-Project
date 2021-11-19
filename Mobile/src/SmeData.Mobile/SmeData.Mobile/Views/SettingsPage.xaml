@@ -87,7 +87,8 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 HorizontalOptions="EndAndExpand"
-                VerticalOptions="Center">
+                VerticalOptions="Center"
+                >
             <Switch.IsVisible>
                 <OnPlatform x:TypeArguments="x:Boolean">
                     <On Platform="Android, iOS">true</On>

@@ -5,6 +5,7 @@
             xmlns:local="clr-namespace:SmeData.Mobile.Views"
             xmlns:customControls="clr-namespace:SmeData.Mobile.CustomControls"
             xmlns:converters="clr-namespace:SmeData.Mobile.Converters"
+            xmlns:effects="clr-namespace:SmeData.Mobile.Effects"
             xmlns:behaviors="clr-namespace:SmeData.Mobile.Behaviors"
             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
             xmlns:c="clr-namespace:SmeData.Mobile.Converters"
@@ -33,7 +34,7 @@
     </TabbedPage.Behaviors>
     <TabbedPage.ToolbarItems>
         <ToolbarItem Command="{Binding Path=BindingContext.ToogleIsSearchBarVisibleCommand, Source={x:Reference docMainPage}}"
-                     Icon="magnifier_white.png"
+                     Icon="magnifier_white.png"                     
                      AutomationProperties.IsInAccessibleTree="True"
                      AutomationProperties.Name="Search button"/>
         <!--<OnPlatform x:TypeArguments="ToolbarItem">
@@ -58,6 +59,9 @@
                 <ToolbarItem />
             </On>
         </OnPlatform>-->
+
+
+        <!--effects:MouseOverEffect.MouseOver="{Binding MouseOverAction}"-->
         <ToolbarItem Command="{Binding Path=BindingContext.SaveOfflineCommand, Source={x:Reference docMainPage}}"
                      CommandParameter="{Binding}"
                      Icon="save.png"
@@ -66,7 +70,8 @@
         <ToolbarItem Command="{Binding Path=BindingContext.AddRemoveBookmarkToolbarCommand, Source={x:Reference docMainPage}}"
                      Icon="{Binding Path=BindingContext.SelectedItem.IsBookmarked, Source={x:Reference docMainPage},Converter={StaticResource BookmarkToolbarImageConverter}}"
                      AutomationProperties.IsInAccessibleTree="True"
-                     AutomationProperties.Name="Bookmark button"/>
+                     AutomationProperties.Name="Bookmark button"
+                     />
         <ToolbarItem Command="{Binding Path=BindingContext.HomePageCommand, Source={x:Reference docMainPage}}" 
                      Icon="home.png"
                      AutomationProperties.IsInAccessibleTree="True"
@@ -191,23 +196,7 @@
                                                     Grid.Row="0"/>
 
             <OnPlatform x:TypeArguments="View">
-                <On Platform="UWP">
-                    <customControls:CustomWebView x:Name="DescriptionUwp" 
-                                          VerticalOptions ="FillAndExpand" 
-                                          HorizontalOptions="FillAndExpand"
-                                          BackgroundColor="AliceBlue" 
-                                          Navigating="Description_Navigating"
-                                          Margin="10,0"
-                                          Grid.Row="1"
-                                          Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
-                        <customControls:CustomWebView.Behaviors>
-                            <b:EventToCommandBehavior EventName="Navigating" 
-                                              Command="{Binding BindingContext.NavigatingCommand,Source={x:Reference tbDocContent}}"
-                                              EventArgsConverter="{StaticResource webNavigatingEventArgsConverter}" />
-                        </customControls:CustomWebView.Behaviors>
-                    </customControls:CustomWebView>
-                </On>
-                <On Platform="Android">
+                <On Platform="Android, UWP">
                     <customControls:CustomWebView x:Name="DescriptionAndroid" 
                                           VerticalOptions ="FillAndExpand" 
                                           HorizontalOptions="FillAndExpand"

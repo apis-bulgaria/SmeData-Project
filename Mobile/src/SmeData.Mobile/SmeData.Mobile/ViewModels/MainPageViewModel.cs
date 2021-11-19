@@ -19,7 +19,20 @@ namespace SmeData.Mobile.ViewModels
         public DelegateCommand HelpPageCommand { get; set; }
         public DelegateCommand AboutPageCommand { get; set; }
 
-        public string MenuItemFont { get => $"t|18|{ScreenWidth}"; }
+        public string MenuItemFont
+        {
+            get
+            {
+                if (Device.RuntimePlatform == Device.UWP)
+                {
+                    return $"t|14|{ScreenWidth}";
+                }
+                else
+                {
+                    return $"t|18|{ScreenWidth}";
+                }
+            }
+        }
 
         public string MenuRowHeight { get => $"t|34|{ScreenWidth}"; }
 
