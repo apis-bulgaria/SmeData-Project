@@ -33,7 +33,7 @@ namespace SmeData.Mobile.ViewModels
 
         private void ShowProtectionSupervisorDocs()
         {
-            navigationService.NavigateAsync($"GuidelinesPage?{UrlNavHelper.CLASSIFIER}=9C6843AC-B58A-4F08-89E8-C0A6C30B18C9");
+            navigationService.NavigateAsync($"EuDataProtectionSupervisorPage?{UrlNavHelper.CLASSIFIER}=9C6843AC-B58A-4F08-89E8-C0A6C30B18C9");
         }
     }
 }

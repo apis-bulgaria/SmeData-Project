@@ -153,6 +153,7 @@ namespace SmeData.Mobile
             containerRegistry.RegisterForNavigation<NationalConstitutionalCourtPage, NationalConstitutionalCourtPageViewModel>();
             containerRegistry.RegisterForNavigation<EuDataProtectionBoardPage, EuDataProtectionBoardPageViewModel>();
             containerRegistry.RegisterForNavigation<DocCommonShowPage, DocCommonShowPageViewModel>();
+            containerRegistry.RegisterForNavigation<EuDataProtectionSupervisorPage, EuDataProtectionSupervisorPageViewModel>();
         }
 
         protected override void OnInitialized()

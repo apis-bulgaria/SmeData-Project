@@ -1,18 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Grid xmlns="http://xamarin.com/schemas/2014/forms"
-      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-      x:Class="SmeData.Mobile.CustomControls.DocInTabListView"
-      Margin="0,5">
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="2*"/>
-        <ColumnDefinition Width="12*"/>
-    </Grid.ColumnDefinitions>
-    <Grid.GestureRecognizers>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmeData.Mobile.CustomControls.DocInTabListView"
+             Margin="0,5"
+             Orientation="Horizontal">
+    <StackLayout.GestureRecognizers>
         <TapGestureRecognizer x:Name="ThisCommand"
                               Command="{Binding TabCommand}" 
                               CommandParameter="{Binding CommandPar}" 
                               NumberOfTapsRequired="1" />
-    </Grid.GestureRecognizers>
+    </StackLayout.GestureRecognizers>
     <Image x:Name="ThisImage"
            Source="{Binding ImageSource}"
            HorizontalOptions="Center"
@@ -42,4 +39,4 @@
                FontAttributes="Italic"
                Margin="5,0,5,5"/>
     </StackLayout>
-</Grid>
+</StackLayout>

@@ -111,7 +111,9 @@
                                    LineBreakMode="{Binding DocTitleLabelLineBreakMode}"
                                    MaxLines="{Binding DocTitleLabelMaxLines}"/>
                         </Grid>
-                        <BoxView />
+                        <BoxView HeightRequest="1" 
+                                 BackgroundColor="{StaticResource NavigationPrimaryColor}" 
+                                 Margin="5"/>
                     </StackLayout>
                 </ListView.Header>
                 <ListView.ItemTemplate>
@@ -177,6 +179,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="{Binding IsSearchVisible, Converter={StaticResource BoolToGridRowHeightConverter}}"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.GestureRecognizers>
@@ -194,7 +197,26 @@
                                                     TextInField="{Binding TextInField}"
                                                     SearchCounter="{Binding SearchCounter}"
                                                     Grid.Row="0"/>
-
+            <StackLayout Grid.Row="1">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ExpandDocTitleLabelCommand}" 
+                                                  NumberOfTapsRequired="1" />
+                </StackLayout.GestureRecognizers>
+                <Grid WidthRequest="{Binding ScreenWidth}">
+                    <Label x:Name="DocTitleLabel2"
+                           Text="{Binding CurrentDocTitle}"
+                           FontSize="{Binding DocTitleLabelFont, Converter={StaticResource SizeConverter}}"
+                           TextColor="DarkSlateGray"
+                           VerticalOptions="Start"
+                           LineBreakMode="{Binding DocTitleLabelLineBreakMode}"
+                           MaxLines="{Binding DocTitleLabelMaxLines}"
+                           Padding="10,5"/>
+                </Grid>
+                <BoxView HeightRequest="1" 
+                                 BackgroundColor="{StaticResource NavigationPrimaryColor}" 
+                                 Margin="15, 0"/>
+            </StackLayout>
+            
             <OnPlatform x:TypeArguments="View">
                 <On Platform="Android, UWP">
                     <customControls:CustomWebView x:Name="DescriptionAndroid" 
@@ -204,7 +226,7 @@
                                           Navigating="Description_Navigating"
                                           PannedCommand="{Binding PPannedCommand}"
                                           Margin="10,0"
-                                          Grid.Row="1"
+                                          Grid.Row="2"
                                           Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
 
                         <customControls:CustomWebView.Behaviors>
@@ -221,7 +243,7 @@
                              BackgroundColor="AliceBlue" 
                              Navigating="Description_Navigating"
                              Margin="10,0"
-                             Grid.Row="1"
+                             Grid.Row="2"
                               Source ="{Binding HtmlText, Converter={StaticResource HtmlSourceConverter}}">
                         <WebView.GestureRecognizers>
                             <SwipeGestureRecognizer Command="{Binding LeftSwipeCommand}"
@@ -241,7 +263,7 @@
             <customControls:LoadingIndicator IsLoading="{Binding IsLoading}"
                                              HorizontalOptions="Center"
                                              VerticalOptions="Center"
-                                             Grid.Row="1"/>
+                                             Grid.Row="2"/>
             <!--<StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand"
                          MinimumHeightRequest="50"

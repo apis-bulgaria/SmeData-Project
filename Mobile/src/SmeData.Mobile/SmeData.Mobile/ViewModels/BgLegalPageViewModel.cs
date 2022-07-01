@@ -112,7 +112,7 @@ namespace SmeData.Mobile.ViewModels
         /// </summary>
         private void ShowOtherCourts()
         {
-            navigationService.NavigateAsync($"NationalOtherCourtsPage?{UrlNavHelper.CLASSIFIER}=7e749a0f-64d8-460c-8269-9a3fbc5c2351;fe8a24db-1e8a-49fd-9d80-bce857c6c944;EFD0367A-570B-4F8F-A5C0-2EFDC08F0BD4");
+            navigationService.NavigateAsync($"NationalOtherCourtsPage?{UrlNavHelper.CLASSIFIER}=7e749a0f-64d8-460c-8269-9a3fbc5c2351;fe8a24db-1e8a-49fd-9d80-bce857c6c944;EFD0367A-570B-4F8F-A5C0-2EFDC08F0BD4|BE409F4A-BD2E-492D-83E6-0CF2848AECED|070E9D53-5689-4FE1-A210-801350ED3462|823F6EAE-FA58-4E22-BD03-8A2290A471B9|5AFD5EE0-465B-420E-AFD0-2A19BA2332FB|BA3CA937-A8C0-46BD-A844-8F0D68309D44");
         }
     }
 }

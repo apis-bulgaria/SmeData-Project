@@ -271,36 +271,72 @@ namespace SmeData.Mobile.ViewModels
                         return;
                     }
 
-                    SearchApiModel searchModel = new SearchApiModel();
-                    string[] classifierArray = classifiers.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                    searchModel.Classifiers = new List<string>();
-                    searchModel.Classifiers.AddRange(classifierArray);
+                    Match mLastClassfier = Regex.Match(classifiers, @"\;[^\;]+$");
+                    List<string> classifierOrArray = new List<string>();
 
-                    int currentLanguageId = (int)this.settings.Language;
-                    //searchModel.LangPreferences = new int[] { currentLanguageId, currentLanguageId != 4 ? 4 : 1, currentLanguageId == 5 ? 1 : 5 };
-                    switch (currentLanguageId)
+                    if (mLastClassfier.Success)
                     {
-                        case 1:
-                            searchModel.LangPreferences = new int[] { 1, 4, 5, 2, 3 };
-                            break;
-                        case 2:
-                            searchModel.LangPreferences = new int[] { 2, 4, 1, 5, 3 };
-                            break;
-                        case 3:
-                            searchModel.LangPreferences = new int[] { 3, 4, 1, 5, 2 };
-                            break;
-                        case 4:
-                            searchModel.LangPreferences = new int[] { 4, 1, 5, 2, 3 };
-                            break;
-                        case 5:
-                            searchModel.LangPreferences = new int[] { 5, 4, 1, 2, 3 };
-                            break;
-                        default:
-                            searchModel.LangPreferences = new int[] { 4, 1, 5, 2, 3 };
-                            break;
+                        var classifiersWithoutLastOne = classifiers.Replace(mLastClassfier.Value, string.Empty);
+
+                        var orClassifiers = mLastClassfier.Value.Split(new string[] { "|", ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+                        foreach (var orClassif in orClassifiers)
+                        {
+                            classifierOrArray.Add($"{classifiersWithoutLastOne};{orClassif}");
+                        }
+                    }
+                    else
+                    {
+                        classifierOrArray.Add(classifiers);
                     }
 
-                    searchResult = await httpService.GetClassifier(searchModel);
+                    foreach (var classirOr in classifierOrArray)
+                    {
+                        SearchApiModel searchModel = new SearchApiModel();
+                        string[] classifierArray = classirOr.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                        searchModel.Classifiers = new List<string>();
+                        searchModel.Classifiers.AddRange(classifierArray);
+
+                        int currentLanguageId = (int)this.settings.Language;
+                        //searchModel.LangPreferences = new int[] { currentLanguageId, currentLanguageId != 4 ? 4 : 1, currentLanguageId == 5 ? 1 : 5 };
+                        switch (currentLanguageId)
+                        {
+                            case 1:
+                                searchModel.LangPreferences = new int[] { 1, 4, 5, 2, 3 };
+                                break;
+                            case 2:
+                                searchModel.LangPreferences = new int[] { 2, 4, 1, 5, 3 };
+                                break;
+                            case 3:
+                                searchModel.LangPreferences = new int[] { 3, 4, 1, 5, 2 };
+                                break;
+                            case 4:
+                                searchModel.LangPreferences = new int[] { 4, 1, 5, 2, 3 };
+                                break;
+                            case 5:
+                                searchModel.LangPreferences = new int[] { 5, 4, 1, 2, 3 };
+                                break;
+                            default:
+                                searchModel.LangPreferences = new int[] { 4, 1, 5, 2, 3 };
+                                break;
+                        }                        
+
+                        if (searchResult == null)
+                        {
+                            searchResult = await httpService.GetClassifier(searchModel);
+                        }
+                        else
+                        {
+                            var partSearchResult = await httpService.GetClassifier(searchModel);
+
+                            var tempDataList = new List<DocumentResponseModel>();
+                            tempDataList.AddRange(searchResult.Data);
+                            tempDataList.AddRange(partSearchResult.Data);
+                            searchResult.Data = tempDataList;
+                            searchResult.PageSize += partSearchResult.PageSize;
+                            searchResult.TotalCount += partSearchResult.TotalCount;
+                        }
+                    }
                 }
 
                 if (!Regex.IsMatch(this.GetType().Name, @"Legislation"))

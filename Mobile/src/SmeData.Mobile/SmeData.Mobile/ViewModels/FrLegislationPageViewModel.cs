@@ -15,7 +15,7 @@ namespace SmeData.Mobile.ViewModels
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (!(await ConnectivityHelper.CheckInternetConection(this.dialogService)))
+            if (!await ConnectivityHelper.CheckInternetConection(this.dialogService))
             {
                 return;
             }

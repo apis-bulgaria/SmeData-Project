@@ -14,7 +14,7 @@ namespace SmeData.ToolsForDocumentsUpdate
 
         public Tools()
         {
-            var cs = @"Server=********;Database=*********;User Id=*********;Password=**********; Timeout=300";
+            var cs = @"Server=*******;Port=6432;Database=sme_data;User Id=postgres;Password=**********; Timeout=300";
             this.factory = new EucasesContextFactory(new EuCasesContextFactorySettings(cs));
             this.pathsProvider = new PathsProvider()
             {

@@ -23,7 +23,7 @@
         <customControls:ListViewWithGrouping ItemsSource="{Binding LegislationDocs}"
                                              IsGroupingEnabled="true"
                                              SeparatorVisibility="None"
-                                             HasUnevenRows="True">
+                                             HasUnevenRows="True" >
             <ListView.GroupHeaderTemplate>
                 <DataTemplate>
                     <ViewCell BindingContextChanged="OnGroupHeaderCellBindingContextChanged">

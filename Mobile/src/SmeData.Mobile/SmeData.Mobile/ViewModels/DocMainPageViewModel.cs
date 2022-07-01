@@ -185,7 +185,6 @@ namespace SmeData.Mobile.ViewModels
 
         #endregion Props End
 
-
         public override async void OnNavigatedFrom(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);

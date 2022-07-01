@@ -66,9 +66,7 @@
     <AndroidPackageFormat>aab</AndroidPackageFormat>
     <AndroidKeyStore>true</AndroidKeyStore>
     <AndroidSigningKeyStore>D:\WORK\SmeData\SmeData.keystore</AndroidSigningKeyStore>
-    <AndroidSigningStorePass>***********</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>SmeData</AndroidSigningKeyAlias>
-    <AndroidSigningKeyPass>**********</AndroidSigningKeyPass>
     <FileAlignment>512</FileAlignment>
     <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
   </PropertyGroup>
@@ -115,7 +113,7 @@
     <PackageReference Include="Xamarin.AndroidX.RecyclerView">
       <Version>1.1.0.8</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
